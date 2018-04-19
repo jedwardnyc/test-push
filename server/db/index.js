@@ -1,8 +1,8 @@
 const conn = require('./conn');
-const Category = require('./Category');
-const LineItem = require('./LineItem');
-const Order = require('./Order');
-const Product = require('./Product');
+const Category = require('./models/Category');
+const LineItem = require('./models/LineItem');
+const Order = require('./models/Order');
+const Product = require('./models/Product');
 const { products, categories } = require('./seed.js');
 
 // Order.belongsTo(User);
