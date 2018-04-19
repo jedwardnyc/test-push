@@ -7,7 +7,7 @@ const { products, categories } = require('./seed.js');
 
 // Order.belongsTo(User);
 LineItem.belongsTo(Order);
-Product.belongsTo(LineItem);
+LineItem.belongsTo(Product);
 Product.belongsTo(Category);
 
 const sync = () => conn.sync({ force: true });
@@ -21,10 +21,12 @@ const seed = () => {
           Product.create(product)
           .then(_product => {
             _product.setCategory(category);
-          });
+          })
+          .catch(err => console.log(err));
         })
       );
-    });
+    })
+    .catch(err => console.log(err));
   });
 };
 
