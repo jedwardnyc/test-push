@@ -1,6 +1,15 @@
 const express = require('express');
 const path = require('path')
 const app = express();
+const db = require('./db');
+
+app.use(require('body-parser').json());
+
+db.sync()
+  .then(() => db.seed());
+
+app.use('/api/categories', require('./routes/categories'));
+app.use('/api/products', require('./routes/products'));
 
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));
@@ -22,5 +31,3 @@ app.use((err,req,res,next) => {
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-const conn = require('./db/conn');
-conn.sync({ force:true })
