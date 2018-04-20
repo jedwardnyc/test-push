@@ -1,4 +1,5 @@
 const conn = require('./conn');
+
 const Category = require('./models/Category');
 const LineItem = require('./models/LineItem');
 const Order = require('./models/Order');
@@ -41,3 +42,4 @@ module.exports = {
     Product
   }
 };
+
