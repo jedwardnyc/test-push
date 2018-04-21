@@ -1,6 +1,41 @@
 import axios from 'axios';
 import { GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY} from './constants';
 
+export const fetchCategories = () => {
+  return (dispatch) => {
+    return axios.get('/api/categories')
+    .then(res => res.data)
+    .then(categories => dispatch({ type: GET_CATEGORIES, categories }))
+    .catch(err => console.log(err))
+  };
+};
+
+export const createCategory = (category) => {
+  return (dispatch) => {
+    return axios.post('/api/categories', category)
+    .then(res => res.data)
+    .then(category => dispatch({ type: CREATE_CATEGORY, category }))
+    .catch(err => console.log(err))
+  };
+};
+
+export const updateCategory = (category) => {
+  return (dispatch) => {
+    return axios.put(`/api/categories${category.id}`, category)
+    .then(res => res.data)
+    .then(category => dispatch({ type: UPDATE_CATEGORY, category }))
+    .catch(err => console.log(err))
+  };
+};
+
+export const deleteCategory = (category) => {
+  return (dispatch) => {
+    return axios.delete(`/api/categories${category.id}`)
+    .then(() => dispatch({ type: DELETE_CATEGORY, category }))
+    .catch(err => console.log(err))
+  };
+};
+
 export default categoryReducer = ( state = [], action ) => {
   switch(action.type) {
     case GET_CATEGORIES:
