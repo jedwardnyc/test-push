@@ -36,7 +36,7 @@ export const deleteCategory = (category) => {
   };
 };
 
-export default categoryReducer = ( state = [], action ) => {
+const categoryReducer = ( state = [], action ) => {
   switch(action.type) {
     case GET_CATEGORIES:
       return action.categories;
@@ -50,3 +50,5 @@ export default categoryReducer = ( state = [], action ) => {
       return state;
   };
 };
+
+export default categoryReducer;

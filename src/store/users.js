@@ -36,7 +36,7 @@ export const deleteUser = (user) => {
   };
 };
 
-export default userReducer = ( state = [], action ) => {
+const userReducer = ( state = [], action ) => {
   switch(action.type) {
     case GET_USERS:
       return action.users;
@@ -50,3 +50,5 @@ export default userReducer = ( state = [], action ) => {
       return state;
   };
 };
+
+export default userReducer;

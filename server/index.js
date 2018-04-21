@@ -16,6 +16,7 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 
 app.use('/public', express.static('public'));
 app.use('/vendor', express.static('node_modules'));
+app.use('/dist', express.static('dist'));
 
 app.use('/api', require('./routes'));
 app.use('/auth', require('./auth'));

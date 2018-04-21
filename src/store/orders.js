@@ -36,7 +36,7 @@ export const deleteOrder = (order) => {
   };
 };
 
-export default orderReducer = ( state = [], action ) => {
+const orderReducer = ( state = [], action ) => {
   switch(action.type) {
     case GET_ORDERS:
       return action.orders;
@@ -50,3 +50,5 @@ export default orderReducer = ( state = [], action ) => {
       return state;
   };
 };
+
+export default orderReducer;

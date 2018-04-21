@@ -36,7 +36,7 @@ export const deleteProduct = (product) => {
   };
 };
 
-export default productReducer = ( state = [], action ) => {
+const productReducer = ( state = [], action ) => {
   switch(action.type) {
     case GET_PRODUCTS:
       return action.products;
@@ -50,3 +50,5 @@ export default productReducer = ( state = [], action ) => {
       return state;
   };
 };
+
+export default productReducer;

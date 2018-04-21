@@ -36,7 +36,7 @@ export const deletelineItem = (lineItem) => {
   };
 };
 
-export default lineItemReducer = ( state = [], action ) => {
+const lineItemReducer = ( state = [], action ) => {
   switch(action.type) {
     case GET_LINE_ITEMS:
       return action.lineItems;
@@ -50,3 +50,5 @@ export default lineItemReducer = ( state = [], action ) => {
       return state;
   };
 };
+
+export default lineItemReducer;
