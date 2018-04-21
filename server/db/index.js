@@ -25,10 +25,10 @@ const seed = () => {
           })
           .catch(err => console.log(err));
         })
-      );
+      )
     })
-    .catch(err => console.log(err));
-  });
+    .catch(err => console.log(err))
+  })
 };
 
 module.exports = {
