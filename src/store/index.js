@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import auth from './auth';
 import users from './users';
@@ -16,7 +17,7 @@ const reducer = combineReducers({
   orders
 });
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default store;
 
 export * from './auth';
