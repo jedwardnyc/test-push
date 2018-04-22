@@ -1,23 +1,21 @@
 const express = require('express');
-const path = require('path')
 const app = express();
+
+const volleyball = require('volleyball');
+const path = require('path');
 const db = require('./db');
 
-app.use(require('body-parser').json());
-
-db.sync()
-  .then(() => db.seed());
-
-app.use('/api/categories', require('./routes/categories'));
-app.use('/api/products', require('./routes/products'));
-
+app.use(volleyball);
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));
 
-app.use('/public', express.static('public'));
-app.use('/vendor', express.static('node_modules'));
+app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use('/vendor', express.static(path.join(__dirname, '../node_modules')));
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
-app.use('/api', require('./routes'));
+app.use('/api/categories', require('./routes/categories'));
+app.use('/api/products', require('./routes/products'));
+//app.use('/api', require('./routes'));
 app.use('/auth', require('./auth'));
 
 app.get('/', (req,res,next) => {
@@ -31,3 +29,5 @@ app.use((err,req,res,next) => {
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+db.sync()
+  .then(() => db.seed());

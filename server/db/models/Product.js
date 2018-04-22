@@ -5,7 +5,9 @@ const Product = conn.define('products', {
   name: {
     type: Sequelize.STRING,
   },
-  price: Sequelize.DECIMAL
+  price: Sequelize.DECIMAL,
+  imgUrl: Sequelize.STRING,
+  description: Sequelize.TEXT
 });
 
 module.exports = Product;

@@ -50,7 +50,7 @@ const authReducer = ( state = {}, action ) => {
       return Object.assign({}, state, { error: action.payload });
     default:
       return state;
-  };
+  }
 };
 
 export default authReducer;
