@@ -6,7 +6,7 @@ export const fetchCategories = () => {
     return axios.get('/api/categories')
     .then(res => res.data)
     .then(categories => dispatch({ type: GET_CATEGORIES, categories }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -15,7 +15,7 @@ export const createCategory = (category) => {
     return axios.post('/api/categories', category)
     .then(res => res.data)
     .then(category => dispatch({ type: CREATE_CATEGORY, category }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -24,7 +24,7 @@ export const updateCategory = (category) => {
     return axios.put(`/api/categories${category.id}`, category)
     .then(res => res.data)
     .then(category => dispatch({ type: UPDATE_CATEGORY, category }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -32,12 +32,12 @@ export const deleteCategory = (category) => {
   return (dispatch) => {
     return axios.delete(`/api/categories${category.id}`)
     .then(() => dispatch({ type: DELETE_CATEGORY, category }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
 const categoryReducer = ( state = [], action ) => {
-  switch(action.type) {
+  switch (action.type) {
     case GET_CATEGORIES:
       return action.categories;
     case CREATE_CATEGORY:
@@ -48,7 +48,7 @@ const categoryReducer = ( state = [], action ) => {
       return state.filter(category => category.id !== action.category.id)
     default:
       return state;
-  };
+  }
 };
 
 export default categoryReducer;

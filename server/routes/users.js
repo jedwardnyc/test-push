@@ -10,25 +10,25 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   User.create(req.body)
   .then(user => res.send(user))
-  .catch(next)
+  .catch(next);
 });
 
 router.put('/:id', (req, res, next) => {
   User.findById(req.params.id)
   .then(user => {
-    user.update(req.body)
-    res.send(user)
+    user.update(req.body);
+    res.send(user);
   })
-  .catch(next)
+  .catch(next);
 });
 
 router.delete('/:id', (req, res, next) => {
   User.findById(req.params.id)
   .then(user => {
-    user.destroy()
-    res.sendStatus(204)
+    user.destroy();
+    res.sendStatus(204);
   })
-  .catch(next)
+  .catch(next);
 });
 
 module.exports = router;

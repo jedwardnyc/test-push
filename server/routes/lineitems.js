@@ -10,25 +10,25 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   LineItem.create(req.body)
   .then(lineItem => res.send(lineItem))
-  .catch(next)
+  .catch(next);
 });
 
 router.put('/:id', (req, res, next) => {
   LineItem.findById(req.params.id)
   .then(lineItem => {
-    lineItem.update(req.body)
-    res.send(lineItem)
+    lineItem.update(req.body);
+    res.send(lineItem);
   })
-  .catch(next)
+  .catch(next);
 });
 
 router.delete('/:id', (req, res, next) => {
   LineItem.findById(req.params.id)
   .then(lineItem => {
-    lineItem.destroy()
-    res.sendStatus(204)
+    lineItem.destroy();
+    res.sendStatus(204);
   })
-  .catch(next)
+  .catch(next);
 });
 
 module.exports = router;

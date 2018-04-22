@@ -31,17 +31,17 @@ export const logout = () => {
   return (dispatch) => {
     localStorage.clear();
     dispatch({ type: UNAUTHENTICATED })
-  }
+  };
 };
 
 export const keepLoggedIn = () => {
   return (dispatch) => {
     dispatch({ type: AUTHENTICATED })
-  }
+  };
 };
 
 const authReducer = ( state = {}, action ) => {
-  switch(action.type) {
+  switch (action.type) {
     case AUTHENTICATED:
       return Object.assign({}, state, { authenticated: true });
     case UNAUTHENTICATED:

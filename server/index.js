@@ -18,12 +18,12 @@ app.use('/api/products', require('./routes/products'));
 //app.use('/api', require('./routes'));
 app.use('/auth', require('./auth'));
 
-app.get('/', (req,res,next) => {
+app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.use((err,req,res,next) => {
-  console.log(`*** There is an error! ${err.stack} ***`)
+app.use((err, req, res, next) => {
+  console.log(`*** There is an error! ${err.stack} ***`);
 });
 
 const port = process.env.PORT || 3000;

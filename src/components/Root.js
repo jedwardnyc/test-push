@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchCategories: () => dispatch(fetchCategories()),
     fetchProducts: () => dispatch(fetchProducts())
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(Root);
