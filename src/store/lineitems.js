@@ -10,11 +10,14 @@ export const fetchLineItems = () => {
   };
 };
 
-export const createLineItem = (lineItem) => {
+export const createLineItem = (lineItem, history) => {
   return (dispatch) => {
     return axios.post('/api/lineitems', lineItem)
     .then(res => res.data)
     .then(lineItem => dispatch({ type: CREATE_LINE_ITEM, lineItem }))
+    .then(result => {
+      //history.push(user/:id/cart????)
+    })
     .catch(err => console.log(err))
   };
 };

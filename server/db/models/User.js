@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const conn = require('../conn');
 
 const User = conn.define('user', {
+  
   email: {
     type: Sequelize.STRING,
     allowNull: false,

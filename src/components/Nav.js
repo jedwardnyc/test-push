@@ -7,7 +7,7 @@ const Nav = () => {
       <NavLink className='navbar-brand' activeClassName='active' to='/'>
         <img src='/public/images/lightbulb.jpeg' width='30' height='30' className='mr-3 d-inline-block align-top' />
         The-light-web</NavLink>
-      <div className='collapes navbar-collapse'>
+      <div className='collapes navbar-collapse justify-content-end'>
         <ul className='navbar-nav'>
           <li className='nav-item'>
             <NavLink activeClassName='active' className='nav-link' to='/login'>Sign in</NavLink>
