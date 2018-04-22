@@ -6,7 +6,6 @@ import { fetchProducts } from '../store/products';
 
 import Nav from './Nav';
 import Categories from './Categories';
-import Login from './Login';
 import Product from './Product';
 
 class Root extends Component {
@@ -23,7 +22,6 @@ class Root extends Component {
           <div>
             <Nav />
             <Route exact path='/' component={Categories} />
-            <Route exact path='/login' component={Login} />
             <Route exact path='/:id' render={({ match, history }) => <Product id={match.params.id*1} history={history} />} />
           </div>
         </Router>

@@ -1,29 +1,9 @@
 import axios from 'axios';
-<<<<<<< HEAD
-import { SET_CATEGORIES } from './constants';
-
-const categoryReducer = (state = [], action ) => {
-  switch (action.type) {
-    case SET_CATEGORIES:
-      state= action.categories;
-  }
-  return state;
-}
-=======
 import { GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY} from './constants';
->>>>>>> 42e16cbe0e5afa4f9df675f7a696fb257b781f1c
 
 export const fetchCategories = () => {
   return (dispatch) => {
     return axios.get('/api/categories')
-<<<<<<< HEAD
-      .then(result => result.data)
-      .then(categories => dispatch({
-        type: SET_CATEGORIES,
-        categories
-      }))
-  }
-=======
     .then(res => res.data)
     .then(categories => dispatch({ type: GET_CATEGORIES, categories }))
     .catch(err => console.log(err))
@@ -69,7 +49,6 @@ const categoryReducer = ( state = [], action ) => {
     default:
       return state;
   };
->>>>>>> 42e16cbe0e5afa4f9df675f7a696fb257b781f1c
 };
 
 export default categoryReducer;
