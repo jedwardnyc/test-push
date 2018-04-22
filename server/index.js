@@ -6,16 +6,17 @@ const db = require('./db');
 app.use(require('body-parser').json());
 
 db.sync()
-  .then(() => db.seed());
+  .then(() => db.seed())
+  .then(() => console.log('!!**Database seeded**!!'));
 
-app.use('/api/categories', require('./routes/categories'));
-app.use('/api/products', require('./routes/products'));
+app.use('/api', require('./routes'));
 
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));
 
 app.use('/public', express.static('public'));
 app.use('/vendor', express.static('node_modules'));
+app.use('/dist', express.static('dist'));
 
 app.use('/api', require('./routes'));
 app.use('/auth', require('./auth'));
