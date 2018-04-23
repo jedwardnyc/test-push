@@ -8,7 +8,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-    };
+    }
     this.submitLogin = this.submitLogin.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -20,7 +20,7 @@ class Login extends Component {
   submitLogin(ev) {
     const { email, password } = this.state;
     ev.preventDefault();
-    this.props.login({ email, password });
+    this.props.login({ email, password })
   }
 
   render() {
@@ -30,7 +30,7 @@ class Login extends Component {
       <div className='row'>
         <div className='col-sm-4'></div>
         <div className='text-center bg-light border col-sm-4 p-3 mr-5 mt-5'>
-        <img className='mb-4' src='/public/images/lightbulb.jpeg' width='72' height='72' />
+          <img className='mb-4' src='/public/images/lightbulb.jpeg' width='72' height='72' />
           <h1 className='h3 mb-3 font-weight-normal'>Please login in</h1>
           <div>
             <form onSubmit={this.submitLogin} className='signin-container'>
@@ -41,7 +41,7 @@ class Login extends Component {
                   </div>
                   <input
                     placeholder='Email address'
-                    onChange={(ev) => this.setState({ email: ev.target.value })}
+                    onChange={this.onChange}
                     type='email'
                     className='form-control'
                     required autoFocus
@@ -71,12 +71,12 @@ class Login extends Component {
             <h4> Don't have an account? </h4>
             <h5> Please Sign up by clicking below! </h5>
             <button
-            className='btn btn-block btn-primary mt-3'
-            disabled={!email && !password} onClick={() => signUp({ email, password })}> Sign up </button>
+              className='btn btn-block btn-primary mt-3'
+              disabled={!email && !password} onClick={() => signUp({ email, password })}> Sign up </button>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -84,7 +84,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
   return {
     login: credentials => dispatch(login(credentials, history)),
     signUp: credentials => dispatch(signUp(credentials, history))
-  };
+  }
 };
 
 export default connect(null, mapDispatchToProps)(Login);

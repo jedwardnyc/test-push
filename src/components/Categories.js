@@ -28,7 +28,7 @@ const Categories = ({ categories, products }) => {
                       return (
                         <div className='col-md-3' key={product.id}>
                           <div className='card mr-2 p-2 mb-4 bg-light rounded box-shadow'>
-                            <Link to={`/${product.id}`} className='text-center'>
+                            <Link to={`/products/${product.id}`} className='text-center'>
                               <img className='card-img-top' src={product.imgUrl} />
                               {product.name}</Link>
                           </div>

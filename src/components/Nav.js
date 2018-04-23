@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+//need to add user information. if no user then move to login page when clicking cart button.
 const Nav = () => {
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
@@ -24,4 +26,10 @@ const Nav = () => {
   );
 }
 
-export default Nav;
+const mapStateToProps = ({ users }) => {
+  return {
+    //user: users.find( user => user.id === ??)
+  }
+}
+
+export default connect(mapStateToProps)(Nav);
