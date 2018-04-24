@@ -15,6 +15,10 @@ app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 app.use('/api/categories', require('./routes/categories'));
 app.use('/api/products', require('./routes/products'));
+app.use('/api/lineitems', require('./routes/lineitems'));
+app.use('/api/orders', require('./routes/orders'));
+app.use('/api/users', require('./routes/users'));
+
 //app.use('/api', require('./routes'));
 app.use('/auth', require('./auth'));
 
