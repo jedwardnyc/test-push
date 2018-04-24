@@ -26,16 +26,16 @@ export const createLineItem = (lineItem, history) => {
 
 export const updateLineItem = (lineItem) => {
   return (dispatch) => {
-    return axios.put(`/api/lineitems${lineItem.id}`, lineItem)
+    return axios.put(`/api/lineitems/${lineItem.id}`, lineItem)
       .then(res => res.data)
       .then(lineItem => dispatch({ type: UPDATE_LINE_ITEM, lineItem }))
       .catch(err => console.log(err))
   };
 };
 
-export const deletelineItem = (lineItem) => {
+export const deleteLineItem = (lineItem) => {
   return (dispatch) => {
-    return axios.delete(`/api/lineitems${lineItem.id}`)
+    return axios.delete(`/api/lineitems/${lineItem.id}`)
       .then(() => dispatch({ type: DELETE_LINE_ITEM, lineItem }))
       .catch(err => console.log(err))
   };

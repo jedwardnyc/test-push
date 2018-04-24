@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateLineItem } from '../store/lineitems';
+import { updateLineItem, deleteLineItem } from '../store/lineitems';
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.lineItemState(this.props);
-    this.onChange = this.onChange.bind(this);
+    this.onSaveQuantity = this.onSaveQuantity.bind(this);
   }
 
   lineItemState(props) {
@@ -21,29 +21,35 @@ class Cart extends React.Component {
     this.setState(this.lineItemState(nextProps));
   }
 
-  onChange(ev) {
-    this.setState({ [ev.target.name]: ev.target.value });
+  onSaveQuantity(ev) {
+    ev.preventDefault();
+    const lineItem = { id: ev.target.name, quantity: ev.target.value }
+    this.props.updateLineItem(lineItem);
   }
-//onSubmit when ev.target.value is changed. 
+
+  onDelete(id) {
+    this.props.deleteLineItem({ id });
+  }
+
   render() {
     const { products, lineItems } = this.props;
 
     //option
     const options = [];
-    for (let i = 1; i < 21; i++) {
+    for (let i = 1; i <= 20; i++) {
       options.push(<option value={i} key={i}>{i}</option>)
     }
 
     const filteredProducts = this.filterProducts(products, lineItems);
 
-    let subTotal = filteredProducts.reduce((total, amount) => {
-      let count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
+    const subTotal = filteredProducts.reduce((total, amount) => {
+      const count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
       total += count * (amount.price * 1);
       return Math.round(total * 100) / 100;
     }, 0)
 
     const totalLineItems = filteredProducts.reduce((total, amount) => {
-      let count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
+      const count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
       total += count * 1;
       return total;
     }, 0)
@@ -71,6 +77,7 @@ class Cart extends React.Component {
                         <div className='pl-2'>
                           {this.renderQuantityLineItem(product, lineItems, options)}
                         </div>
+                        {this.renderDelete(product, lineItems)}
                       </div>
                     </div>
                   </div>
@@ -115,9 +122,11 @@ class Cart extends React.Component {
     }
     const quantity = lineItems.find(lineItem => lineItem.product_id === product.id).quantity;
 
+    const lineitem = lineItems.find(lineItem => lineItem.product_id === product.id);
+
     return (
-      <select className='form-control p-2 mr-2' onChange={this.onChange}>
-        <option value={quantity}>{quantity}</option>
+      <select name={lineitem.id} className='form-control p-2 mr-2' onChange={this.onSaveQuantity}>
+        <option>{quantity}</option>
         {
           options.map(option => {
             return (
@@ -127,10 +136,20 @@ class Cart extends React.Component {
         }
       </select>
     );
-
-
   }
+    renderDelete(product, lineItems) {
+      if(!product) {
+        return null;
+      }
+      if(!lineItems) {
+        return null;
+      }
 
+      const lineitem = lineItems.find(lineItem => lineItem.product_id === product.id);
+      return (
+        <button className='btn btn-danger ml-2' onClick={() => this.onDelete(lineitem.id)}>Delete</button>
+      );
+    }
 }
 
 const mapStateToProps = ({ products, lineItems }) => {
@@ -142,8 +161,8 @@ const mapStateToProps = ({ products, lineItems }) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    updateLineItem: (lineitem) => dispatch(updateLineItem(lineitem, history)),
-
+    updateLineItem: (lineitem) => dispatch(updateLineItem(lineitem)),
+    deleteLineItem: (lineitem) => dispatch(deleteLineItem(lineitem))
   }
 }
 
