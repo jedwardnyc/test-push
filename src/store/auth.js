@@ -8,20 +8,20 @@ export const login = ({ email, password }, history ) => {
     .then(user => {
       dispatch({ type: AUTHENTICATED });
       localStorage.setItem('user', user.token);
-      history.push('/advisors');
+      history.push('/');
     })
     .catch(err => console.log(err))
   };
 };
 
-export const signUp = ({ email, password }, history ) => {
+export const signUp = ({ email, password, firstname, lastname }, history ) => {
   return (dispatch) => {
-    return axios.post(`/auth/local/register`, { email, password })
+    return axios.post(`/auth/local/register`, { email, password, firstname, lastname })
     .then(res => res.data)
     .then(user => {
       dispatch({ type: AUTHENTICATED });
       localStorage.setItem('user', user.token);
-      history.push('/advisors');
+      history.push('/');
     })
     .catch(err => console.log(err))
   };

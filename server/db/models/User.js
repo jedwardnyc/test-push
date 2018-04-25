@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const conn = require('../conn');
 
 const User = conn.define('user', {
-
   firstname: {
     type: Sequelize.STRING,
     allowNull: false

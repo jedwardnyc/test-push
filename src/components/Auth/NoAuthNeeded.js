@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 export default (CheckedComponent) => {
 
-  class NotAuthentication extends Component {
+  class NotAuthenticated extends Component {
     componentWillMount() {
       if (this.props.authenticated) {
         this.props.history.push('/');
@@ -27,5 +27,5 @@ export default (CheckedComponent) => {
     }
   }
 
-  return connect(mapStateToProps)(NotAuthentication);
+  return connect(mapStateToProps)(NotAuthenticated);
 };

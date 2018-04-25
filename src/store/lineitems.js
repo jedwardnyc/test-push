@@ -14,7 +14,9 @@ export const createLineItem = (lineItem, history) => {
   return (dispatch) => {
     return axios.post('/api/lineitems', lineItem)
       .then(res => res.data)
-      .then(lineItem => dispatch({ type: CREATE_LINE_ITEM, lineItem }))
+      .then(lineItem => {
+        dispatch({ type: CREATE_LINE_ITEM, lineItem })
+      })
       .then(result => {
         if (result.lineItem.product_id) {
           history.push('/cart')
