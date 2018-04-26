@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 export default (CheckedComponent) => {
-  class Authentication extends Component {
+  class Authenticated extends Component {
 
     componentWillMount() {
       if (!this.props.authenticated) {
@@ -27,5 +27,5 @@ const mapStateToProps = ({ auth }) => {
   };
 };
 
-  return connect(mapStateToProps)(Authentication);
+  return connect(mapStateToProps)(Authenticated);
 };
