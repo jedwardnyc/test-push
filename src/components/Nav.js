@@ -1,11 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../store';
+import { logout, getLoggedIn } from '../store';
 
 //need to add user information. if no user then move to login page when clicking cart button.
 const Nav = (props) => {
-  const { auth, logout } = props; 
+  const { auth, logout, getLoggedIn } = props; 
+  let { user } = props;
+  if (!user) user = '';
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <NavLink className='navbar-brand' activeClassName='active' to='/'>
@@ -16,10 +18,13 @@ const Nav = (props) => {
           auth ? 
           <ul className='navbar-nav'>
             <li className='nav-item'>
+              <NavLink activeClassName='active' className='nav-link' to='/order'>Hello {user.firstname} </NavLink>
+            </li>
+            <li className='nav-item'>
               <NavLink activeClassName='active' className='nav-link' to='/login' onClick={logout}>Log Out</NavLink>
             </li>
             <li className='nav-item'>
-              <NavLink activeClassName='active' className='nav-link' to='/order'>Orders</NavLink>
+              <NavLink activeClassName='active' className='nav-link' to='/order'>My Orders</NavLink>
             </li>
           </ul>
           :
@@ -29,6 +34,7 @@ const Nav = (props) => {
             </li>
           </ul>
         }
+        {/* <NavLink activeClassName='active' className='nav-link' to={ user ? '/cart' : '/login' }> */}
         <NavLink activeClassName='active' className='nav-link' to='/cart'>
           <button className='btn btn-outline-light my-2 my-lg-0'>Cart (0)</button>
         </NavLink>
@@ -39,13 +45,15 @@ const Nav = (props) => {
 
 const mapStateToProps = ({ auth }) => {
   return {
-    auth: auth.authenticated
+    auth: auth.authenticated,
+    user: auth.user
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    getLoggedIn: (user) => dispatch(getLoggedIn(user))
   }
 }
 
