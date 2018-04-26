@@ -47,7 +47,6 @@ class Root extends Component {
             <Route path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
             <Route exact path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
-            <Route exact path='/cart' render={({ match }) => <Cart id={match.params.id * 1} history={history} />} />
           </div>
         </Router>
       </div>
