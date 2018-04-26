@@ -22,7 +22,8 @@ const User = conn.define('user', {
     allowNull: false
   },
   isAdmin: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   }
 }, { 
   getterMethods: {

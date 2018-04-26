@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const products = {
   g1: [
     { name: 'Heritage System Ultra Bundle', price: 10790.00, imgUrl:'https://cdnm2-kraftmusic.netdna-ssl.com/media/catalog/product/cache/image/700x700/e9c3970ab036de70892d86c6d221abfe/H/A/HAM-XK5MDLA3HSYSUB.jpg', description:'product description' },
@@ -34,7 +36,16 @@ const categories = {
   g5: { name: 'Laundering' }
 };
 
+const hashedAdminPW = bcrypt.hashSync('admin', 8)
+const hashedUserPW = bcrypt.hashSync('test', 8)
+
+const users = { 
+  g1: { firstname: 'Admin', lastname: 'Test', email: 'admin@test.com', password: hashedAdminPW, isAdmin: true },
+  g2: { firstname: 'User', lastname: 'Test', email: 'not_admin@test.com', password: hashedUserPW, isAdmin: false }
+}
+
 module.exports = {
   products,
-  categories
+  categories,
+  users
 };

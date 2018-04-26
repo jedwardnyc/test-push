@@ -1,10 +1,11 @@
 const conn = require('./conn');
 
+const User = require('./models/User');
 const Category = require('./models/Category');
 const LineItem = require('./models/LineItem');
 const Order = require('./models/Order');
 const Product = require('./models/Product');
-const { products, categories } = require('./seed.js');
+const { products, categories, users } = require('./seed.js');
 
 // Order.belongsTo(User);
 LineItem.belongsTo(Order);
@@ -28,7 +29,11 @@ const seed = () => {
       );
     })
     .catch(err => console.log(err));
-  });
+  })
+  Object.keys(users).forEach(productKey => {
+    console.log(users[productKey])
+    User.create(users[productKey])
+  })
 };
 
 module.exports = {
@@ -39,7 +44,8 @@ module.exports = {
     Category,
     LineItem,
     Order,
-    Product
+    Product,
+    User
   }
 };
 
