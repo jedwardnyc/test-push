@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const conn = require('../conn');
 
 const User = conn.define('user', {
-
   firstname: {
     type: Sequelize.STRING,
     allowNull: false
@@ -25,7 +24,14 @@ const User = conn.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN
   }
+}, { 
+  getterMethods: {
+    fullname(value) {
+      return `${this.firstname} ${this.lastname}`
+    }
+  }
 });
+
 
 module.exports = User;
 

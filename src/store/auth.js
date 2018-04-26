@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from './constants';
+import { AUTHENTICATED, UNAUTHENTICATED, GET_LOGGED_IN } from './constants';
 
 export const login = ({ email, password }, history ) => {
   return (dispatch) => {
@@ -7,21 +7,22 @@ export const login = ({ email, password }, history ) => {
     .then(res => res.data)
     .then(user => {
       dispatch({ type: AUTHENTICATED });
+      getLoggedIn(user)
       localStorage.setItem('user', user.token);
-      history.push('/advisors');
+      history.push('/');
     })
     .catch(err => console.log(err))
   };
 };
 
-export const signUp = ({ email, password }, history ) => {
+export const signUp = ({ email, password, firstname, lastname }, history ) => {
   return (dispatch) => {
-    return axios.post(`/auth/local/register`, { email, password })
+    return axios.post(`/auth/local/register`, { email, password, firstname, lastname })
     .then(res => res.data)
     .then(user => {
       dispatch({ type: AUTHENTICATED });
       localStorage.setItem('user', user.token);
-      history.push('/advisors');
+      history.push('/');
     })
     .catch(err => console.log(err))
   };
@@ -40,17 +41,25 @@ export const keepLoggedIn = () => {
   };
 };
 
+export const getLoggedIn = (token) => {
+  return (dispatch) => {
+    return axios.post('/auth/local/me', token)
+    .then(res => res.data)
+    .then(user => dispatch({ type: GET_LOGGED_IN, user }))
+  };
+};
+
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {
     case AUTHENTICATED:
       return Object.assign({}, state, { authenticated: true });
     case UNAUTHENTICATED:
       return Object.assign({}, state, { authenticated: false });
-    case AUTHENTICATION_ERROR:
-      return Object.assign({}, state, { error: action.payload });
+    case GET_LOGGED_IN: 
+      return Object.assign({}, state, { authenticated: true }, { user: action.user });
     default:
       return state;
-  }
+  };
 };
 
 export default authReducer;
