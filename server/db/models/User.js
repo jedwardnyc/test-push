@@ -24,7 +24,14 @@ const User = conn.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN
   }
+}, { 
+  getterMethods: {
+    fullname(value) {
+      return `${this.firstname} ${this.lastname}`
+    }
+  }
 });
+
 
 module.exports = User;
 

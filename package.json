@@ -7,7 +7,7 @@
     "test": "DATABASE_URL=postgres://localhost/thelightweb ./node_modules/mocha/bin/mocha --watch --recursive test/server/**/*.js",
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "start:dev": "npm run webpack -- -w & nodemon server --ignore dist/ --ignore client/"
+    "start:dev": "npm run webpack -- -w & nodemon server --ignore dist/ --ignore server/"
   },
   "keywords": [],
   "author": "",

@@ -14,6 +14,15 @@ router.post('/register', (req, res) => {
   .catch(err => res.status(500).send('There was a problem adding the information to the database.', err));
 });
 
+router.post('/me', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, secret, (err, decoded) => {
+    User.findById(decoded.id, { attributes: { exclude: ['password'] } })
+    .then(user => res.send(user))
+    .catch(err => res.status(404).send({ message: 'Whoops! Looks like we can\'t find you!' }))
+  });
+});
+
 router.post('/login', (req, res) => {
   User.findOne({ where: { email: req.body.email } })
     .then(user => {

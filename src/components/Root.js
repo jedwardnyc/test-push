@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, keepLoggedIn } from '../store';
 
 import Nav from './Nav';
 import Categories from './Categories';
@@ -16,10 +16,16 @@ class Root extends Component {
     this.props.fetchProducts();
     this.props.fetchLineItems();
     this.props.fetchOrders();
-    //this.props.fetchUsers();
+
   }
 
   render() {
+    const user = localStorage.getItem('user')
+    if(user) {
+      this.props.keepLoggedIn();
+      this.props.getLoggedIn({token: user})
+    };
+
     return (
       <div>
         <Router>
@@ -43,7 +49,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchCategories: () => dispatch(fetchCategories()),
     fetchProducts: () => dispatch(fetchProducts()),
     //fetchUsers: () => dispatch(fetchUsers()),
-    fetchOrders: () => dispatch(fetchOrders())
+    fetchOrders: () => dispatch(fetchOrders()),
+    getLoggedIn: (user) => dispatch(getLoggedIn(user)),
+    keepLoggedIn: () => dispatch(keepLoggedIn())
   };
 };
 
