@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout, getLoggedIn } from '../store';
+import { logout } from '../store';
 
 //need to add user information. if no user then move to login page when clicking cart button.
 const Nav = (props) => {
-  const { auth, logout, getLoggedIn } = props; 
+  const { auth, logout, getLoggedIn } = props;
   let { user } = props;
   if (!user) user = '';
   return (
@@ -44,6 +44,7 @@ const Nav = (props) => {
 }
 
 const mapStateToProps = ({ auth }) => {
+  console.log('in nav', auth);
   return {
     auth: auth.authenticated,
     user: auth.user
@@ -52,8 +53,7 @@ const mapStateToProps = ({ auth }) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    logout: () => dispatch(logout()),
-    getLoggedIn: (user) => dispatch(getLoggedIn(user))
+    logout: () => dispatch(logout())
   }
 }
 

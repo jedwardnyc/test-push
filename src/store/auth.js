@@ -6,11 +6,11 @@ export const login = ({ email, password }, history ) => {
     return axios.post(`/auth/local/login`, { email, password })
     .then(res => res.data)
     .then(user => {
-      dispatch({ type: AUTHENTICATED });
-      getLoggedIn(user)
+      dispatch(getLoggedIn(user))
       localStorage.setItem('user', user.token);
       history.push('/');
     })
+    .then(() => dispatch({ type: AUTHENTICATED }))
     .catch(err => console.log(err))
   };
 };
@@ -45,18 +45,16 @@ export const getLoggedIn = (token) => {
   return (dispatch) => {
     return axios.post('/auth/local/me', token)
     .then(res => res.data)
-    .then(user => dispatch({ type: GET_LOGGED_IN, user }))
+    .then(user => dispatch({ type: AUTHENTICATED, user }))
   };
 };
 
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {
     case AUTHENTICATED:
-      return Object.assign({}, state, { authenticated: true });
+      return Object.assign({}, state, { authenticated: true }, { user: action.user });
     case UNAUTHENTICATED:
       return Object.assign({}, state, { authenticated: false });
-    case GET_LOGGED_IN: 
-      return Object.assign({}, state, { authenticated: true }, { user: action.user });
     default:
       return state;
   };
