@@ -26,13 +26,12 @@ class AdminCategories extends React.Component {
 
   onDelete(id) {
     this.props.products.forEach( product => {
-      if (product.category_id === id) this.props.updateProduct({ id, category_id: 1 });
+      if (product.category_id === id) this.props.updateProduct({ id, category_id: null });
     });
     this.props.deleteCategory({ id });
   }
 
   render() {
-    console.log(this.props.products)
     const { categories } = this.props;
     const { name } = this.state;
     return (
@@ -50,11 +49,11 @@ class AdminCategories extends React.Component {
             </div>
           </div>
         </div>
-        <div className='d-flex flex-column mr-auto p-2 col-md-10'>
+        <div className='row mr-auto p-2 col-md-12'>
           {
             categories && categories.map(category => {
               return (
-                <div className='col-md-3' key={category.id}>
+                <div className='col-md-4' key={category.id}>
                   <h5>{category.name}
                     <button onClick={() => this.onDelete(category.id)}type='button' className='close' aria-label='Close'>
                       <span aria-hidden='true'>&times;</span>

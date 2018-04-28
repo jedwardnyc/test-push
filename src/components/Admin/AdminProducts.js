@@ -87,7 +87,7 @@ class AdminProducts extends React.Component {
           <h4>List of Products</h4>
         </div>
 
-        <div className='d-flex flex-column mr-auto p-2 col-md-10'>
+        <div className='row p-2 col-md-12'>
           {
             products && products.map(product => {
               return (

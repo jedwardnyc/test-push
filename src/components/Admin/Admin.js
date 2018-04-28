@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const Admin = ({ path }) => {
   return (
-    <div className='container mt-3'>
+    <div className='container mt-3 col-md-10'>
       <ul className='nav nav-tabs justify-content-end'>
         <li className='nav-item'>
           <NavLink className='nav-link' to='/admin'>Admin</NavLink>
@@ -25,7 +25,7 @@ const Admin = ({ path }) => {
       {
         path === '/admin' ? (
           <div className='mt-2'>
-            <h2 className='text-center'>Welcome to Administrator</h2>
+            <h2 className='text-center'>Welcome to Admin page</h2>
           </div>
         ) : (
           <br />

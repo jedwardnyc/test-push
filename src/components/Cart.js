@@ -31,80 +31,14 @@ class Cart extends React.Component {
     this.props.deleteLineItem({ id });
   }
 
-  filterProducts(products, lineItems) {
-    if (!lineItems) {
-      return null;
-    }
-    const listLineItemId = lineItems.map(lineItem => {
-      return lineItem.product_id;
-    });
-
-    if (!products) {
-      return null;
-    }
-    return listLineItemId.map(id => {
-      return products.find(product => product.id === id);
-    });
-  }
-
-  renderQuantityLineItem(product, lineItems, options) {
-    if (!lineItems) {
-      return null;
-    }
-    if (!product) {
-      return null;
-    }
-    const quantity = lineItems.find(lineItem => lineItem.product_id === product.id).quantity;
-    const lineitem = lineItems.find(lineItem => lineItem.product_id === product.id);
-    return (
-      <select name={lineitem.id} className="form-control p-2 mr-2" onChange={this.onSaveQuantity}>
-        <option>{quantity}</option>
-        {
-          options.map(option => {
-            return (
-              option
-            );
-          })
-        }
-      </select>
-    );
-  }
-
-  renderDelete(product, lineItems) {
-    if (!product) {
-      return null;
-    }
-    if (!lineItems) {
-      return null;
-    }
-    const lineitem = lineItems.find(lineItem => lineItem.product_id === product.id);
-    return (
-      <button className="btn btn-danger ml-2" onClick={() => this.onDelete(lineitem.id)}>Delete</button>
-    );
-  }
-
   render() {
-    const { products, lineItems } = this.props;
+    const { products, lineItems, filteredProducts, subTotal, totalLineItems } = this.props;
 
     //option
     const options = [];
     for (let i = 1; i <= 20; i++) {
       options.push(<option value={i} key={i}>{i}</option>);
     }
-
-    const filteredProducts = this.filterProducts(products, lineItems);
-
-    const subTotal = filteredProducts.reduce((total, amount) => {
-      const count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
-      total += count * (amount.price * 1);
-      return Math.round(total * 100) / 100;
-    }, 0);
-
-    const totalLineItems = filteredProducts.reduce((total, amount) => {
-      const count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
-      total += count * 1;
-      return total;
-    }, 0);
 
     return (
       <div className="container mt-5 ml-5 row">
@@ -118,14 +52,14 @@ class Cart extends React.Component {
           {
             filteredProducts && filteredProducts.map(product => {
               return (
-                <div className="my-3 p-3 bg-light rounded box-shadow" key={ product.id }>
+                <div className="my-3 p-3 bg-light rounded box-shadow" key={product.id}>
                   <div className="media pt-1">
                     <img src={product.imgUrl} className="mr-2 rounded" width="100" height="100" />
                     <div className="row">
-                      <h5 className="ml-4 p-1">{ product.name }</h5>
+                      <h5 className="ml-4 p-1">{product.name}</h5>
 
                       <div className="row">
-                        <h6 className="pl-5 mb-0">${ product.price }</h6>
+                        <h6 className="pl-5 mb-0">${product.price}</h6>
                         <div className="pl-2">
                           {this.renderQuantityLineItem(product, lineItems, options)}
                         </div>
@@ -148,12 +82,56 @@ class Cart extends React.Component {
       </div>
     );
   }
+
+  renderQuantityLineItem(product, lineItems, options) {
+    const quantity = lineItems.find(lineItem => lineItem.product_id === product.id).quantity;
+    const lineItem = lineItems.find(lineItem => lineItem.product_id === product.id);
+    return (
+      <select name={lineItem.id} className="form-control p-2 mr-2" onChange={this.onSaveQuantity}>
+        <option>{quantity}</option>
+        {
+          options.map(option => {
+            return (
+              option
+            );
+          })
+        }
+      </select>
+    );
+  }
+
+  renderDelete(product, lineItems) {
+    const lineItem = lineItems.find(lineItem => lineItem.product_id === product.id);
+    return (
+      <button className="btn btn-danger ml-2" onClick={() => this.onDelete(lineItem.id)}>Delete</button>
+    );
+  }
 }
 
 const mapStateToProps = ({ products, lineItems }) => {
+
+  const filteredProducts = lineItems.map(lineItem => {
+    return lineItem.product_id;}).map(id => {
+    return products.find(product => product.id === id);
+  });
+
+  const subTotal = filteredProducts.reduce((total, amount) => {
+    const count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
+    total += count * (amount.price * 1);
+    return Math.round(total * 100) / 100;
+  }, 0);
+
+  const totalLineItems = filteredProducts.reduce((total, amount) => {
+    const count = lineItems.find(lineItem => lineItem.product_id === amount.id).quantity * 1;
+    total += count * 1;
+    return total;
+  }, 0);
+
   return {
-    products,
-    lineItems
+    lineItems,
+    filteredProducts,
+    subTotal,
+    totalLineItems
   };
 };
 

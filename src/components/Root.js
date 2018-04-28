@@ -43,10 +43,12 @@ class Root extends Component {
             <Route exact path='/cart' render={({ match, history }) => <Cart id={match.params.id * 1} history={history} />} />
 
             <Route path='/admin' render={({ location }) => <Admin path= {location.pathname} /> } />
+            
             <Route path='/admin/categories' component={AdminCategories} />
             <Route path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
-            <Route exact path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
+            <Route path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
+
           </div>
         </Router>
       </div>
