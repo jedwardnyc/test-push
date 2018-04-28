@@ -16,7 +16,8 @@ class AdminEditProducts extends React.Component {
       price: props.product ? props.product.price : '',
       description: props.product ? props.product.description : '',
       imgUrl: props.product ? props.product.imgUrl : '',
-      category_id: props.product ? props.product.category_id : ''
+      category_id: props.product ? props.product.category_id : '',
+      availability: props.product ? props.product.availability : '',
     }
   }
 
@@ -36,7 +37,8 @@ class AdminEditProducts extends React.Component {
       imgUrl: this.state.imgUrl,
       price: this.state.price,
       description: this.state.description,
-      category_id: this.state.category_id
+      category_id: this.state.category_id,
+      availability: this.state.availability
     }
     this.props.updateProduct(product);
   }
@@ -63,8 +65,8 @@ class AdminEditProducts extends React.Component {
               value={name}
             />
             <div className='row'>
-              <div className='col-sm-6'>
-                <h5 className='mt-2 mr-2'>Product Price</h5>
+              <div className='col-sm-4'>
+                <h6 className='mt-2 mr-2'>Product Price</h6>
                 <input
                   name='price'
                   className='form-control'
@@ -72,8 +74,8 @@ class AdminEditProducts extends React.Component {
                   value={price}
                 />
               </div>
-              <div className='col-sm-6'>
-                <h5 className='mt-2 mr-2'>Change Category</h5>
+              <div className='col-sm-4'>
+                <h6 className='mt-2 mr-2'>Category</h6>
                 <select className='form-control' name='category_id' onChange={onChange}>
                   <option>{this.category(product, categories)}</option>
                   {
@@ -83,6 +85,14 @@ class AdminEditProducts extends React.Component {
                       );
                     })
                   }
+                </select>
+              </div>
+
+              <div className='col-sm-4'>
+                <h6 className='mt-2 mr-2'>Availability</h6>
+                <select className='form-control' name='availability' onChange={onChange}>
+                  <option value={product.availability === false ? false : true} key='1'>{product.availability === false ? 'Not available' : 'available'}</option>
+                  <option value={product.availability === false ? true : false} key='2'>{product.availability === false ? 'available' : 'Not available'}</option>
                 </select>
               </div>
             </div>
@@ -103,7 +113,7 @@ class AdminEditProducts extends React.Component {
 
   category(product, categories) {
     const category = categories.find(category => category.id === product.category_id);
-    if(!category) {
+    if (!category) {
       return null;
     }
     return category.name;
@@ -112,7 +122,7 @@ class AdminEditProducts extends React.Component {
 
 const mapStateToProps = ({ products, categories }, { id }) => {
   const product = products.find(product => product.id === id);
-  
+
   return {
     product,
     categories

@@ -72,7 +72,7 @@ const Products = ({ categories, products }) => {
 const mapStateToProps = ({ categories, products }) => {
   return {
     categories,
-    products
+    products: products.filter(product => product.availability === true)
   };
 };
 

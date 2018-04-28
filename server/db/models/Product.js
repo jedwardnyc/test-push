@@ -7,7 +7,11 @@ const Product = conn.define('products', {
   },
   price: Sequelize.DECIMAL,
   imgUrl: Sequelize.STRING,
-  description: Sequelize.TEXT
+  description: Sequelize.TEXT,
+  availability: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  }
 });
 
 module.exports = Product;

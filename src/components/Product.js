@@ -71,7 +71,10 @@ class Product extends React.Component {
                 })
               }
             </select>
-            <button className='btn btn-primary p-2 mr-2' onClick={ onSave }>Add to Cart</button>
+            <button className='btn btn-primary p-2 mr-2' disabled={!product.availability} onClick={ onSave }>Add to Cart</button>
+          </div>
+          <div>
+            <h4 className='mt-2 text-danger'>{!product.availability ? 'Currently Unavailable' : ''}</h4>
           </div>
           <br />
           <h5 className='border-top p-2 mr-1'>Description: {product.description}</h5>
