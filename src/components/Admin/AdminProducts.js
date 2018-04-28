@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { createProduct } from '../../store/products';
+import { uploadImg } from '../../store/uploads';
 
 class AdminProducts extends React.Component {
   constructor(props) {
@@ -25,7 +26,16 @@ class AdminProducts extends React.Component {
   }
 
   onChange(ev) {
-    this.setState({ [ev.target.name]: ev.target.value });
+    const state = this.state;
+
+    switch (ev.target.name) {
+      case 'imgUrl':
+        state.imgUrl = ev.target.files[0];
+        break;
+      default:
+        state[ev.target.name] = ev.target.value;
+    }
+    this.setState(state);
   }
 
   onSave(ev) {
@@ -34,10 +44,10 @@ class AdminProducts extends React.Component {
       name: this.state.name,
       price: this.state.price,
       description: this.state.description,
-      imgUrl: this.state.imgUrl
+      imgUrl: this.state.imgUrl.name
     }
-
     this.props.createProduct(product);
+    //this.props.uploadImg(this.state.imgUrl);
   }
 
   render() {
@@ -60,13 +70,13 @@ class AdminProducts extends React.Component {
                 name='price' value={price}
               />
             </div>
-            <div className='input-group mb-3'>
+            <div className='input-group mb-3 row'>
+              <h4 className='ml-3 mr-2'>Choose Image</h4>
               <input
-                type='text' className='form-control'
+                type='file'
                 placeholder='Add Product image' onChange={this.onChange}
-                name='imgUrl' value={imgUrl}
+                name='imgUrl'
               />
-              <button className='btn btn-outline-secondary' type='button'>Add a file</button>
             </div>
             <div className='input-group mb-3'>
               <input
@@ -76,8 +86,7 @@ class AdminProducts extends React.Component {
               />
               <button
               className='btn btn-outline-secondary'
-              type='button'
-              onClick={this.onSave} >
+              type='submit'>
               Create
               </button>
             </div>
@@ -115,7 +124,8 @@ const mapStateToProps = ({ products }) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    createProduct: (product) => dispatch(createProduct(product))
+    createProduct: (product) => dispatch(createProduct(product)),
+    uploadImg: (imgUrl) => dispatch(uploadImg(imgUrl))
   }
 }
 

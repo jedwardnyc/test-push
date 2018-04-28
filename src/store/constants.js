@@ -22,17 +22,11 @@ export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 
-/* Consts for Product */
-export const SET_PRODUCTS = 'SET_PRODUCTS';
-
 /* Consts for Categories */
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
-
-/* Consts for Category */
-export const SET_CATEGORIES = 'SET_CATEGORIES';
 
 /* Consts for Authentication */
 export const AUTHENTICATED = 'AUTHENTICATED';
@@ -42,3 +36,6 @@ export const GET_LOGGED_IN = 'GET_LOGGED_IN';
 /* Consts for Errors */
 export const ERROR = 'ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
+
+/* Consts for UploadImg */
+export const CREATE_IMAGE = 'CREATE_IMAGE';

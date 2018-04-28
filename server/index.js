@@ -18,6 +18,7 @@ app.use('/api/products', require('./routes/products'));
 app.use('/api/lineitems', require('./routes/lineitems'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/uploads', require('./routes/uploads'));
 
 //app.use('/api', require('./routes'));
 app.use('/auth', require('./auth'));
