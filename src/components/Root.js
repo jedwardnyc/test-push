@@ -21,14 +21,12 @@ class Root extends Component {
     this.props.fetchProducts();
     this.props.fetchLineItems();
     this.props.fetchOrders();
-
   }
 
   render() {
     const user = localStorage.getItem('user')
     if(user) {
       this.props.keepLoggedIn();
-      this.props.getLoggedIn({token: user})
     };
 
     return (

@@ -34,7 +34,7 @@ class AdminEditProducts extends React.Component {
 
   render() {
 
-    const { products, product } = this.props;
+    const { product } = this.props;
     if(!product) {
       return null;
     }
