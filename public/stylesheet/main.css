@@ -1,14 +1,9 @@
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding-top: 54px;
-}
-
-@media (min-width: 992px) {
-  body {
-    padding-top: 56px;
-  }
-}
-
-.card {
-  height: 100%;
+.password {
+  width: 150px;
+  height: inherit;
+  margin-left: 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+  font-size: 18px;
 }

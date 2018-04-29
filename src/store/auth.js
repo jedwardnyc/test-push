@@ -35,12 +35,6 @@ export const logout = () => {
   };
 };
 
-export const keepLoggedIn = () => {
-  return (dispatch) => {
-    dispatch({ type: AUTHENTICATED })
-  };
-};
-
 export const getLoggedIn = (token) => {
   return (dispatch) => {
     return axios.post('/auth/local/me', token)
@@ -52,9 +46,9 @@ export const getLoggedIn = (token) => {
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {
     case AUTHENTICATED:
-      return Object.assign({}, state, { authenticated: true }, { user: action.user });
+      return Object.assign({}, state, { user: action.user });
     case UNAUTHENTICATED:
-      return Object.assign({}, state, { authenticated: false });
+      return Object.assign({}, state, { user: {} });
     default:
       return state;
   };

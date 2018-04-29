@@ -5,9 +5,9 @@ import { logout } from '../store';
 
 //need to add user information. if no user then move to login page when clicking cart button.
 const Nav = (props) => {
-  const { auth, logout, getLoggedIn } = props;
+  const { logout, getLoggedIn } = props;
   let { user } = props;
-  if (!user) user = '';
+  if (!user) user = {};
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <NavLink className='navbar-brand' activeClassName='active' to='/'>
@@ -15,7 +15,7 @@ const Nav = (props) => {
         The Light Web</NavLink>
       <div className='collapes navbar-collapse justify-content-end'>
         {
-          auth ? 
+          user.id ? 
           <ul className='navbar-nav'>
             <li className='nav-item'>
               <NavLink activeClassName='active' className='nav-link' to='/order'>Hello {user.firstname} </NavLink>
@@ -26,6 +26,13 @@ const Nav = (props) => {
             <li className='nav-item'>
               <NavLink activeClassName='active' className='nav-link' to='/order'>My Orders</NavLink>
             </li>
+            {
+              user.isAdmin ?
+              <li className='nav-item'>
+                <NavLink activeClassName='active' className='nav-link' to='/admin'>Admin</NavLink>
+              </li>
+              : null
+            }
           </ul>
           :
           <ul className='navbar-nav'>
@@ -46,7 +53,6 @@ const Nav = (props) => {
 const mapStateToProps = ({ auth }) => {
   console.log('in nav', auth);
   return {
-    auth: auth.authenticated,
     user: auth.user
   }
 }

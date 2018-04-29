@@ -21,7 +21,7 @@ class Root extends Component {
   render() {
     const user = localStorage.getItem('user')
     if(user) {
-      this.props.keepLoggedIn();
+      this.props.getLoggedIn({ token: user })
     };
 
     return (

@@ -8,17 +8,43 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      passwordStrength: 'Weak',
       firstname: '',
       lastname: '',
+      err: {},
       signup: false
     }
     this.submit = this.submit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.validatePassword = this.validatePassword.bind(this);
   }
 
   onChange(ev) {
+    if(ev.target.name === 'password'){
+      this.setState({ password: ev.target.value })
+      this.validatePassword(ev.target.value)
+    }
     this.setState({ [ev.target.name]: ev.target.value })
   }
+
+  validatePassword(password) {
+ 
+    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    const mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+    
+    if(password.length < 6) {
+      this.setState({ err: { password:'password is too short' } })
+    }
+    return (
+      this.setState({ passwordStrength:
+        strongRegex.test(password) ? 
+        'Strong'
+        : mediumRegex.test(password) ? 
+        'Medium'
+        : 'Weak'
+      })
+    );
+  };
 
   submit(ev) {
     const { email, password, firstname, lastname, signup } = this.state;
@@ -27,8 +53,8 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password, firstname, lastname, signup } = this.state;
-  
+    const { email, password, firstname, lastname, signup, passwordStrength } = this.state;
+    
     return (
       <div className='row'>
         <div className='col-sm-4'></div>
@@ -86,10 +112,20 @@ class Login extends Component {
                     required
                     name='password'
                   />
+                  {
+                    signup ?
+                    <div
+                      className={`password badge badge-${ passwordStrength === 'Weak' ? 'danger' 
+                        : passwordStrength === 'Medium' ? 'warning' 
+                        : 'success'}`}> 
+                      {passwordStrength}
+                    </div>
+                    : null
+                  }
                 </div>
               </div>
               <button
-                disabled={!email && !password}
+                disabled={!email && !password && passwordStrength === 'Weak'}
                 className='btn col-sm-4 btn-primary mb-5'>
                 { signup ? 'Sign up' : 'Log in' }
             </button>
