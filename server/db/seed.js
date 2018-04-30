@@ -2,14 +2,14 @@ const bcrypt = require('bcryptjs');
 
 const products = {
   g1: [
-    { name: 'Heritage System Ultra Bundle', price: 10790.00, imgUrl:'https://cdnm2-kraftmusic.netdna-ssl.com/media/catalog/product/cache/image/700x700/e9c3970ab036de70892d86c6d221abfe/H/A/HAM-XK5MDLA3HSYSUB.jpg', description:'product description' },
+    { name: 'Heritage System Ultra Bundle', price: 10790.00, imgUrl:'https://cdnm2-kraftmusic.netdna-ssl.com/media/catalog/product/cache/image/700x700/e9c3970ab036de70892d86c6d221abfe/H/A/HAM-XK5MDLA3HSYSUB.jpg', description: 'product description' },
     { name: 'Antique Restored Wooden Organ Pipes', price: 95.00, imgUrl: 'https://ssli.ebayimg.com/images/g/9JEAAOSwAwFaoty2/s-l640.jpg', description: 'product description' },
     { name: '17-note MIDI Controller Pedalboard', price: 599.95, imgUrl: 'http://www.viscountinstruments.com/media/catalog/product/p/e/ped.-27n.-rad.-conc.-oak_1.jpg', description: 'product description' }
   ],
   g2: [
     { name: 'Aspirin', price: 6.59, imgUrl: 'https://cdn1.medicalnewstoday.com/content/images/headlines/317/317459/bottle-of-aspirin.jpg', description: 'product description' },
     { name: 'Claritin', price: 18.46, imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/81POrtyaaCL._SL1500_.jpg', description: 'product description' },
-    { name: 'Theraflu', price: 7.49, imgUrl:'https://cdn7.bigcommerce.com/s-d8qut8/images/stencil/1024x1024/products/1069/2246/theraflu_daytime_8.3_oz__27345.1502391107.jpg', description:'product description' }
+    { name: 'Theraflu', price: 7.49, imgUrl: 'https://cdn7.bigcommerce.com/s-d8qut8/images/stencil/1024x1024/products/1069/2246/theraflu_daytime_8.3_oz__27345.1502391107.jpg', description: 'product description' }
   ],
   g3: [
     { name: 'Stainless Steel 4-Egg Poacher', price: 45.88, imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/71kIwLof2nL._SX355_.jpg', description: 'product description' },
@@ -36,13 +36,13 @@ const categories = {
   g5: { name: 'Laundering' }
 };
 
-const hashedAdminPW = bcrypt.hashSync('admin', 8)
-const hashedUserPW = bcrypt.hashSync('test', 8)
+const hashedAdminPW = bcrypt.hashSync('admin', 8);
+const hashedUserPW = bcrypt.hashSync('test', 8);
 
-const users = { 
+const users = {
   g1: { firstname: 'Admin', lastname: 'Test', email: 'admin@test.com', password: hashedAdminPW, isAdmin: true },
   g2: { firstname: 'User', lastname: 'Test', email: 'not_admin@test.com', password: hashedUserPW, isAdmin: false }
-}
+};
 
 module.exports = {
   products,
