@@ -24,7 +24,9 @@ const User = conn.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: true
-  }
+  },
+  resetPasswordToken: Sequelize.STRING,
+  resetPasswordExpire: Sequelize.DATE
 }, { 
   getterMethods: {
     fullname(value) {

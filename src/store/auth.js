@@ -1,4 +1,6 @@
 import axios from 'axios';
+import nodemailer from 'nodemailer';
+import { config } from '../../server/auth/config';
 import { AUTHENTICATED, UNAUTHENTICATED, GET_LOGGED_IN } from './constants';
 
 export const login = ({ email, password }, history ) => {
@@ -42,6 +44,35 @@ export const getLoggedIn = (token) => {
     .then(user => dispatch({ type: AUTHENTICATED, user }))
   };
 };
+
+export const forgot = (email) => {
+  return (dispatch) => {
+    return axios.post('/auth/local/forgot', email)
+    .then(res => res.data)
+    .then(user => {
+      // create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport({
+          host: 'smtp.sendgrid.net',
+          port: 587,
+          secure: false, 
+          auth: {
+              user: 'apikey', 
+              pass: config.gridKey 
+          }
+      });
+
+      let mailOptions = {
+      };
+  
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              return console.log(error);
+          }
+      });
+    });
+  }
+}
 
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {

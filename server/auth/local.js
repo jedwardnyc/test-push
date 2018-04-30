@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const User = require('../db/models/User');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const cyrpto = require('crypto');
 const { secret } = require('./config');
 
 router.post('/register', (req, res) => {
@@ -27,11 +28,29 @@ router.post('/login', (req, res) => {
   User.findOne({ where: { email: req.body.email } })
     .then(user => {
       const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-      if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+      if (!passwordIsValid) return res.status(401).send({ token: null });
       const token = jwt.sign({ id: user.id }, secret, {expiresIn: 86400 });
       res.status(200).send({ token });
     })
-    .catch(err => res.status(404).send({ auth: false, message: err }));
+    .catch(err => res.status(404).send({ message: err }));
 });
+
+router.post('/forgot', (req, res) => {
+  User.findOne({ where: { email: req.body.email },  attributes: { exclude: ['password'] }  })
+  .then(user => {
+    cyrpto.randomBytes(8, (err, buf) => {
+      let token = buf.toString('hex');
+      user.resetPasswordToken = token;
+      user.resetPasswordExpire = Date.now() + 3600000; // 1 hour from now
+      res.send(user)
+    })
+  })
+
+  .catch(err => console.log(err))
+})
+
+router.post('/reset/:token', (req, res) => {
+  
+})
 
 module.exports = router;

@@ -1,3 +1,3 @@
 module.exports = {
-  'secret': 'darksp1derwebs'
+  'secret': 'darksp1derwebs',
 };
