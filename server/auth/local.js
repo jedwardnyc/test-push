@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cyrpto = require('crypto');
 const { secret } = require('./config');
-const { sendReset, sendConfirmation } = require('./autoEmail');
+const { sendReset, sendConfirmation, sendWelcome } = require('./autoEmail');
 
 router.post('/register', (req, res) => {
-  const hashedPassword = bcrypt.hashSync(req.body.password, 8);
-  User.create(Object.assign({}, req.body, { password: hashedPassword }))
+  User.create(req.body)
   .then(user => {
     const token = jwt.sign({ id: user.id }, secret, { expiresIn: 86400 });
     res.send({ token });
+    sendWelcome(user);
   })
   .catch(err => res.status(500).send('There was a problem adding the information to the database.', err));
 });
@@ -33,7 +33,7 @@ router.post('/login', (req, res) => {
       const token = jwt.sign({ id: user.id }, secret, {expiresIn: 86400 });
       res.status(200).send({ token });
     })
-    .catch(err => res.status(404).send({ message: err }));
+    .catch(err => res.status(404).send({ message: 'That user does not exist!' }));
 });
 
 router.post('/forgot', (req, res) => {
@@ -46,8 +46,8 @@ router.post('/forgot', (req, res) => {
       sendReset(user, token)
     })
   })
-  .catch(err => console.log(err))
-})
+  .catch(err => res.status(404).send({ message: 'That user does not exist!' }));
+});
 
 router.post('/reset/:token', (req,res) => {
   User.findOne({ where: { resetPasswordToken: req.params.token, resetPasswordExpire: { $gt: Date.now() }} })
@@ -60,6 +60,7 @@ router.post('/reset/:token', (req,res) => {
     res.send(user)
     sendConfirmation(user)
   })
+  .catch(err => res.status(500).send('That user token was not found', err));
 })
 
 module.exports = router;

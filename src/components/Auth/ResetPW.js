@@ -6,10 +6,11 @@ class ResetPW extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
       password: '',
+      passwordConfirm: '',
       err: {},
-      success: false
+      success: false,
+      show: false
     }
     this.submit = this.submit.bind(this);
   }
@@ -23,7 +24,7 @@ class ResetPW extends Component {
   }
 
   render() {
-    const { email, password, success } = this.state;
+    const { passwordConfirm, password, success, show } = this.state;
     
     return (
       <div className='row'>
@@ -42,26 +43,32 @@ class ResetPW extends Component {
                 <div className='form-group'>
                   <div className='input-group mb-3'>
                     <input
-                      placeholder='Email address'
-                      onChange={(ev) => this.setState({ email: ev.target.value })}
-                      type='email'
+                      placeholder='New Password'
+                      onChange={(ev) => this.setState({ password: ev.target.value })}
+                      type={ show ? 'text' : 'password' }
                       className='form-control'
                       required autoFocus
-                      name='email'
+                      name='password'
                     />
                   </div>
                   <div className='input-group mb-3'>
                     <input
-                      placeholder='Password'
-                      onChange={(ev) => this.setState({ password: ev.target.value })}
-                      type='password'
-                      className='form-control'
+                      placeholder='Confirm Password'
+                      onChange={(ev) => this.setState({ passwordConfirm: ev.target.value })}
+                      type={ show ? 'text' : 'password' }
+                      className={`form-control ${passwordConfirm ? password !== passwordConfirm ? 'is-invalid' : 'is-valid ' : ''}`}
                       required
-                      name='password'
+                      name='passwordConfirm'
                     />
+                    <div class="valid-feedback">
+                      Passwords match!
+                    </div>
+                    <div class="invalid-feedback">
+                      Passwords must match!
+                    </div>
                   </div>
                   <button
-                    disabled={!email & !password}
+                    disabled={!passwordConfirm || passwordConfirm !== password}
                     className='btn btn-block btn-primary mt-3'>
                     Reset Password
                   </button>

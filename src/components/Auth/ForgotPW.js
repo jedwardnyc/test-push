@@ -9,7 +9,8 @@ class ForgotPW extends Component {
     this.state = {
       email: '',
       err: {},
-      success: false
+      success: false,
+      show: false
     }
     this.submit = this.submit.bind(this);
   }

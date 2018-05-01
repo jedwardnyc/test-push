@@ -80,11 +80,12 @@ const sendWelcome = (user) => {
     Unfortunately, at this time this isn't a real site (I know, right?), but thanks for signing up for our project site!
     This site was made for FullStack Academy for our Grace Shopper assignment. 
     It was designed and created by Jacob Rico, Balthazar Villegas, and Chaehoon Lim.`,
-    html: `<h2>Hello ${user.firstname}</h2>,
+    html: `<h4>Hello ${user.firstname},</h4>
     <h5><strong>Welcome to <a href='the-light-web.herokuapp.com'>The Light Web</a>,</strong> you center for all things dark web sounding, but actually legal.</h5>
-    <h6>Unfortunately, at this time this isn't a real site (I know, right?), but <strong>thanks for signing up for our project site</strong>!
-    This site was made for FullStack Academy for our Grace Shopper assignment.</h6> 
-    <h5>It was designed and created by Jacob Rico, Balthazar Villegas, and Chaehoon Lim.</h5>`
+    <p>Unfortunately, at this time this isn't a real site (I know, right?), but <strong>thanks for signing up for our project site</strong>!
+    This site was made for FullStack Academy for our Grace Shopper assignment.
+    It was designed and created by Jacob Rico, Balthazar Villegas, and Chaehoon Lim.</p>
+    <h6>If you are seeing this and you didn't sign up (uh-oh) then please disregard this message</h6>`
   };
   
   transporter.sendMail(mailOptions, (error, info) => {

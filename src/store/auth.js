@@ -17,17 +17,16 @@ export const login = ({ email, password }, history ) => {
 };
 
 export const signUp = ({ email, password, firstname, lastname }, history ) => {
+  const hashedPassword = bcrypt.hashSync( password , 8);
   return (dispatch) => {
-    return axios.post(`/auth/local/register`, { email, password, firstname, lastname })
+    return axios.post(`/auth/local/register`, { email, password: hashedPassword, firstname, lastname })
     .then(res => res.data)
     .then(user => {
       localStorage.setItem('user', user.token);
       dispatch(getLoggedIn(user));
       history.push('/');
     })
-    .then(user => {
-      dispatch({ type: AUTHENTICATED, user });
-    })
+    .then(user => dispatch({ type: AUTHENTICATED, user }))
     .catch(err => console.log(err))
   };
 };
@@ -50,6 +49,7 @@ export const getLoggedIn = (token) => {
 export const forgot = (email) => {
   return (dispatch) => {
     return axios.post('/auth/local/forgot', email)
+    .catch(err => console.log(err))
   }
 };
 
@@ -57,6 +57,7 @@ export const reset = ({ password, token }) => {
   const hashedPassword = bcrypt.hashSync( password , 8);
   return (dispatch) => {
     return axios.post(`/auth/local/reset/${token}`, { password: hashedPassword })
+    .catch(err => console.log(err))
   }
 }
 
