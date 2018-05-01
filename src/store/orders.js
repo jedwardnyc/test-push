@@ -6,7 +6,7 @@ export const fetchOrders = () => {
     return axios.get('/api/orders')
     .then(res => res.data)
     .then(orders => dispatch({ type: GET_ORDERS, orders }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -15,7 +15,7 @@ export const createOrder = (order) => {
     return axios.post('/api/orders', order)
     .then(res => res.data)
     .then(order => dispatch({ type: CREATE_ORDER, order }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -24,7 +24,7 @@ export const updateOrder = (order) => {
     return axios.put(`/api/orders${order.id}`, order)
     .then(res => res.data)
     .then(order => dispatch({ type: UPDATE_ORDER, order }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -32,7 +32,7 @@ export const deleteOrder = (order) => {
   return (dispatch) => {
     return axios.delete(`/api/orders${order.id}`)
     .then(() => dispatch({ type: DELETE_ORDER, order }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -45,10 +45,10 @@ const orderReducer = ( state = [], action ) => {
     case UPDATE_ORDER:
       return state.map(order => order.id === action.order.id ? action.order : order);
     case DELETE_ORDER:
-      return state.filter(order => order.id !== action.order.id)
+      return state.filter(order => order.id !== action.order.id);
     default:
       return state;
-  };
+  }
 };
 
 export default orderReducer;

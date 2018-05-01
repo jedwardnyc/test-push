@@ -22,9 +22,9 @@ export default (CheckedComponent) => {
   }
 
   function mapStateToProps({ auth }) {
-    return { 
-      authenticated: auth.authenticated 
-    }
+    return {
+      authenticated: auth.authenticated
+    };
   }
 
   return connect(mapStateToProps)(NotAuthenticated);

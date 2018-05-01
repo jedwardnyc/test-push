@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, keepLoggedIn } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, keepLoggedIn, setCart } from '../store';
 
 import Nav from './Nav';
 import Categories from './Categories';
@@ -16,24 +16,26 @@ class Root extends Component {
     this.props.fetchProducts();
     this.props.fetchLineItems();
     this.props.fetchOrders();
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.props.getLoggedIn({ token: user })
+      .then(_user => {
+        this.props.setCart(_user);
+      });
+    }
   }
 
   render() {
-    const user = localStorage.getItem('user')
-    if(user) {
-      this.props.getLoggedIn({ token: user })
-    };
-
     return (
       <div>
         <Router>
           <div>
             <Nav />
-            <Route exact path='/' render={()=> <Redirect to='categories' />} />
-            <Route exact path='/categories' component={Categories} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/products/:id' render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
-            <Route exact path='/cart' render={({ match }) => <Cart id={match.params.id * 1} history={history} />} />
+            <Route exact path="/" render={() => <Redirect to="categories" />} />
+            <Route exact path="/categories" component={Categories} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/products/:id" render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
+            <Route exact path="/cart" render={({ match }) => <Cart id={match.params.id * 1} history={history} />} />
           </div>
         </Router>
       </div>
@@ -49,7 +51,8 @@ const mapDispatchToProps = (dispatch) => {
     //fetchUsers: () => dispatch(fetchUsers()),
     fetchOrders: () => dispatch(fetchOrders()),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
-    keepLoggedIn: () => dispatch(keepLoggedIn())
+    keepLoggedIn: () => dispatch(keepLoggedIn()),
+    setCart: user => dispatch(setCart(user))
   };
 };
 

@@ -7,8 +7,9 @@ const Order = require('./models/Order');
 const Product = require('./models/Product');
 const { products, categories, users } = require('./seed.js');
 
-// Order.belongsTo(User);
+Order.belongsTo(User);
 LineItem.belongsTo(Order);
+Order.hasMany(LineItem);
 LineItem.belongsTo(Product);
 Product.belongsTo(Category);
 
@@ -48,4 +49,3 @@ module.exports = {
     User
   }
 };
-

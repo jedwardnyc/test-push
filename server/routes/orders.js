@@ -7,6 +7,14 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+// send user to get her cart
+router.post('/cart', (req, res, next) => {
+  console.log('post get cart for user')
+  Order.getCartForUser(req.body)
+  .then(order => res.send(order))
+  .catch(next); // throw error
+});
+
 router.post('/', (req, res, next) => {
   Order.create(req.body)
   .then(order => res.send(order))
