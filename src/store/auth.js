@@ -1,6 +1,5 @@
 import axios from 'axios';
-import nodemailer from 'nodemailer';
-import { config } from '../../server/auth/config';
+import bcrypt from 'bcryptjs';
 import { AUTHENTICATED, UNAUTHENTICATED, GET_LOGGED_IN } from './constants';
 
 export const login = ({ email, password }, history ) => {
@@ -12,7 +11,7 @@ export const login = ({ email, password }, history ) => {
       localStorage.setItem('user', user.token);
       history.push('/');
     })
-    .then(() => dispatch({ type: AUTHENTICATED }))
+    .then((user) => dispatch({ type: AUTHENTICATED, user }))
     .catch(err => console.log(err))
   };
 };
@@ -22,9 +21,12 @@ export const signUp = ({ email, password, firstname, lastname }, history ) => {
     return axios.post(`/auth/local/register`, { email, password, firstname, lastname })
     .then(res => res.data)
     .then(user => {
-      dispatch({ type: AUTHENTICATED });
       localStorage.setItem('user', user.token);
+      dispatch(getLoggedIn(user));
       history.push('/');
+    })
+    .then(user => {
+      dispatch({ type: AUTHENTICATED, user });
     })
     .catch(err => console.log(err))
   };
@@ -48,29 +50,13 @@ export const getLoggedIn = (token) => {
 export const forgot = (email) => {
   return (dispatch) => {
     return axios.post('/auth/local/forgot', email)
-    .then(res => res.data)
-    .then(user => {
-      // create reusable transporter object using the default SMTP transport
-      let transporter = nodemailer.createTransport({
-          host: 'smtp.sendgrid.net',
-          port: 587,
-          secure: false, 
-          auth: {
-              user: 'apikey', 
-              pass: config.gridKey 
-          }
-      });
+  }
+};
 
-      let mailOptions = {
-      };
-  
-      // send mail with defined transport object
-      transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-              return console.log(error);
-          }
-      });
-    });
+export const reset = ({ password, token }) => {
+  const hashedPassword = bcrypt.hashSync( password , 8);
+  return (dispatch) => {
+    return axios.post(`/auth/local/reset/${token}`, { password: hashedPassword })
   }
 }
 

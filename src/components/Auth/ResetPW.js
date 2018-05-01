@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { forgot } from '../../store';
+import { reset } from '../../store';
 
-class ForgotPW extends Component {
+class ResetPW extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
+      password: '',
       err: {},
       success: false
     }
@@ -15,26 +15,26 @@ class ForgotPW extends Component {
   }
 
   submit(ev) {
-    const { email } = this.state;
+    const { password } = this.state;
+    const { token } = this.props;
     ev.preventDefault(); 
-    this.props.forgot({ email });
+    this.props.reset({ password, token });
     this.setState({ success: true })
   }
 
   render() {
-    const { email, success } = this.state;
+    const { email, password, success } = this.state;
     
     return (
-      <div id='forgot' className='row'>
+      <div className='row'>
         <div className='col-sm-4'></div>
         {
           success ? 
-          <div className='text-center bg-light border col-sm-4 p-3 mr-5 mt-5'> Password reset email has been sent! </div>
+          <div className='text-center bg-light border col-sm-4 p-3 mr-5 mt-5'> Your password has been reset! </div>
           :
           <div className='text-center bg-light border col-sm-4 p-3 mr-5 mt-5'>
             <div>
-              <h3>Forgot your password?</h3>
-              <h5>Enter your email to get instructions on how to reset your password...</h5>
+              <h3>Reset Your Password</h3>
               <br />
             </div>
             <div>
@@ -50,14 +50,23 @@ class ForgotPW extends Component {
                       name='email'
                     />
                   </div>
+                  <div className='input-group mb-3'>
+                    <input
+                      placeholder='Password'
+                      onChange={(ev) => this.setState({ password: ev.target.value })}
+                      type='password'
+                      className='form-control'
+                      required
+                      name='password'
+                    />
+                  </div>
                   <button
-                    disabled={!email}
+                    disabled={!email & !password}
                     className='btn btn-block btn-primary mt-3'>
-                    Send reset instructions
+                    Reset Password
                   </button>
                 </div>
               </form>
-              <Link to='/login'> Back to login </Link>
             </div>
           </div>
         }
@@ -66,10 +75,16 @@ class ForgotPW extends Component {
   }
 };
 
-const mapDispatch = (dispatch) => {
+const mapState = ({}, { token }) => {
   return {
-    forgot: (email) => dispatch(forgot(email))
+    token
   }
 };
 
-export default connect(null, mapDispatch)(ForgotPW);
+const mapDispatch = (dispatch) => {
+  return {
+    reset: credentials => dispatch(reset(credentials))
+  }
+};
+
+export default connect(mapState, mapDispatch)(ResetPW);

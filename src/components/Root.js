@@ -9,6 +9,7 @@ import Product from './Product';
 import Login from './Auth/Login';
 import Cart from './Cart';
 import ForgotPW from './Auth/ForgotPW';
+import ResetPW from './Auth/ResetPW';
 
 class Root extends Component {
 
@@ -36,6 +37,7 @@ class Root extends Component {
             <Route exact path='/products/:id' render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
             <Route exact path='/cart' render={({ match }) => <Cart id={match.params.id * 1} history={history} />} />
             <Route exact path='/forgot' component={ForgotPW} />
+            <Route exact path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
           </div>
         </Router>
       </div>

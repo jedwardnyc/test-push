@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cyrpto = require('crypto');
 const { secret } = require('./config');
+const { sendReset, sendConfirmation } = require('./autoEmail');
 
 router.post('/register', (req, res) => {
   const hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -40,17 +41,25 @@ router.post('/forgot', (req, res) => {
   .then(user => {
     cyrpto.randomBytes(8, (err, buf) => {
       let token = buf.toString('hex');
-      user.resetPasswordToken = token;
-      user.resetPasswordExpire = Date.now() + 3600000; // 1 hour from now
+      user.update({ resetPasswordToken: token, resetPasswordExpire: Date.now() + 3600000});
       res.send(user)
+      sendReset(user, token)
     })
   })
-
   .catch(err => console.log(err))
 })
 
-router.post('/reset/:token', (req, res) => {
-  
+router.post('/reset/:token', (req,res) => {
+  User.findOne({ where: { resetPasswordToken: req.params.token, resetPasswordExpire: { $gt: Date.now() }} })
+  .then(user => {
+    user.update({
+      password: req.body.password,
+      resetPasswordToken: null,
+      resetPasswordExpire: null
+    })
+    res.send(user)
+    sendConfirmation(user)
+  })
 })
 
 module.exports = router;
