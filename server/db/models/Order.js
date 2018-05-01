@@ -8,7 +8,7 @@ const Order = conn.define('orders', {
     defaultValue: 'pending'
   },
   dateCreated: Sequelize.DATE,
-  dateOrdered: Sequelize.DATE
+  dateOrdered: Sequelize.DATE,
 });
 
 module.exports = Order;

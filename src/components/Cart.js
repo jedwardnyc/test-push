@@ -1,24 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateLineItem, deleteLineItem } from '../store/lineitems';
+import { updateOrder } from '../store/orders';
 
 class Cart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.lineItemState(this.props);
+    this.state = this.cartState(this.props);
     this.onSaveQuantity = this.onSaveQuantity.bind(this);
   }
 
-  lineItemState(props) {
+  cartState(props) {
     return {
       quantity: props.lineItem ? props.lineItem.quantity : '',
       product_id: props.lineItem ? props.lineItem.product_id : '',
-      order_id: props.lineItem ? props.lineItem.order_id : ''
+      order_id: props.lineItem ? props.lineItem.order_id : '',
+      orderId: props.user ? props.user.order_id : ''
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.lineItemState(nextProps));
+    this.setState(this.cartState(nextProps));
   }
 
   onSaveQuantity(ev) {
@@ -31,8 +33,18 @@ class Cart extends React.Component {
     this.props.deleteLineItem({ id });
   }
 
+  onPlaceAnOrder(ev) {
+    ev.preventDefault();
+    const order = {
+      id: this.state.orderId,
+      status: 'ordered',
+      dateOrdered: Date.now()
+    }
+    this.props.updateOrder(order)
+  }
+
   render() {
-    const { products, lineItems, filteredProducts, subTotal, totalLineItems } = this.props;
+    const { products, lineItems, filteredProducts, subTotal, totalLineItems, orders } = this.props;
 
     //option
     const options = [];
@@ -76,7 +88,7 @@ class Cart extends React.Component {
           <div className='bg-light rounded box-shadow'>
             <h5 className='p-2 mr-2 mt-3'>Subtotal ({totalLineItems} item(s)):</h5>
             <h5 className='p-2 mr-2'>$ {subTotal}</h5>
-            <button className='btn btn-block btn-primary p-2'>Place your Order</button>
+            <button className='btn btn-block btn-primary p-2' onClick={this.onPlaceAnOrder}>Place your Order</button>
           </div>
         </div>
       </div>
@@ -108,10 +120,18 @@ class Cart extends React.Component {
   }
 }
 
-const mapStateToProps = ({ products, lineItems }) => {
+const mapStateToProps = ({ products, lineItems, orders }) => {
 
-  const filteredProducts = lineItems.map(lineItem => {
-    return lineItem.product_id;}).map(id => {
+  const lineItemId = lineItems.filter(lineItem => {
+    if (orders.find(order => order.status === 'pending').id === lineItem.order_id) {
+      return lineItem.product_id;
+    }
+  });
+
+  console.log(lineItemId)
+  const filteredProducts = lineItemId.map(lineItem => {
+    return lineItem.product_id;
+  }).map(id => {
     return products.find(product => product.id === id);
   });
 
@@ -131,14 +151,16 @@ const mapStateToProps = ({ products, lineItems }) => {
     lineItems,
     filteredProducts,
     subTotal,
-    totalLineItems
+    totalLineItems,
+    orders,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     updateLineItem: (lineitem) => dispatch(updateLineItem(lineitem)),
-    deleteLineItem: (lineitem) => dispatch(deleteLineItem(lineitem))
+    deleteLineItem: (lineitem) => dispatch(deleteLineItem(lineitem)),
+    updateOrder: (order) => dispatch(updateOrder(order))
   };
 };
 

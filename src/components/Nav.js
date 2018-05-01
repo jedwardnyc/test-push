@@ -42,8 +42,7 @@ const Nav = (props) => {
             <NavLink className='dropdown-item' to='/admin/categories'>Categories</NavLink>
             <NavLink className='dropdown-item' to='/admin/products'>Products</NavLink>
             <div className='dropdown-divider'></div>
-            <NavLink className='dropdown-item' to='/admin/addAdmin'>Add admin</NavLink>
-            <NavLink className='dropdown-item' to='/admin/reset'>Reset password</NavLink>
+            <NavLink className='dropdown-item' to='/admin/users'>Users</NavLink>
           </div>
         </div>
         <NavLink activeClassName='active' className='nav-link' to='/cart'>

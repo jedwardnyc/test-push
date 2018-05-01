@@ -36,3 +36,4 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
  db.sync()
   .then(() => db.seed());
+  

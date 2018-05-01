@@ -10,17 +10,13 @@ export const fetchLineItems = () => {
   };
 };
 
-export const createLineItem = lineItem => {
+export const createLineItem = (lineItem, history) => {
   return (dispatch) => {
     return axios.post('/api/lineitems', lineItem)
       .then(res => res.data)
-      .then(lineItem => {
-        dispatch({ type: CREATE_LINE_ITEM, lineItem })
-      })
-      .then(result => {
-        if (result.lineItem.product_id) {
-          history.push('/cart')
-        }
+      .then(lineItem => dispatch({ type: CREATE_LINE_ITEM, lineItem }))
+      .then(() => {
+        history.push('/cart')
       })
       .catch(err => console.log(err))
   };
@@ -48,7 +44,7 @@ const lineItemReducer = ( state = [], action ) => {
     case GET_LINE_ITEMS:
       return action.lineItems;
     case CREATE_LINE_ITEM:
-      document.location.hash = '/cart';
+      window.location.assign('http://localhost:3000/#/cart');
       return [...state, action.lineItem];
     case UPDATE_LINE_ITEM:
       return state.map(lineItem => lineItem.id === action.lineItem.id ? action.lineItem : lineItem);

@@ -10,7 +10,7 @@ export const fetchOrders = () => {
   };
 };
 
-export const createOrder = (order) => {
+export const createOrder = (order, history) => {
   return (dispatch) => {
     return axios.post('/api/orders', order)
     .then(res => res.data)

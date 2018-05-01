@@ -8,7 +8,6 @@ import Products from './Products';
 import Product from './Product';
 import Login from './Auth/Login';
 import Cart from './Cart';
-import Admin from './Admin/Admin';
 import AdminCategories from './Admin/AdminCategories';
 import AdminProducts from './Admin/AdminProducts';
 import AdminEditProducts from './Admin/AdminEditProducts';
@@ -27,24 +26,23 @@ class Root extends Component {
     const user = localStorage.getItem('user')
     if(user) {
       this.props.keepLoggedIn();
-    };
+    }
 
     return (
       <div>
         <Router>
           <div>
             <Nav />
+            <Route exact path='/login' component={Login} />
             <Route exact path='/' render={()=> <Redirect to='products' />} />
             <Route exact path='/products' component={Products} />
-            <Route exact path='/login' component={Login} />
             <Route exact path='/products/:id' render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
             <Route exact path='/cart' render={({ match, history }) => <Cart id={match.params.id * 1} history={history} />} />
-
-            <Route path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
 
             <Route exact path='/admin/categories' component={AdminCategories} />
             <Route exact path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
             <Route exact path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
+            <Route exact path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
           </div>
         </Router>
       </div>

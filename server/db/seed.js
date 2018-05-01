@@ -41,11 +41,40 @@ const hashedUserPW = bcrypt.hashSync('test', 8)
 
 const users = {
   g1: { firstname: 'Admin', lastname: 'Test', email: 'admin@test.com', password: hashedAdminPW, isAdmin: true },
-  g2: { firstname: 'User', lastname: 'Test', email: 'not_admin@test.com', password: hashedUserPW, isAdmin: false }
+  g2: { firstname: 'Chaehoon', lastname: 'Lim', email: 'test@test.com', password: hashedUserPW, isAdmin: false },
+  g3: { firstname: 'User1', lastname: 'Test1', email: 'not_admin1@test.com', password: hashedUserPW, isAdmin: false },
+  g4: { firstname: 'User2', lastname: 'Test2', email: 'not_admin2@test.com', password: hashedUserPW, isAdmin: false },
+  g5: { firstname: 'User3', lastname: 'Test3', email: 'not_admin3@test.com', password: hashedUserPW, isAdmin: false },
+  g6: { firstname: 'User4', lastname: 'Test4', email: 'not_admin4@test.com', password: hashedUserPW, isAdmin: false },
+  g7: { firstname: 'User5', lastname: 'Test5', email: 'not_admin5@test.com', password: hashedUserPW, isAdmin: false },
+}
+
+const orders = {
+  g1: { status: 'ordered' },
+  g2: { status: 'ordered' },
+  g3: { status: 'pending' },
+}
+
+const lineItems = {
+  g1: [
+    { quantity: 3, product_id: 13, order_id: 1 },
+    { quantity: 2, product_id: 2, order_id: 1 },
+  ],
+  g2: [
+    { quantity: 5, product_id: 5, order_id: 2 },
+    { quantity: 1, product_id: 7, order_id: 2 }
+  ],
+  g3: [
+    { quantity: 2, product_id: 1, order_id: 3 },
+    { quantity: 9, product_id: 8, order_id: 3 },
+    { quantity: 4, product_id: 4, order_id: 3 }
+  ]
 }
 
 module.exports = {
   products,
   categories,
-  users
+  users,
+  orders,
+  lineItems
 };

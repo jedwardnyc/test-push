@@ -1,44 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createLineItem, addToCart, keepLoggedIn } from '../store';
+import { createLineItem, keepLoggedIn } from '../store';
+import { createOrder } from '../store/orders';
 
 class Product extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quantity: 1
-    };
+    this.state = { quantity: 1 };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
-    this.addToCart = this.addToCart.bind(this);
   }
 
   onChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
 
-  onSave(ev) {
-    ev.preventDefault();
-    const lineitem = { quantity: this.state.quantity, product_id: this.props.id }
-    this.props.createLineItem(lineitem);
-  }
-
-  // not doing anything -bv
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({ quantity: nextProps.lineitem ? nextProps.lineitem.quantity : 1});
+  // onSave(ev) {
+  //   ev.preventDefault();
+  //   this.props.createOrder({ status: 'pending', dateCreated: Date.now() })
+  //   .then(result => {
+  //     const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: result.order.id };
+  //     this.props.createLineItem(lineItem)
+  //   })
   // }
 
-  addToCart(ev) {
-    this.props.addToCart(
-      this.props.product.id,
-      this.state.quantity
-      // user id
-    );
+  onSave(ev) {
+    ev.preventDefault();
+    // this.props.createOrder({ status: 'pending', dateCreated: Date.now() })
+    //   .then(result => {
+        const lineItem = { quantity: this.state.quantity, product_id: this.props.id };
+        this.props.createLineItem(lineItem)
+      //})
   }
 
   render() {
     const { product } = this.props;
-    const { onSave, addToCart, onChange } = this;
+    const { onSave, onChange } = this;
 
     // quantity drop down values
     const options = [];
@@ -92,9 +89,9 @@ const mapStateToProps = ({ products }, { id }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createLineItem: (lineitem) => dispatch(createLineItem(lineitem, history)),
+    createLineItem: (lineItem) => dispatch(createLineItem(lineItem, history)),
     keepLoggedIn: () => dispatch(keepLoggedIn()),
-    addToCart: ( productId, quantity ) => dispatch(addToCart(productId, quantity))
+    createOrder: (order) => dispatch(createOrder(order, history))
   };
 };
 
