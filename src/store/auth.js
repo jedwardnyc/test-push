@@ -7,7 +7,7 @@ export const login = ({ email, password }, history ) => {
     return axios.post(`/auth/local/login`, { email, password })
     .then(res => res.data)
     .then(user => {
-      dispatch(getLoggedIn(user))
+      dispatch(getLoggedIn(user));
       localStorage.setItem('user', user.token);
       history.push('/');
     })
@@ -34,7 +34,7 @@ export const signUp = ({ email, password, firstname, lastname }, history ) => {
 export const logout = () => {
   return (dispatch) => {
     localStorage.clear();
-    dispatch({ type: UNAUTHENTICATED })
+    dispatch({ type: UNAUTHENTICATED });
   };
 };
 
@@ -42,7 +42,10 @@ export const getLoggedIn = (token) => {
   return (dispatch) => {
     return axios.post('/auth/local/me', token)
     .then(res => res.data)
-    .then(user => dispatch({ type: AUTHENTICATED, user }))
+    .then(user => {
+      dispatch({ type: AUTHENTICATED, user });
+      return user;
+    });
   };
 };
 
@@ -69,7 +72,7 @@ const authReducer = ( state = {}, action ) => {
       return Object.assign({}, state, { user: {} });
     default:
       return state;
-  };
+  }
 };
 
 export default authReducer;

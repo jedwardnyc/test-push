@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createLineItem, addToCart, keepLoggedIn } from '../store';
+import { createLineItem, keepLoggedIn } from '../store';
 
 class Product extends React.Component {
   constructor(props) {
@@ -10,7 +10,6 @@ class Product extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
-    this.addToCart = this.addToCart.bind(this);
   }
 
   onChange(ev) {
@@ -19,7 +18,7 @@ class Product extends React.Component {
 
   onSave(ev) {
     ev.preventDefault();
-    const lineitem = { quantity: this.state.quantity, product_id: this.props.id }
+    const lineitem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
     this.props.createLineItem(lineitem);
   }
 
@@ -28,24 +27,9 @@ class Product extends React.Component {
   //   this.setState({ quantity: nextProps.lineitem ? nextProps.lineitem.quantity : 1});
   // }
 
-  addToCart(ev) {
-    this.props.addToCart(
-      this.props.product.id,
-      this.state.quantity
-      // user id
-    );
-  }
-
   render() {
-    const { product } = this.props;
-    const { onSave, addToCart, onChange } = this;
-
-    // quantity drop down values
-    const options = [];
-    for (let i = 1; i <= 20; i++) {
-      options.push(<option value={i} key={i}>{i}</option>);
-    }
-
+    const { product, quantityOptions } = this.props;
+    const { onSave, onChange } = this;
     if (!product) {
       return null;
     }
@@ -67,7 +51,7 @@ class Product extends React.Component {
                     </div>
                     <select className="custom-select p-2 mr-2" id="inputQuantity" name="quantity" onChange={ onChange }>
                       {
-                        options.map(option => {
+                        quantityOptions.map(option => {
                           return (
                             option
                           );
@@ -77,7 +61,7 @@ class Product extends React.Component {
                   </div>
                 </div>
                 <div className="col sm-12 med-6">
-                  <button className="btn btn-primary float-right" onClick={ addToCart }>Add to Cart</button>
+                  <button className="btn btn-primary float-right" onClick={ onSave }>Add to Cart</button>
                 </div>
               </div>
             </div>
@@ -89,17 +73,22 @@ class Product extends React.Component {
   }
 }
 
-const mapStateToProps = ({ products }, { id }) => {
+const mapStateToProps = ({ products, cart }, { id }) => {
+  const quantityOptions = [];
+  for (let i = 1; i <= 20; i++) {
+    quantityOptions.push(<option value={i} key={i}>{i}</option>);
+  }
   return {
-    product: products.find(product => product.id === id)
+    product: products.find(product => product.id === id),
+    cart,
+    quantityOptions
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     createLineItem: (lineitem) => dispatch(createLineItem(lineitem, history)),
-    keepLoggedIn: () => dispatch(keepLoggedIn()),
-    addToCart: ( productId, quantity ) => dispatch(addToCart(productId, quantity))
+    keepLoggedIn: () => dispatch(keepLoggedIn())
   };
 };
 
