@@ -7,7 +7,7 @@
     "test": "DATABASE_URL=postgres://localhost/thelightweb ./node_modules/mocha/bin/mocha --watch --recursive test/server/**/*.js",
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "start:dev": "npm run webpack -- -w & nodemon server --ignore dist/ --ignore server/"
+    "start:dev": "npm run webpack -- -w & nodemon server --ignore dist/"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +18,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.2.1",
+    "nodemailer": "^4.6.4",
     "pg": "^7.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

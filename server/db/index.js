@@ -32,7 +32,6 @@ const seed = () => {
     .catch(err => console.log(err));
   });
   Object.keys(users).forEach(productKey => {
-    console.log(users[productKey]);
     User.create(users[productKey]);
   });
 };

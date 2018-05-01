@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { login, signUp } from '../../store';
 
 class Login extends Component {
@@ -55,7 +56,7 @@ class Login extends Component {
     const { email, password, firstname, lastname, signup, passwordStrength } = this.state;
 
     return (
-      <div className='row'>
+      <div id='login' className='row'>
         <div className='col-sm-4'></div>
         <div className='text-center bg-light border col-sm-4 p-3 mr-5 mt-5'>
           <img className='mb-4' src='/public/images/lightbulb.jpeg' width='72' height='72' />
@@ -127,11 +128,15 @@ class Login extends Component {
                 disabled={!email && !password && passwordStrength === 'Weak'}
                 className='btn col-sm-4 btn-primary mb-5'>
                 { signup ? 'Sign up' : 'Log in' }
-            </button>
-
+              </button>
             </form>
             {
-              signup ?
+              signup ? null :
+              <Link to='/forgot'> Forgot Password? </Link>
+            }
+            <hr />
+            {
+              signup ? 
               <div>
                 <h4> Have an account? </h4>
                 <button

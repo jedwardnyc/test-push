@@ -7,3 +7,15 @@
   line-height: 30px;
   font-size: 18px;
 }
+
+#login {
+  margin-bottom: 120px;
+}
+
+#login hr {
+  width: 60%;
+}
+
+#forgot a {
+  float: left;
+}

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
 import { AUTHENTICATED, UNAUTHENTICATED, GET_LOGGED_IN } from './constants';
 
 export const login = ({ email, password }, history ) => {
@@ -10,21 +11,23 @@ export const login = ({ email, password }, history ) => {
       localStorage.setItem('user', user.token);
       history.push('/');
     })
-    .then(() => dispatch({ type: AUTHENTICATED }))
-    .catch(err => console.log(err));
+    .then((user) => dispatch({ type: AUTHENTICATED, user }))
+    .catch(err => console.log(err))
   };
 };
 
 export const signUp = ({ email, password, firstname, lastname }, history ) => {
+  const hashedPassword = bcrypt.hashSync( password , 8);
   return (dispatch) => {
-    return axios.post(`/auth/local/register`, { email, password, firstname, lastname })
+    return axios.post(`/auth/local/register`, { email, password: hashedPassword, firstname, lastname })
     .then(res => res.data)
     .then(user => {
-      dispatch({ type: AUTHENTICATED });
       localStorage.setItem('user', user.token);
+      dispatch(getLoggedIn(user));
       history.push('/');
     })
-    .catch(err => console.log(err));
+    .then(user => dispatch({ type: AUTHENTICATED, user }))
+    .catch(err => console.log(err))
   };
 };
 
@@ -45,6 +48,21 @@ export const getLoggedIn = (token) => {
     });
   };
 };
+
+export const forgot = (email) => {
+  return (dispatch) => {
+    return axios.post('/auth/local/forgot', email)
+    .catch(err => console.log(err))
+  }
+};
+
+export const reset = ({ password, token }) => {
+  const hashedPassword = bcrypt.hashSync( password , 8);
+  return (dispatch) => {
+    return axios.post(`/auth/local/reset/${token}`, { password: hashedPassword })
+    .catch(err => console.log(err))
+  }
+}
 
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {
