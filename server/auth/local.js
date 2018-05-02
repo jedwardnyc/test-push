@@ -19,6 +19,7 @@ router.post('/register', (req, res) => {
 router.post('/me', (req, res) => {
   const token = req.body.token;
   jwt.verify(token, secret, (err, decoded) => {
+    console.log(decoded)
     User.findById(decoded.id, { attributes: { exclude: ['password'] } })
     .then(user => res.send(user))
     .catch(err => res.status(404).send({ message: 'Whoops! Looks like we can\'t find you!' }))
@@ -30,7 +31,9 @@ router.post('/login', (req, res) => {
     .then(user => {
       const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
       if (!passwordIsValid) return res.status(401).send({ token: null });
-      const token = jwt.sign({ id: user.id }, secret, {expiresIn: 86400 });
+      const tok
+       en = jwt.sign({ id: user.id }, secret, {expiresIn: 86400 });
+      console.log(token)
       res.status(200).send({ token });
     })
     .catch(err => res.status(404).send({ message: 'That user does not exist!' }));

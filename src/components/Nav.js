@@ -7,7 +7,6 @@ import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
-//need to add user information. if no user then move to login page when clicking cart button.
 const Nav = (props) => {
 
   fontawesome.library.add(faShoppingCart);
