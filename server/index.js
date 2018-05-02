@@ -18,7 +18,7 @@ app.use('/api/products', require('./routes/products'));
 app.use('/api/lineitems', require('./routes/lineitems'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/users', require('./routes/users'));
-app.use('/api/uploads', require('./routes/uploads'));
+
 
 //app.use('/api', require('./routes'));
 app.use('/auth', require('./auth'));
@@ -34,6 +34,6 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
- db.sync()
+db.sync()
   .then(() => db.seed());
-  
+

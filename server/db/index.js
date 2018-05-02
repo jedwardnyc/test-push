@@ -1,5 +1,4 @@
 const conn = require('./conn');
-const Promise = require('bluebird');
 
 const User = require('./models/User');
 const Category = require('./models/Category');
@@ -62,16 +61,3 @@ module.exports = {
   }
 };
 
-/**
- * Object.keys(lineItems).forEach(key => {
-    Order.create(orders[key])
-      .then(() => Promise.all(
-          lineItems[key].map(lineItem => {
-            LineItem.create(lineItem)
-              .catch(err => console.log(err));
-          })
-        )
-      )
-      .catch(err => console.log(err));
-  })
- */
