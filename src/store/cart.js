@@ -3,7 +3,6 @@ import { SET_CART } from './constants';
 
 // get cart (order with 'CART' status) and cart's line items
 const setCart = user => {
-  console.log('setCart', user);
   return dispatch => {
     return axios.post('/api/orders/cart', user)
     .then(res => res.data)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, keepLoggedIn, setCart } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, setCart } from '../store';
 
 import Nav from './Nav';
 import Products from './Products';
@@ -32,11 +32,10 @@ class Root extends Component {
   }
 
   render() {
-    const user = localStorage.getItem('user')
-    if(user) {
-      this.props.keepLoggedIn();
-    }
-
+    // const user = localStorage.getItem('user')
+    // if(user) {
+    //   this.props.keepLoggedIn();
+    // }
     return (
       <div>
         <Router>
@@ -69,7 +68,7 @@ const mapDispatchToProps = (dispatch) => {
     //fetchUsers: () => dispatch(fetchUsers()),
     fetchOrders: () => dispatch(fetchOrders()),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
-    keepLoggedIn: () => dispatch(keepLoggedIn()),
+    // keepLoggedIn: () => dispatch(keepLoggedIn()),
     setCart: user => dispatch(setCart(user))
   };
 };

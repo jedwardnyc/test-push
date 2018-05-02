@@ -7,6 +7,13 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+router.post('/cart', (req, res, next) => {
+  // console.log('post cart', req.body);
+  LineItem.addToLineItems(req.body)
+  .then(lineItems => res.send(lineItems))
+  .catch(next); // throw error
+});
+
 router.post('/', (req, res, next) => {
   LineItem.create(req.body)
   .then(lineItem => res.send(lineItem))
