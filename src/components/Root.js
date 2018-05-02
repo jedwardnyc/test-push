@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, keepLoggedIn } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, keepLoggedIn, setCart } from '../store';
 
 import Nav from './Nav';
 import Products from './Products';
@@ -12,6 +12,8 @@ import AdminCategories from './Admin/AdminCategories';
 import AdminProducts from './Admin/AdminProducts';
 import AdminEditProducts from './Admin/AdminEditProducts';
 import AdminUsers from './Admin/AdminUsers';
+import ForgotPW from './Auth/ForgotPW';
+import ResetPW from './Auth/ResetPW';
 
 class Root extends Component {
 
@@ -20,6 +22,13 @@ class Root extends Component {
     this.props.fetchProducts();
     this.props.fetchLineItems();
     this.props.fetchOrders();
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.props.getLoggedIn({ token: user })
+      .then(_user => {
+        this.props.setCart(_user);
+      });
+    }
   }
 
   render() {
@@ -37,12 +46,14 @@ class Root extends Component {
             <Route exact path='/' render={()=> <Redirect to='products' />} />
             <Route exact path='/products' component={Products} />
             <Route exact path='/products/:id' render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
-            <Route exact path='/cart' render={({ match, history }) => <Cart id={match.params.id * 1} history={history} />} />
 
             <Route exact path='/admin/categories' component={AdminCategories} />
             <Route exact path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
             <Route exact path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route exact path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
+            <Route exact path='/cart' render={({ match }) => <Cart id={match.params.id * 1} history={history} />} />
+            <Route exact path='/forgot' component={ForgotPW} />
+            <Route exact path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
           </div>
         </Router>
       </div>
@@ -58,7 +69,8 @@ const mapDispatchToProps = (dispatch) => {
     //fetchUsers: () => dispatch(fetchUsers()),
     fetchOrders: () => dispatch(fetchOrders()),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
-    keepLoggedIn: () => dispatch(keepLoggedIn())
+    keepLoggedIn: () => dispatch(keepLoggedIn()),
+    setCart: user => dispatch(setCart(user))
   };
 };
 

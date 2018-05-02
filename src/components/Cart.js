@@ -128,7 +128,6 @@ const mapStateToProps = ({ products, lineItems, orders }) => {
     }
   });
 
-  console.log(lineItemId)
   const filteredProducts = lineItemId.map(lineItem => {
     return lineItem.product_id;
   }).map(id => {

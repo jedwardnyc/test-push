@@ -9,6 +9,7 @@ const { products, categories, users, lineItems, orders } = require('./seed.js');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
+Order.hasMany(LineItem);
 LineItem.belongsTo(Product);
 Product.belongsTo(Category);
 // User.hasMany(Order);
@@ -60,4 +61,3 @@ module.exports = {
     User
   }
 };
-

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { createProduct } from '../../store/products';
-import { uploadImg } from '../../store/uploads';
 
 class AdminProducts extends React.Component {
   constructor(props) {

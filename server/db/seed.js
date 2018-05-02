@@ -36,8 +36,8 @@ const categories = {
   g5: { name: 'Laundering' }
 };
 
-const hashedAdminPW = bcrypt.hashSync('admin', 8)
-const hashedUserPW = bcrypt.hashSync('test', 8)
+const hashedAdminPW = bcrypt.hashSync('admin', 8);
+const hashedUserPW = bcrypt.hashSync('test', 8);
 
 const users = {
   g1: { firstname: 'Admin', lastname: 'Test', email: 'admin@test.com', password: hashedAdminPW, isAdmin: true },
@@ -45,9 +45,9 @@ const users = {
 }
 
 const orders = {
-  g1: { status: 'ordered' },
-  g2: { status: 'ordered' },
-  g3: { status: 'pending' },
+  g1: { status: 'ORDERED' },
+  g2: { status: 'ORDERED' },
+  g3: { status: 'CART' },
 }
 
 const lineItems = {

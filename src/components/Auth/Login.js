@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { login, signUp } from '../../store';
 
 class Login extends Component {
@@ -8,29 +9,54 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      passwordStrength: 'Weak',
       firstname: '',
       lastname: '',
+      err: {},
       signup: false
-    }
+    };
     this.submit = this.submit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.validatePassword = this.validatePassword.bind(this);
   }
 
   onChange(ev) {
-    this.setState({ [ev.target.name]: ev.target.value })
+    if (ev.target.name === 'password'){
+      this.setState({ password: ev.target.value });
+      this.validatePassword(ev.target.value);
+    }
+    this.setState({ [ev.target.name]: ev.target.value });
+  }
+
+  validatePassword(password) {
+    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
+    const mediumRegex = new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})');
+
+    if (password.length < 6) {
+      this.setState({ err: { password: 'password is too short' } })
+    }
+    return (
+      this.setState({ passwordStrength:
+        strongRegex.test(password) ?
+        'Strong'
+        : mediumRegex.test(password) ?
+        'Medium'
+        : 'Weak'
+      })
+    );
   }
 
   submit(ev) {
     const { email, password, firstname, lastname, signup } = this.state;
     ev.preventDefault();
-    signup ? this.props.signUp({ firstname, lastname, password, email }) : this.props.login({ email, password })
+    signup ? this.props.signUp({ firstname, lastname, password, email }) : this.props.login({ email, password });
   }
 
   render() {
-    const { email, password, firstname, lastname, signup } = this.state;
-  
+    const { email, password, firstname, lastname, signup, passwordStrength } = this.state;
+
     return (
-      <div className='row'>
+      <div id='login' className='row'>
         <div className='col-sm-4'></div>
         <div className='text-center bg-light border col-sm-4 p-3 mr-5 mt-5'>
           <img className='mb-4' src='/public/images/lightbulb.jpeg' width='72' height='72' />
@@ -39,11 +65,11 @@ class Login extends Component {
             :
             <h1 className='h3 mb-3 font-weight-normal'>Please login in</h1>
           }
-          
+
           <div>
             <form onSubmit={this.submit} className='signin-container'>
             {
-              signup ? 
+              signup ?
               <div>
                 <div className='input-group mb-3'>
                   <input
@@ -86,15 +112,29 @@ class Login extends Component {
                     required
                     name='password'
                   />
+                  {
+                    signup ?
+                    <div
+                      className={`password badge badge-${ passwordStrength === 'Weak' ? 'danger'
+                        : passwordStrength === 'Medium' ? 'warning'
+                        : 'success'}`}>
+                      {passwordStrength}
+                    </div>
+                    : null
+                  }
                 </div>
               </div>
               <button
-                disabled={!email && !password}
+                disabled={!email && !password && passwordStrength === 'Weak'}
                 className='btn col-sm-4 btn-primary mb-5'>
                 { signup ? 'Sign up' : 'Log in' }
-            </button>
-
+              </button>
             </form>
+            {
+              signup ? null :
+              <Link to='/forgot'> Forgot Password? </Link>
+            }
+            <hr />
             {
               signup ? 
               <div>
@@ -127,7 +167,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
   return {
     login: credentials => dispatch(login(credentials, history)),
     signUp: credentials => dispatch(signUp(credentials, history))
-  }
+  };
 };
 
 export default connect(null, mapDispatchToProps)(Login);
