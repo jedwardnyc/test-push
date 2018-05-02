@@ -1,23 +1,23 @@
 import axios from 'axios';
 import { GET_USERS, CREATE_USER, UPDATE_USER, DELETE_USER} from './constants';
 
-export const fetchUsers = () => {
-  return (dispatch) => {
-    return axios.get('/api/users')
-    .then(res => res.data)
-    .then(users => dispatch({ type: GET_USERS, users }))
-    .catch(err => console.log(err));
-  };
-};
+// export const fetchUsers = () => {
+//   return (dispatch) => {
+//     return axios.get('/api/users')
+//     .then(res => res.data)
+//     .then(users => dispatch({ type: GET_USERS, users }))
+//     .catch(err => console.log(err));
+//   };
+// };
 
-export const createUser = (user) => {
-  return (dispatch) => {
-    return axios.post('/api/users', user)
-    .then(res => res.data)
-    .then(user => dispatch({ type: CREATE_USER, user }))
-    .catch(err => console.log(err));
-  };
-};
+// export const createUser = (user) => {
+//   return (dispatch) => {
+//     return axios.post('/api/users', user)
+//     .then(res => res.data)
+//     .then(user => dispatch({ type: CREATE_USER, user }))
+//     .catch(err => console.log(err));
+//   };
+// };
 
 export const updateUser = (user) => {
   return (dispatch) => {

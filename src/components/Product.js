@@ -63,8 +63,24 @@ class Product extends React.Component {
               </div>
             </div>
           </div>
-          <div className="mt-4 mb-4"><div className="h5">Description:</div> {product.description}</div>
-          <div className="h4 mt-4 mb-4 text-danger">{!product.availability ? 'Currently Unavailable' : ''}</div>
+          <div className='rounded mr-1 row'>
+            <h5 className='mr-1'>Quantity: </h5>
+            <select className='form-control col-sm-1 p-2 mr-2' name='quantity' onChange={ onChange }>
+              {
+                quantityOptions.map(option => {
+                  return (
+                    option
+                  );
+                })
+              }
+            </select>
+            <button className='btn btn-primary p-2 mr-2' disabled={!product.availability} onClick={ onSave }>Add to Cart</button>
+          </div>
+          <div>
+            <h4 className='mt-2 text-danger'>{!product.availability ? 'Currently Unavailable' : ''}</h4>
+          </div>
+          <br />
+          <h5 className='border-top p-2 mr-1'>Description: {product.description}</h5>
         </div>
       </div>
     );

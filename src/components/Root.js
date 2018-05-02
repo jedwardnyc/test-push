@@ -14,6 +14,7 @@ import AdminEditProducts from './Admin/AdminEditProducts';
 import AdminUsers from './Admin/AdminUsers';
 import ForgotPW from './Auth/ForgotPW';
 import ResetPW from './Auth/ResetPW';
+import User from './User';
 
 class Root extends Component {
 
@@ -26,16 +27,21 @@ class Root extends Component {
     if (user) {
       this.props.getLoggedIn({ token: user })
       .then(_user => {
+        if(_user.isAdmin){
+          this.props.fetchUsers();
+        }
         this.props.setCart(_user);
       });
     }
   }
 
   render() {
-    // const user = localStorage.getItem('user')
-    // if(user) {
-    //   this.props.keepLoggedIn();
-    // }
+
+    const user = localStorage.getItem('user')
+    if(user) {
+      this.props.getLoggedIn({ user });
+    }
+
     return (
       <div>
         <Router>
@@ -45,7 +51,7 @@ class Root extends Component {
             <Route exact path='/' render={()=> <Redirect to='products' />} />
             <Route exact path='/products' component={Products} />
             <Route exact path='/products/:id' render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
-
+            <Route exact path='/users/:id' render={({ match }) => <Users id={match.params.id * 1} />} />
             <Route exact path='/admin/categories' component={AdminCategories} />
             <Route exact path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
             <Route exact path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
@@ -65,10 +71,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchLineItems: () => dispatch(fetchLineItems()),
     fetchCategories: () => dispatch(fetchCategories()),
     fetchProducts: () => dispatch(fetchProducts()),
-    //fetchUsers: () => dispatch(fetchUsers()),
+    fetchUsers: () => dispatch(fetchUsers()),
     fetchOrders: () => dispatch(fetchOrders()),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
-    // keepLoggedIn: () => dispatch(keepLoggedIn()),
     setCart: user => dispatch(setCart(user))
   };
 };
