@@ -10,15 +10,37 @@ export const fetchLineItems = () => {
   };
 };
 
+export const addLineItemToCart = (lineItem, history) => {
+  return dispatch => {
+    return axios.post('/api/lineitems/cart', lineItem)
+    .then(res => res.data)
+    .then(lineItems => {
+      dispatch({
+        type: GET_LINE_ITEMS,
+        lineItems
+      });
+    })
+    .then(() => {
+      // this doesn't work
+      // history.push('/cart');
+    })
+    .catch(err => console.log(err));
+  };
+};
+
 export const createLineItem = (lineItem, history) => {
   return (dispatch) => {
     return axios.post('/api/lineitems', lineItem)
       .then(res => res.data)
-      .then(lineItem => dispatch({ type: CREATE_LINE_ITEM, lineItem }))
-      .then(() => {
-        history.push('/cart')
+      .then(lineItem => {
+        dispatch({ type: CREATE_LINE_ITEM, lineItem });
       })
-      .catch(err => console.log(err))
+      .then(result => {
+        if (result.lineItem.product_id) {
+          history.push('/cart');
+        }
+      })
+      .catch(err => console.log(err));
   };
 };
 
@@ -44,13 +66,10 @@ const lineItemReducer = ( state = [], action ) => {
     case GET_LINE_ITEMS:
       return action.lineItems;
     case CREATE_LINE_ITEM:
-      window.location.assign('http://localhost:3000/#/cart');
       return [...state, action.lineItem];
     case UPDATE_LINE_ITEM:
       return state.map(lineItem => lineItem.id === action.lineItem.id ? action.lineItem : lineItem);
-      case UPDATE_VIRTUAL_LINE_ITEM:
-      return state.map(lineItem => lineItem.productId === action.lineItem.productId ? action.lineItem : lineItem);
-    case DELETE_LINE_ITEM:
+     case DELETE_LINE_ITEM:
       return state.filter(lineItem => lineItem.id !== action.lineItem.id);
     default:
       return state;

@@ -36,6 +36,7 @@ class Root extends Component {
   }
 
   render() {
+
     const user = localStorage.getItem('user')
     if(user) {
       this.props.getLoggedIn({ user });
