@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createLineItem, keepLoggedIn } from '../store';
+import { addLineItemToCart, createLineItem, keepLoggedIn } from '../store';
 
 class Product extends React.Component {
   constructor(props) {
@@ -15,9 +15,8 @@ class Product extends React.Component {
   }
 
   onSave(ev) {
-    ev.preventDefault();
-    const lineitem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
-    this.props.createLineItem(lineitem);
+    const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
+    this.props.addLineItemToCart(lineItem);
   }
 
   // not doing anything -bv
@@ -32,15 +31,37 @@ class Product extends React.Component {
       return null;
     }
     return (
-      <div className='container border rounded mt-5 ml-5 bg-light col-sm-10 row'>
-        <div className='col-sm-6'>
-          <img className='mr-auto p-3' src={product.imgUrl} width='500' height='400' />
+      <div className="container border rounded mt-5 ml-5 bg-lightr row">
+        <div className="col-sm">
+          <img className="img-fluid mt-4 mb-4" src={product.imgUrl} />
         </div>
-        <div className='col-sm-6'>
-          <h3 className='text-center p-3'>{product.name}</h3>
-          <br />
-          <div className='rounded mr-1 row'>
-            <h5 className='mr-1'>Price: ${product.price}</h5>
+        <div className="col-sm">
+          <h3 className="text-left pt-3 pb-3">{product.name}</h3>
+          <h5 className="mt-3 mb-3">Price: ${product.price}</h5>
+          <div className="card">
+            <div className="card-body rounded">
+              <div className="row">
+                <div className="col sm-12 med-6">
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <label className="input-group-text" htmlFor="inputQuantity">Quantity</label>
+                    </div>
+                    <select className="custom-select p-2 mr-2" id="inputQuantity" name="quantity" onChange={ onChange }>
+                      {
+                        quantityOptions.map(option => {
+                          return (
+                            option
+                          );
+                        })
+                      }
+                    </select>
+                  </div>
+                </div>
+                <div className="col sm-12 med-6">
+                  <button className="btn btn-primary float-right" onClick={ onSave }>Add to Cart</button>
+                </div>
+              </div>
+            </div>
           </div>
           <div className='rounded mr-1 row'>
             <h5 className='mr-1'>Quantity: </h5>
@@ -81,7 +102,8 @@ const mapStateToProps = ({ products, cart }, { id }) => {
 const mapDispatchToProps = dispatch => {
   return {
     createLineItem: (lineitem) => dispatch(createLineItem(lineitem, history)),
-    keepLoggedIn: () => dispatch(keepLoggedIn())
+    keepLoggedIn: () => dispatch(keepLoggedIn()),
+    addLineItemToCart: lineItem => dispatch(addLineItemToCart(lineItem, history))
   };
 };
 
