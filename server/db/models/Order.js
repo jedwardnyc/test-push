@@ -9,11 +9,10 @@ const Order = conn.define('orders', {
     defaultValue: 'CART'
   },
   dateCreated: Sequelize.DATE,
-  dateOrdered: Sequelize.DATE
+  dateOrdered: Sequelize.DATE,
 });
 
 Order.getCartForUser = function(user) {
-  console.log('getCartForUser')
   const attr = {
     user_id: user.id,
     status: 'CART'

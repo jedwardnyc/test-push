@@ -42,8 +42,18 @@ const Nav = (props) => {
           </ul>
         }
         {/* <NavLink activeClassName='active' className='nav-link' to={ user ? '/cart' : '/login' }> */}
-        <NavLink activeClassName="active" className="nav-link" to="/cart">
-          <button className="btn btn-outline-light my-2 my-lg-0">Cart (0)</button>
+        <div className='dropdown'>
+          <NavLink className='btn btn-outline-light dropdown-toggle' to='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Admin</NavLink>
+          <div className='dropdown-menu' aria-labelledby='dropdownMenuLink'>
+            <NavLink className='dropdown-item' to='/admin/categories'>Categories</NavLink>
+            <NavLink className='dropdown-item' to='/admin/products'>Products</NavLink>
+            <div className='dropdown-divider'></div>
+            <NavLink className='dropdown-item' to='/admin/users'>Users</NavLink>
+          </div>
+        </div>
+        <NavLink activeClassName='active' className='nav-link' to='/cart'>
+          <button className='btn btn-outline-light my-2 my-lg-0'>Cart (0)</button>
         </NavLink>
       </div>
     </nav>
@@ -60,6 +70,6 @@ const mapDispatch = (dispatch) => {
   return {
     logout: () => dispatch(logout())
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatch)(Nav);

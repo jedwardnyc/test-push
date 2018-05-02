@@ -5,9 +5,7 @@ import { createLineItem, keepLoggedIn } from '../store';
 class Product extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quantity: 1
-    };
+    this.state = { quantity: 1 };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
@@ -34,39 +32,34 @@ class Product extends React.Component {
       return null;
     }
     return (
-      <div className="container border rounded mt-5 ml-5 bg-lightr row">
-        <div className="col-sm">
-          <img className="img-fluid mt-4 mb-4" src={product.imgUrl} />
+      <div className='container border rounded mt-5 ml-5 bg-light col-sm-10 row'>
+        <div className='col-sm-6'>
+          <img className='mr-auto p-3' src={product.imgUrl} width='500' height='400' />
         </div>
-        <div className="col-sm">
-          <h3 className="text-left pt-3 pb-3">{product.name}</h3>
-          <h5 className="mt-3 mb-3">Price: ${product.price}</h5>
-          <div className="card">
-            <div className="card-body rounded">
-              <div className="row">
-                <div className="col sm-12 med-6">
-                  <div className="input-group">
-                    <div className="input-group-prepend">
-                      <label className="input-group-text" htmlFor="inputQuantity">Quantity</label>
-                    </div>
-                    <select className="custom-select p-2 mr-2" id="inputQuantity" name="quantity" onChange={ onChange }>
-                      {
-                        quantityOptions.map(option => {
-                          return (
-                            option
-                          );
-                        })
-                      }
-                    </select>
-                  </div>
-                </div>
-                <div className="col sm-12 med-6">
-                  <button className="btn btn-primary float-right" onClick={ onSave }>Add to Cart</button>
-                </div>
-              </div>
-            </div>
+        <div className='col-sm-6'>
+          <h3 className='text-center p-3'>{product.name}</h3>
+          <br />
+          <div className='rounded mr-1 row'>
+            <h5 className='mr-1'>Price: ${product.price}</h5>
           </div>
-          <div className="mt-4 mb-4 "><div className="h5">Description:</div> {product.description}</div>
+          <div className='rounded mr-1 row'>
+            <h5 className='mr-1'>Quantity: </h5>
+            <select className='form-control col-sm-1 p-2 mr-2' name='quantity' onChange={ onChange }>
+              {
+                options.map(option => {
+                  return (
+                    option
+                  );
+                })
+              }
+            </select>
+            <button className='btn btn-primary p-2 mr-2' disabled={!product.availability} onClick={ onSave }>Add to Cart</button>
+          </div>
+          <div>
+            <h4 className='mt-2 text-danger'>{!product.availability ? 'Currently Unavailable' : ''}</h4>
+          </div>
+          <br />
+          <h5 className='border-top p-2 mr-1'>Description: {product.description}</h5>
         </div>
       </div>
     );

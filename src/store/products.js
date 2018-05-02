@@ -19,18 +19,19 @@ export const createProduct = (product) => {
   };
 };
 
-export const updateProduct = (product) => {
+export const updateProduct = (product, history) => {
   return (dispatch) => {
-    return axios.put(`/api/products${product.id}`, product)
+    return axios.put(`/api/products/${product.id}`, product)
     .then(res => res.data)
     .then(product => dispatch({ type: UPDATE_PRODUCT, product }))
+    .then(() => history.push('/admin/products'))
     .catch(err => console.log(err))
   };
 };
 
 export const deleteProduct = (product) => {
   return (dispatch) => {
-    return axios.delete(`/api/products${product.id}`)
+    return axios.delete(`/api/products/${product.id}`)
     .then(() => dispatch({ type: DELETE_PRODUCT, product }))
     .catch(err => console.log(err))
   };

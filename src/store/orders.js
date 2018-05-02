@@ -21,7 +21,7 @@ export const createOrder = (order) => {
 
 export const updateOrder = (order) => {
   return (dispatch) => {
-    return axios.put(`/api/orders${order.id}`, order)
+    return axios.put(`/api/orders/${order.id}`, order)
     .then(res => res.data)
     .then(order => dispatch({ type: UPDATE_ORDER, order }))
     .catch(err => console.log(err));
@@ -30,7 +30,7 @@ export const updateOrder = (order) => {
 
 export const deleteOrder = (order) => {
   return (dispatch) => {
-    return axios.delete(`/api/orders${order.id}`)
+    return axios.delete(`/api/orders/${order.id}`)
     .then(() => dispatch({ type: DELETE_ORDER, order }))
     .catch(err => console.log(err));
   };

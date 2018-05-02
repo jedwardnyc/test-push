@@ -21,7 +21,7 @@ export const createUser = (user) => {
 
 export const updateUser = (user) => {
   return (dispatch) => {
-    return axios.put(`/api/users${user.id}`, user)
+    return axios.put(`/api/users/${user.id}`, user)
     .then(res => res.data)
     .then(user => dispatch({ type: UPDATE_USER, user }))
     .catch(err => console.log(err));
@@ -30,7 +30,7 @@ export const updateUser = (user) => {
 
 export const deleteUser = (user) => {
   return (dispatch) => {
-    return axios.delete(`/api/users${user.id}`)
+    return axios.delete(`/api/users/${user.id}`)
     .then(() => dispatch({ type: DELETE_USER, user }))
     .catch(err => console.log(err));
   };

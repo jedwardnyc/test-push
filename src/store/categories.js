@@ -21,7 +21,7 @@ export const createCategory = (category) => {
 
 export const updateCategory = (category) => {
   return (dispatch) => {
-    return axios.put(`/api/categories${category.id}`, category)
+    return axios.put(`/api/categories/${category.id}`, category)
     .then(res => res.data)
     .then(category => dispatch({ type: UPDATE_CATEGORY, category }))
     .catch(err => console.log(err));
@@ -30,7 +30,7 @@ export const updateCategory = (category) => {
 
 export const deleteCategory = (category) => {
   return (dispatch) => {
-    return axios.delete(`/api/categories${category.id}`)
+    return axios.delete(`/api/categories/${category.id}`)
     .then(() => dispatch({ type: DELETE_CATEGORY, category }))
     .catch(err => console.log(err));
   };
