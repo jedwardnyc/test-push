@@ -46,7 +46,7 @@ class Product extends React.Component {
             <h5 className='mr-1'>Quantity: </h5>
             <select className='form-control col-sm-1 p-2 mr-2' name='quantity' onChange={ onChange }>
               {
-                options.map(option => {
+                quantityOptions.map(option => {
                   return (
                     option
                   );
