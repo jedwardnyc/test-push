@@ -1,6 +1,6 @@
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
-import { AUTHENTICATED, UNAUTHENTICATED, GET_LOGGED_IN } from './constants';
+import { AUTHENTICATED, UNAUTHENTICATED, GET_USERS } from './constants';
 
 export const login = ({ email, password }, history ) => {
   return (dispatch) => {
@@ -35,7 +35,7 @@ export const logout = () => {
   return (dispatch) => {
     localStorage.clear();
     dispatch({ type: UNAUTHENTICATED });
-  };
+  }
 };
 
 export const getLoggedIn = (token) => {
@@ -45,7 +45,8 @@ export const getLoggedIn = (token) => {
     .then(user => {
       dispatch({ type: AUTHENTICATED, user });
       return user;
-    });
+    })
+    .catch(err => console.log(err))
   };
 };
 
@@ -64,12 +65,27 @@ export const reset = ({ password, token }) => {
   }
 }
 
+export const fetchUsers = () => {
+  console.log('fetched')
+  return (dispatch) => {
+    return axios.get('/api/users')
+    .then(res => res.data)
+    .then(users => {
+      console.log(users)
+      dispatch({ type: GET_USERS, users })
+    })
+    .catch(err => console.log(err))
+  }
+}
+
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {
     case AUTHENTICATED:
-      return Object.assign({}, state, { user: action.user });
+      return Object.assign({}, state, { user: action.user }, { users: [action.user] });
     case UNAUTHENTICATED:
-      return Object.assign({}, state, { user: {} });
+      return Object.assign({}, state, { user: {} }, { users: [] });
+    case GET_USERS: 
+      return Object.assign({}, state, { users: action.users })
     default:
       return state;
   }
