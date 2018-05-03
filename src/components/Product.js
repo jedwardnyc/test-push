@@ -16,7 +16,11 @@ class Product extends React.Component {
 
   onSave(ev) {
     const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
-    this.props.addLineItemToCart(lineItem);
+    this.props.addLineItemToCart(lineItem)
+    .then(lineItems => {
+      // console.log('ONSAVE', lineItems) // undefined
+      this.props.history.push('/cart')
+    });
   }
 
   // not doing anything -bv
@@ -58,29 +62,13 @@ class Product extends React.Component {
                   </div>
                 </div>
                 <div className="col sm-12 med-6">
-                  <button className="btn btn-primary float-right" onClick={ onSave }>Add to Cart</button>
+                  <button className="btn btn-primary float-right" disabled={!product.availability} onClick={ onSave }>Add to Cart</button>
                 </div>
               </div>
             </div>
           </div>
-          <div className='rounded mr-1 row'>
-            <h5 className='mr-1'>Quantity: </h5>
-            <select className='form-control col-sm-1 p-2 mr-2' name='quantity' onChange={ onChange }>
-              {
-                quantityOptions.map(option => {
-                  return (
-                    option
-                  );
-                })
-              }
-            </select>
-            <button className='btn btn-primary p-2 mr-2' disabled={!product.availability} onClick={ onSave }>Add to Cart</button>
-          </div>
-          <div>
-            <h4 className='mt-2 text-danger'>{!product.availability ? 'Currently Unavailable' : ''}</h4>
-          </div>
-          <br />
-          <h5 className='border-top p-2 mr-1'>Description: {product.description}</h5>
+          <div className="mt-4 mb-4"><div className="h5">Description:</div> {product.description}</div>
+          <div className="h4 mt-4 mb-4 text-danger">{!product.availability ? 'Currently Unavailable' : ''}</div>
         </div>
       </div>
     );
@@ -88,6 +76,7 @@ class Product extends React.Component {
 }
 
 const mapStateToProps = ({ products, cart }, { id }) => {
+  console.log('Product plural', products)
   const quantityOptions = [];
   for (let i = 1; i <= 20; i++) {
     quantityOptions.push(<option value={i} key={i}>{i}</option>);
