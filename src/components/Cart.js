@@ -123,7 +123,7 @@ class Cart extends React.Component {
 const mapStateToProps = ({ products, lineItems, orders }) => {
 
   const lineItemId = lineItems.filter(lineItem => {
-    if (orders.find(order => order.status === 'pending').id === lineItem.order_id) {
+    if (orders.find(order => order.status === 'CART').id === lineItem.order_id) {
       return lineItem.product_id;
     }
   });

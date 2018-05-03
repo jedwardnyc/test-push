@@ -13,13 +13,20 @@ class ResetPW extends Component {
       show: false
     }
     this.submit = this.submit.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset ({ password, token }) {
+    const hashedPassword = bcrypt.hashSync( password , 8);
+    return axios.post(`/auth/local/reset/${token}`, { password: hashedPassword })
+    .catch(err => console.log(err))
   }
 
   submit(ev) {
     const { password } = this.state;
     const { token } = this.props;
     ev.preventDefault(); 
-    this.props.reset({ password, token });
+    this.reset({ password, token });
     this.setState({ success: true })
   }
 
@@ -88,10 +95,4 @@ const mapState = ({}, { token }) => {
   }
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    reset: credentials => dispatch(reset(credentials))
-  }
-};
-
-export default connect(mapState, mapDispatch)(ResetPW);
+export default connect(mapState)(ResetPW);

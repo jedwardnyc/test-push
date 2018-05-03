@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY} from './constants';
+import { GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY, GET_PRODUCTS} from './constants';
 
 export const fetchCategories = () => {
   return (dispatch) => {
@@ -45,7 +45,7 @@ const categoryReducer = ( state = [], action ) => {
     case UPDATE_CATEGORY:
       return state.map(category => category.id === action.category.id ? action.category : category);
     case DELETE_CATEGORY:
-      return state.filter(category => category.id !== action.category.id)
+      return state.filter(category => category.id !== action.category.id);
     default:
       return state;
   }

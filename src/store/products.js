@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PRODUCTS, CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT} from './constants';
+import { GET_PRODUCTS, CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT, DELETE_CATEGORY} from './constants';
 
 export const fetchProducts = () => {
   return (dispatch) => {
@@ -46,7 +46,7 @@ const productReducer = ( state = [], action ) => {
     case UPDATE_PRODUCT:
       return state.map(product => product.id === action.product.id ? action.product : product);
     case DELETE_PRODUCT:
-      return state.filter(product => product.id !== action.product.id)
+      return state.filter(product => product.id !== action.product.id);
     default:
       return state;
   };

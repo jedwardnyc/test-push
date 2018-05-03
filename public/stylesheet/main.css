@@ -31,3 +31,32 @@
 nav .spacer {
   margin-left: 10px;
 }
+
+.list-margin {
+  margin-top: 20px;
+}
+
+.list-item {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin-bottom: 10px;
+}
+
+.list-name {
+  align-self: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.list-btns {
+  display: inline-grid;
+  grid-column: 2;
+  grid-template-columns: auto;
+  grid-row: 1;
+  grid-column-gap: 10px;
+}
+
+.grid-btn {
+  grid-row: 1;
+  justify-self: center;
+}

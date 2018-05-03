@@ -1,55 +1,52 @@
 import React from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
+import { deleteUser, updateUser } from '../../store';
 
 class AdminUsers extends React.Component {
   constructor(props) {
     super(props)
-    this.state = this.usersState(this.props);
-    this.onChange = this.onChange.bind(this);
-    this.onSave = this.onSave.bind(this);
+    this.forgot = this.forgot.bind(this);
   }
 
-  usersState(props) {
-    return {
-      id: this.props ? this.props.id : '',
-      firstname: this.props ? this.props.firstname : '',
-      lastname: this.props ? this.props.lastname : '',
-      email: this.props ? this.props.email : '',
-      password: this.props ? this.props.password : '',
-      isAdmin: this.props ? this.props.isAdmin : ''
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.usersState(nextProps))
-  }
-
-  onChange(ev) {
-    this.setState({ [ev.target.name]: ev.target.value });
-  }
-
-  onSave(ev) {
-    ev.preventDefault();
-
+  forgot(email) {
+    return axios.post('/auth/local/adminReset', email)
+    .catch(err => console.log(err))
   }
 
   render() {
     const { users } = this.props;
     return (
       <div className='container'>
-        <ul>
-          { users.map(user => {
-              return (
-                <li>
-                {user.fullname}
-                </li>
-              )
-            })
-          } 
-        </ul>
-        <div>
-          <h4>delete a user</h4>
+        <div className='border-bottom p-2 mr-auto'>
+            <h4>Users</h4>
         </div>
+        <ul className='list-group list-margin'>
+        {
+            users && users.map(user => {
+              return (
+                user &&
+                <div className='list-item' key={user.id}>
+                  <div className='list-name'>{user.fullname}</div>
+                    <div className='list-btns'>
+                      <button 
+                        onClick={() => this.forgot({ email: user.email }) }
+                        className='btn btn-sm btn-secondary grid-btn'>
+                          Reset Password
+                      </button>
+                      <button 
+                        className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } grid-btn`}> 
+                          { user.isAdmin ? 'Remove Admin' : 'Make Admin' } 
+                      </button>
+                      <button onClick={() => this.props.deleteUser(user)} type='button' className='close grid-btn'>
+                      <span>&times;</span>
+                      </button>
+                    </div>
+                </div>
+              );
+            })
+          }
+        </ul>
       </div>
     );
   }
@@ -63,7 +60,8 @@ const mapStateToProps = ({ users }) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-
+    deleteUser: (user) => dispatch(deleteUser(user)),
+    updateUser: (user) => dispatch(updateUser(user))
   }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createCategory, deleteCategory } from '../../store/categories'
-import { updateProduct } from '../../store/products';
+import { createCategory, deleteCategory, updateProduct } from '../../store';
 
 class AdminCategories extends React.Component {
   constructor(props) {
