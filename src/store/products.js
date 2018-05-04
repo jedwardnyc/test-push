@@ -5,8 +5,10 @@ export const fetchProducts = () => {
   return (dispatch) => {
     return axios.get('/api/products')
     .then(res => res.data)
-    .then(products => dispatch({ type: GET_PRODUCTS, products }))
-    .catch(err => console.log(err))
+    .then(products => {
+      dispatch({ type: GET_PRODUCTS, products });
+    })
+    .catch(err => console.log(err));
   };
 };
 
@@ -15,7 +17,7 @@ export const createProduct = (product) => {
     return axios.post('/api/products', product)
     .then(res => res.data)
     .then(product => dispatch({ type: CREATE_PRODUCT, product }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -25,7 +27,7 @@ export const updateProduct = (product, history) => {
     .then(res => res.data)
     .then(product => dispatch({ type: UPDATE_PRODUCT, product }))
     .then(() => history.push('/admin/products'))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
@@ -33,12 +35,12 @@ export const deleteProduct = (product) => {
   return (dispatch) => {
     return axios.delete(`/api/products/${product.id}`)
     .then(() => dispatch({ type: DELETE_PRODUCT, product }))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 };
 
 const productReducer = ( state = [], action ) => {
-  switch(action.type) {
+  switch (action.type) {
     case GET_PRODUCTS:
       return action.products;
     case CREATE_PRODUCT:
@@ -49,7 +51,7 @@ const productReducer = ( state = [], action ) => {
       return state.filter(product => product.id !== action.product.id);
     default:
       return state;
-  };
+  }
 };
 
 export default productReducer;

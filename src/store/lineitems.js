@@ -20,9 +20,10 @@ export const addLineItemToCart = (lineItem, history) => {
         lineItems
       });
     })
-    .then(() => {
+    .then(lineItems => {
       // this doesn't work
       // history.push('/cart');
+      return lineItems;
     })
     .catch(err => console.log(err));
   };
