@@ -6,7 +6,6 @@ export const fetchProducts = () => {
     return axios.get('/api/products')
     .then(res => res.data)
     .then(products => {
-      console.log('fetchProducts', products)
       dispatch({ type: GET_PRODUCTS, products });
     })
     .catch(err => console.log(err));
@@ -43,7 +42,6 @@ export const deleteProduct = (product) => {
 const productReducer = ( state = [], action ) => {
   switch (action.type) {
     case GET_PRODUCTS:
-      console.log('productReducer GET_PRODUCTS', action.products);
       return action.products;
     case CREATE_PRODUCT:
       return [...state, action.product];

@@ -17,7 +17,7 @@ class Product extends React.Component {
   onSave(ev) {
     const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
     this.props.addLineItemToCart(lineItem)
-    .then(lineItems => {
+    .then(() => {
       // console.log('ONSAVE', lineItems) // undefined
       this.props.history.push('/cart')
     });
@@ -76,7 +76,6 @@ class Product extends React.Component {
 }
 
 const mapStateToProps = ({ products, cart }, { id }) => {
-  console.log('Product plural', products)
   const quantityOptions = [];
   for (let i = 1; i <= 20; i++) {
     quantityOptions.push(<option value={i} key={i}>{i}</option>);
@@ -88,7 +87,7 @@ const mapStateToProps = ({ products, cart }, { id }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, { history}) => {
   return {
     createLineItem: (lineitem) => dispatch(createLineItem(lineitem, history)),
     keepLoggedIn: () => dispatch(keepLoggedIn()),

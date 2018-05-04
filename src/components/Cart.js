@@ -53,7 +53,7 @@ class Cart extends React.Component {
 
   render() {
     // const { products, lineItems, filteredProducts, subTotal, totalLineItems, orders } = this.props;
-    const { quantityOptions } = this.props;
+    const { quantityOptions, userCartItems, productMap } = this.props;
     const { onSaveQuantity } = this;
 
     return (
@@ -65,14 +65,20 @@ class Cart extends React.Component {
               <h6 className="pl-5 mb-0">Quantity</h6>
             </div>
           </h3>
-                <div className="my-3 p-3 bg-light rounded box-shadow" key="">
+
+          {
+            userCartItems && userCartItems.map(item => {
+                // console.log('cart item', item, item.id, item.product_id);
+                const product = productMap[item.product_id];
+                return (
+                <div className="my-3 p-3 bg-light rounded box-shadow" key={ product.id }>
                   <div className="media pt-1">
-                    <img src="product.imgUrl" className="mr-2 rounded" width="100" height="100" />
+                    <img src={ product.imgUrl } className="mr-2 rounded" width="100" height="100" />
                     <div className="row">
-                      <h5 className="ml-4 p-1">product.name</h5>
+                      <h5 className="ml-4 p-1">{ product.name }</h5>
 
                       <div className="row">
-                        <h6 className="pl-5 mb-0">$product.price</h6>
+                        <h6 className="pl-5 mb-0">${ product.price }</h6>
                         <div className="pl-2">
                         <select name="lineItem.id" className="form-control p-2 mr-2" onChange={ onSaveQuantity }>
                         <option>quantity</option>
@@ -90,6 +96,10 @@ class Cart extends React.Component {
                     </div>
                   </div>
                 </div>
+                );
+              })
+            }
+
         </div>
         <div className="col-sm-3 ml-2 text-center">
           <div className="bg-light rounded box-shadow">
@@ -172,14 +182,15 @@ const mapStateToProps = ({ cart, lineItems, products }) => { // products, lineIt
     // not checking orders b/c cart always status = 'CART'
     return item.order_id == cart.id && item;
   });
-  console.log('userCartItems', userCartItems)
+  // console.log('userCartItems', userCartItems)
 
-  const productMap = products.map((product) => {
-    const id = product.id;
-    console.log('prod map', product, id)
-    return Object.assign({}, { id, product });
-  });
-  console.log('prod map', productMap);
+  const productMap = products.reduce((memo, product) => {
+    // const id = product.id;
+    memo[product.id] = product;
+    return memo;
+    // return Object.assign({}, { id: product });
+  }, {});
+  // console.log('prod map', productMap);
 
   // const filteredProducts = lineItemId.map(lineItem => {
   //   return lineItem.product_id;
@@ -201,7 +212,8 @@ const mapStateToProps = ({ cart, lineItems, products }) => { // products, lineIt
 
   return {
     quantityOptions,
-    userCartItems
+    userCartItems,
+    productMap
     // filteredProducts,
     // subTotal,
     // totalLineItems,
