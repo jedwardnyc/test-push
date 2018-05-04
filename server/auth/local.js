@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cyrpto = require('crypto');
 const { secret } = require('./config');
-const { sendReset, sendConfirmation, sendWelcome } = require('./autoEmail');
+const { sendReset, sendAdmin, sendConfirmation, sendWelcome } = require('./autoEmail');
 
 router.post('/register', (req, res) => {
   User.create(req.body)
@@ -31,6 +31,7 @@ router.post('/login', (req, res) => {
       const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
       if (!passwordIsValid) return res.status(401).send({ token: null });
       const token = jwt.sign({ id: user.id }, secret, {expiresIn: 86400 });
+      console.log(token)
       res.status(200).send({ token });
     })
     .catch(err => res.status(404).send({ message: 'That user does not exist!' }));
@@ -44,6 +45,19 @@ router.post('/forgot', (req, res) => {
       user.update({ resetPasswordToken: token, resetPasswordExpire: Date.now() + 3600000});
       res.send(user)
       sendReset(user, token)
+    })
+  })
+  .catch(err => res.status(404).send({ message: 'That user does not exist!' }));
+});
+
+router.post('/adminReset', (req, res) => {
+  User.findOne({ where: { email: req.body.email },  attributes: { exclude: ['password'] }  })
+  .then(user => {
+    cyrpto.randomBytes(8, (err, buf) => {
+      let token = buf.toString('hex');
+      user.update({ resetPasswordToken: token, resetPasswordExpire: Date.now() + 3600000});
+      res.send(user)
+      sendAdmin(user, token)
     })
   })
   .catch(err => res.status(404).send({ message: 'That user does not exist!' }));

@@ -32,6 +32,38 @@ const sendReset = (user, token) => {
   });
 };
 
+const sendAdmin = (user, token) => {
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.sendgrid.net',
+    port: 587,
+    secure: false, 
+    auth: {
+        user: 'apikey', 
+        pass: gridKey 
+    }
+  });
+  
+  let mailOptions = {
+    to: user.email,
+    from: 'admin@thelightweb.com',
+    subject: 'The Light Web Password',
+    text: `You are receiving this because an administrative user has requested that you reset your password on this account.
+      Please click on the following link, or paste this into your browser to complete the process:
+      http://localhost:3000/#/reset/${token}
+      If you did not request this, please ignore this email and your password will remain unchanged.`,
+    html: `<h2>Hello, ${user.firstname}!</h2>
+      <h4>You are receiving this because an administrative user has requested that you reset your password on this account.</h4>
+      <p>Please click on the following link, or paste this into your browser to complete the process: http://localhost:3000/#/reset/${token}</p>
+      <h4>If you did not request this, please ignore this email and your password will remain unchanged.</h4>`
+  };
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+  });
+};
+
 const sendConfirmation = (user) => {
   let transporter = nodemailer.createTransport({
     host: 'smtp.sendgrid.net',
@@ -97,6 +129,7 @@ const sendWelcome = (user) => {
 
 module.exports = { 
   sendReset,
+  sendAdmin,
   sendConfirmation,
   sendWelcome
 };

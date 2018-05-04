@@ -56,7 +56,7 @@ class Root extends Component {
             <Route exact path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
             <Route exact path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route exact path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
-            <Route exact path='/cart' render={({ match }) => <Cart id={match.params.id * 1} history={history} />} />
+            <Route exact path='/cart' render={({ match }) => <Cart history={history} />} />
             <Route exact path='/forgot' component={ForgotPW} />
             <Route exact path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
           </div>

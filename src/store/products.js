@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PRODUCTS, CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT} from './constants';
+import { GET_PRODUCTS, CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT, DELETE_CATEGORY} from './constants';
 
 export const fetchProducts = () => {
   return (dispatch) => {

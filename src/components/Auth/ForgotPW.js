@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { forgot } from '../../store';
 
-class ForgotPW extends Component {
+export default class ForgotPW extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,12 +13,18 @@ class ForgotPW extends Component {
       show: false
     }
     this.submit = this.submit.bind(this);
+    this.forgot = this.forgot.bind(this);
+  }
+
+  forgot(email) {
+    return axios.post('/auth/local/forgot', email)
+    .catch(err => console.log(err))
   }
 
   submit(ev) {
     const { email } = this.state;
     ev.preventDefault(); 
-    this.props.forgot({ email });
+    this.forgot({ email });
     this.setState({ success: true })
   }
 
@@ -66,11 +72,3 @@ class ForgotPW extends Component {
     )
   }
 };
-
-const mapDispatch = (dispatch) => {
-  return {
-    forgot: (email) => dispatch(forgot(email))
-  }
-};
-
-export default connect(null, mapDispatch)(ForgotPW);

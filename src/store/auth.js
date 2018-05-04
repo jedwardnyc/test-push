@@ -11,7 +11,6 @@ export const login = ({ email, password }, history ) => {
       localStorage.setItem('user', user.token);
       history.push('/');
     })
-    .then((user) => dispatch({ type: AUTHENTICATED, user }))
     .catch(err => console.log(err))
   };
 };
@@ -26,7 +25,6 @@ export const signUp = ({ email, password, firstname, lastname }, history ) => {
       dispatch(getLoggedIn(user));
       history.push('/');
     })
-    .then(user => dispatch({ type: AUTHENTICATED, user }))
     .catch(err => console.log(err))
   };
 };
@@ -50,34 +48,6 @@ export const getLoggedIn = (token) => {
   };
 };
 
-export const forgot = (email) => {
-  return (dispatch) => {
-    return axios.post('/auth/local/forgot', email)
-    .catch(err => console.log(err))
-  }
-};
-
-export const reset = ({ password, token }) => {
-  const hashedPassword = bcrypt.hashSync( password , 8);
-  return (dispatch) => {
-    return axios.post(`/auth/local/reset/${token}`, { password: hashedPassword })
-    .catch(err => console.log(err))
-  }
-}
-
-export const fetchUsers = () => {
-  console.log('fetched')
-  return (dispatch) => {
-    return axios.get('/api/users')
-    .then(res => res.data)
-    .then(users => {
-      console.log(users)
-      dispatch({ type: GET_USERS, users })
-    })
-    .catch(err => console.log(err))
-  }
-}
-
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {
     case AUTHENTICATED:
@@ -85,7 +55,7 @@ const authReducer = ( state = {}, action ) => {
     case UNAUTHENTICATED:
       return Object.assign({}, state, { user: {} }, { users: [] });
     case GET_USERS: 
-      return Object.assign({}, state, { users: action.users })
+      return state
     default:
       return state;
   }
