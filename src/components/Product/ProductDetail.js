@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addLineItemToCart, createLineItem, keepLoggedIn } from '../store';
+import { addLineItemToCart, createLineItem, keepLoggedIn } from '../../store';
 
-class Product extends React.Component {
+class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = { quantity: 1 };
@@ -90,4 +90,4 @@ const mapDispatchToProps = (dispatch, { history}) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

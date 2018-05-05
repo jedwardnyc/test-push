@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart } from '../store';
 
 import Nav from './Nav';
+import Login from './Auth/Login';
 import Private from './Auth/AuthNeeded';
 import Admin from './Auth/AdminNeeded';
-import Login from './Auth/Login';
 import ForgotPW from './Auth/ForgotPW';
 import ResetPW from './Auth/ResetPW';
-import Products from './Products';
-import Product from './Product';
+import Products from './Product/Products';
+import Product from './Product/Product';
+import ProductDetail from './Product/ProductDetail';
 import Cart from './Cart';
 import AdminCategories from './Admin/AdminCategories';
 import AdminProducts from './Admin/AdminProducts';
@@ -56,7 +57,8 @@ class Root extends Component {
             <Route path='/login' component={Login} />
             <Route exact path='/' render={()=> <Redirect to='products' />} />
             <Route exact path='/products' component={Products} />
-            <Route exact path='/products/:id' render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
+            <Route exact path='/products/:id' render={({ match, history }) => <ProductDetail id={match.params.id * 1} history={history} />} />
+            <Route exact path='/products/categories/:id' render={({ match }) => <Product id={match.params.id * 1} />} />
             <Route exact path='/account' component={Private(User)}/>
             <Route path='/account/orders' component={Private(Orders)}/>
             <Route path='/account/cards' component={Private(Cards)}/>

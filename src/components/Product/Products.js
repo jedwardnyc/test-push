@@ -28,8 +28,12 @@ const Products = ({ categories, products }) => {
           categories && categories.map(category => {
             return (
               <div key={category.id}>
-                <div className='border-bottom p-2 mr-auto'>
+                <div className='border-bottom p-2 mr-auto row'>
                   <h4>{category.name}</h4>
+                  <button className='btn btn-outline-secondary'>
+                    <Link to={`/products/categories/${category.id}`}>
+                      More</Link>
+                  </button>
                 </div>
                 <div className='d-flex flex-row mr-auto p-2'>
                   {
