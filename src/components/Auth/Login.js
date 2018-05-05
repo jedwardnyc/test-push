@@ -26,6 +26,8 @@ class Login extends Component {
       this.validatePassword(ev.target.value);
     }
     this.setState({ [ev.target.name]: ev.target.value });
+    console.log(this.state.passwordStrength)
+
   }
 
   componentWillUnmount(){
@@ -141,14 +143,16 @@ class Login extends Component {
                 </div>
               </div>
               <button
-                disabled={!email && !password && passwordStrength === 'Weak'}
-                className='btn col-sm-4 btn-primary mb-5'>
+                disabled={(!email) || (!password) || ( signup ? passwordStrength==='Weak': null)}
+                className='btn col-sm-4 btn-primary mb-2'>
                 { signup ? 'Sign up' : 'Log in' }
               </button>
             </form>
             {
               signup ? null :
-              <Link to='/forgot'> Forgot Password? </Link>
+              <div className='mb-2'>
+                <Link to='/forgot'> Forgot Password? </Link>
+              </div>
             }
             <hr />
             {
@@ -164,7 +168,7 @@ class Login extends Component {
               :
               <div>
                 <h4> Don't have an account? </h4>
-                <h5> Please Sign up by clicking below! </h5>
+                <h6> Please Sign up by clicking below! </h6>
                 <button
                   className='btn btn-block btn-primary mt-3 mb-4'
                   onClick={(ev)=> {

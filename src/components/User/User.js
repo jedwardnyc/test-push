@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchAddresses, fetchCreditCards, fetchOrders } from '../../store';
 
 const User = (props) => {
+
   const { user } = props;
-  if (!user) return null
+ 
+ 
+    props.fetchOrders(user);
+    props.fetchCreditCards(user);
+    props.fetchAddresses(user);
+  
+  if(!user) return null
+
   return (
     <div id='account' className='container mt-3'>
      <h1 className='account-title'> {user.fullname}'s Account </h1>
@@ -52,4 +61,12 @@ const mapState = ({ auth }) => {
   }
 }
 
-export default connect(mapState)(User);
+const mapDispatch = (dispatch) => {
+  return {
+    fetchOrders: (user) => dispatch(fetchOrders(user)),
+    fetchCreditCards: (user) => dispatch(fetchCreditCards(user)),
+    fetchAddresses: (user) => dispatch(fetchAddresses(user))
+  }
+}
+
+export default connect(mapState, mapDispatch)(User);

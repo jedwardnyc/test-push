@@ -23,11 +23,6 @@ class Product extends React.Component {
     });
   }
 
-  // not doing anything -bv
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({ quantity: nextProps.lineitem ? nextProps.lineitem.quantity : 1});
-  // }
-
   render() {
     const { product, quantityOptions } = this.props;
     const { onSave, onChange } = this;

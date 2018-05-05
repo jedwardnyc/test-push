@@ -8,7 +8,7 @@ const Product = require('./models/Product');
 const CreditCard = require('./models/CreditCard');
 const Address = require('./models/Address');
 
-const { products, categories, users, lineItems, orders } = require('./seed.js');
+const { products, categories, users, lineItems, orders, addresses, credit_cards } = require('./seed.js');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
@@ -35,8 +35,18 @@ const seed = () => {
         })
         .catch(err => console.log(err));
     }),
-    Object.keys(users).forEach(productKey => {
-      User.create(users[productKey])
+    Object.keys(users).forEach(key => {
+      User.create(users[key])
+        .then(user => {
+          Address.create(addresses[key])
+            .then(address => {
+              address.setUser(user)
+            })
+          CreditCard.create(credit_cards[key])
+            .then(creditcard => {
+              creditcard.setUser(user)
+            })
+        })
     }),
     Object.keys(lineItems).forEach(key => {
       Order.create(orders[key])
@@ -60,6 +70,8 @@ module.exports = {
     LineItem,
     Order,
     Product,
-    User
+    User,
+    CreditCard,
+    Address
   }
 };

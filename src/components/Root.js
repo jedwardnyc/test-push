@@ -28,7 +28,6 @@ class Root extends Component {
     this.props.fetchCategories();
     this.props.fetchProducts();
     this.props.fetchLineItems();
-    this.props.fetchOrders();
     const user = localStorage.getItem('user');
     if (user) {
       this.props.getLoggedIn({ token: user })
@@ -53,7 +52,7 @@ class Root extends Component {
             <Nav />
             <Route path='/login' component={Login} />
             <Route exact path='/' render={()=> <Redirect to='products' />} />
-            <Route path='/products' component={Products} />
+            <Route exact path='/products' component={Products} />
             <Route exact path='/products/:id' render={({ match, history }) => <Product id={match.params.id * 1} history={history} />} />
             <Route exact path='/account' component={Private(User)}/>
             <Route path='/account/orders' component={Private(Orders)}/>
@@ -80,9 +79,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchCategories: () => dispatch(fetchCategories()),
     fetchProducts: () => dispatch(fetchProducts()),
     fetchUsers: () => dispatch(fetchUsers()),
-    fetchOrders: () => dispatch(fetchOrders()),
+    fetchOrders: (user) => dispatch(fetchOrders(user)),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
-    setCart: user => dispatch(setCart(user))
+    setCart: (user) => dispatch(setCart(user))
   };
 };
 

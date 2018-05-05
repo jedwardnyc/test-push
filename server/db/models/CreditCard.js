@@ -3,7 +3,7 @@ const conn = require('../conn');
 
 const CreditCard = conn.define('credit_card', {
   number: {
-    type: Sequelize.STRING
+    type: Sequelize.BIGINT
   },
   first_name: {
     type: Sequelize.STRING
