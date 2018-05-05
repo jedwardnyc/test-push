@@ -5,21 +5,21 @@ import { Link } from 'react-router-dom';
 const Products = ({ categories, products }) => {
   return (
     <div>
-      <div id='carouselExampleIndicators' className='carousel slide' data-ride='carousel'>
+      <div id='productCarousel' className='carousel slide carousel-crop' data-ride='carousel'>
         <ol className='carousel-indicators'>
-          <li data-target='#carouselExampleIndicators' data-slide-to='0' className='active' />
-          <li data-target='#carouselExampleIndicators' data-slide-to='1' />
-          <li data-target='#carouselExampleIndicators' data-slide-to='2' />
+          <li data-target='#productCarousel' data-slide-to='0' className='active' />
+          <li data-target='#productCarousel' data-slide-to='1' />
+          <li data-target='#productCarousel' data-slide-to='2' />
         </ol>
         <div className='carousel-inner'>
-          <div className='carousel-item active'>
-            <img className='d-block w-100' src='https://images-na.ssl-images-amazon.com/images/G/01/img17/books/world-book-day-2018/WBD_Hero_3000x600_EN_Final._CB497245145_.jpg' alt='First slide' />
+          <div className='carousel-item carousel-crop-img1 active'>
+            <img className='d-block' src='/public/images/organ.jpg' alt='Organs' />
           </div>
-          <div className='carousel-item'>
-            <img className='d-block w-100' src='https://images-na.ssl-images-amazon.com/images/G/01/PLF/Core10/Gateway/02_C10_DT_HERO_2x._CB487095306_.jpg' alt='Second slide' />
+          <div className='carousel-item carousel-crop-img2'>
+            <img className='d-block' src='/public/images/drugs.jpg' alt='Drugs' />
           </div>
-          <div className='carousel-item'>
-            <img className='d-block w-100' src='https://images-na.ssl-images-amazon.com/images/G/01/digital/video/merch/subs/benefit-id/g-l/hbo/heroes/asin2018/Gateway-superhero_AVD-11254_WestworldS2_Gateway_3000x600._CB497252468_.jpg' alt='Third slide' />
+          <div className='carousel-item carousel-crop-img3'>
+            <img className='d-block' src='/public/images/laundry.jpg' alt='Laundering' />
           </div>
         </div>
       </div>

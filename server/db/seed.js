@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs');
+const conn = require('./conn');
+
 
 const products = {
   g1: [

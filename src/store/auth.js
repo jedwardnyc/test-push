@@ -11,7 +11,6 @@ export const login = ({ email, password }, history ) => {
       localStorage.setItem('user', user.token);
       history.push('/');
     })
-    .catch(err => console.log(err))
   };
 };
 
@@ -25,7 +24,6 @@ export const signUp = ({ email, password, firstname, lastname }, history ) => {
       dispatch(getLoggedIn(user));
       history.push('/');
     })
-    .catch(err => console.log(err))
   };
 };
 

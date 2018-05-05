@@ -34,7 +34,7 @@ class AdminCategories extends React.Component {
     const { categories } = this.props;
     const { name } = this.state;
     return (
-      <div className='container'>
+      <div className='container mt-3'>
         <div className='border-bottom p-2 mr-auto'>
           <h4>List of Categories</h4>
           <div className='input-group mb-3'>

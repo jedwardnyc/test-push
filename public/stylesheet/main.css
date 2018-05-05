@@ -1,11 +1,16 @@
-.password {
+body {
+  background-color: lightgrey;
+  box-sizing: border-box;
+}
+
+#password {
   width: 150px;
   height: inherit;
   margin-left: 10px;
   text-align: center;
   vertical-align: middle;
   line-height: 30px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #login {
@@ -59,4 +64,76 @@ nav .spacer {
 .grid-btn {
   grid-row: 1;
   justify-self: center;
+}
+
+.carousel-crop {
+  display: inline-block;
+  height: 215px;
+  width: 100vw;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.carousel-crop-img1 {
+  width: 100vw;
+  margin-top: -300px;
+}
+
+.carousel-crop-img2 {
+  width: 100vw;
+  margin-top: -380px;
+}
+
+.carousel-crop-img3 {
+  width: 100vw;
+  margin-top: -300px;
+}
+
+#account {
+  display: grid;
+  grid-template-columns: 1fr 4fr 4fr 1fr;
+  grid-template-rows: auto;
+}
+
+#account a {
+  text-decoration-color: inherit;
+  color: inherit
+}
+
+.account-title {
+  grid-column: 1 / -1;
+}
+
+.account-btns {
+  margin-top: 25px;
+  display: inherit;
+  grid-column: 2 / 4;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.account-btn {
+  display: inherit;
+  grid-template-columns: 1fr 3fr;
+  border: 1px solid black;
+  box-shadow: 2px 3px darkslategrey;
+}
+
+.account-btns :hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+.account-pix {
+  grid-column: 1;
+  align-self: center;
+  margin: 10px;
+}
+
+.account-info {
+  grid-column: 2;
+  align-self: center;
+  justify-self: center;
+  font-size: 30px;
+  font-weight: bold;
 }

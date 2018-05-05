@@ -13,7 +13,7 @@ router.post('/register', (req, res) => {
     res.send({ token });
     sendWelcome(user);
   })
-  .catch(err => res.status(500).send('There was a problem adding the information to the database.', err));
+  .catch(err => res.status(404).send( {error: err }));
 });
 
 router.post('/me', (req, res) => {
@@ -34,7 +34,7 @@ router.post('/login', (req, res) => {
       console.log(token)
       res.status(200).send({ token });
     })
-    .catch(err => res.status(404).send({ message: 'That user does not exist!' }));
+    .catch(err => res.status(404).send( {error: err }));
 });
 
 router.post('/forgot', (req, res) => {
