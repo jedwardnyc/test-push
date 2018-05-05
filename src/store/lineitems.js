@@ -54,10 +54,10 @@ export const updateLineItem = lineItem => {
   };
 };
 
-export const deleteLineItem = lineItem => {
-  return (dispatch) => {
-    return axios.delete(`/api/lineitems/${lineItem.id}`)
-      .then(() => dispatch({ type: DELETE_LINE_ITEM, lineItem }))
+export const deleteLineItem = id => {
+  return dispatch => {
+    return axios.delete(`/api/lineitems/${id}`)
+      .then(() => dispatch({ type: DELETE_LINE_ITEM, id }))
       .catch(err => console.log(err));
   };
 };
@@ -71,7 +71,7 @@ const lineItemReducer = ( state = [], action ) => {
     case UPDATE_LINE_ITEM:
       return state.map(lineItem => lineItem.id === action.lineItem.id ? action.lineItem : lineItem);
      case DELETE_LINE_ITEM:
-      return state.filter(lineItem => lineItem.id !== action.lineItem.id);
+      return state.filter(lineItem => lineItem.id !== action.id);
     default:
       return state;
   }
