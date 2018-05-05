@@ -44,7 +44,7 @@ class ProductDetail extends React.Component {
                     <div className="input-group-prepend">
                       <label className="input-group-text" htmlFor="inputQuantity">Quantity</label>
                     </div>
-                    <select className="custom-select p-2 mr-2" id="inputQuantity" name="quantity" onChange={ onChange }>
+                    <select className="custom-select p-2 mr-2" id="inputQuantity" name="quantity" onChange={onChange}>
                       {
                         quantityOptions.map(option => {
                           return (
@@ -56,7 +56,7 @@ class ProductDetail extends React.Component {
                   </div>
                 </div>
                 <div className="col sm-12 med-6">
-                  <button className="btn btn-primary float-right" disabled={!product.availability} onClick={ onSave }>Add to Cart</button>
+                  <button className="btn btn-primary float-right" disabled={!product.availability} onClick={onSave}>Add to Cart</button>
                 </div>
               </div>
             </div>
@@ -81,9 +81,9 @@ const mapStateToProps = ({ products, cart }, { id }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { history}) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    createLineItem: (lineitem) => dispatch(createLineItem(lineitem, history)),
+    createLineItem: (lineItem) => dispatch(createLineItem(lineItem, history)),
     keepLoggedIn: () => dispatch(keepLoggedIn()),
     addLineItemToCart: lineItem => dispatch(addLineItemToCart(lineItem, history))
   };
