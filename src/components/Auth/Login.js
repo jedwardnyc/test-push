@@ -26,8 +26,6 @@ class Login extends Component {
       this.validatePassword(ev.target.value);
     }
     this.setState({ [ev.target.name]: ev.target.value });
-    console.log(this.state.passwordStrength)
-
   }
 
   componentWillUnmount(){
@@ -36,7 +34,6 @@ class Login extends Component {
       this.props.getLoggedIn({ token: user })
       .then(_user => {
         if(_user.isAdmin){
-          console.log(_user)
           this.props.fetchUsers();
         }
       })

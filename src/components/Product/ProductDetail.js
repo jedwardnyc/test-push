@@ -17,10 +17,9 @@ class ProductDetail extends React.Component {
   onSave(ev) {
     const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
     this.props.addLineItemToCart(lineItem)
-      .then(() => {
-        // console.log('ONSAVE', lineItems) // undefined
-        this.props.history.push('/cart')
-      });
+    .then(() => {
+      this.props.history.push('/cart')
+    });
   }
 
   render() {
