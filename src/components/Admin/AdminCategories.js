@@ -11,7 +11,7 @@ class AdminCategories extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
-
+//filereader javascript
   onChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
