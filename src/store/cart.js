@@ -13,14 +13,14 @@ const setCart = user => {
       });
       return cart;
     })
-    .catch(err => console.log(err)); // throw error
+    .catch(err => console.log(err));
   };
 };
 
 const cartReducer = ( state =  [], action ) => {
   switch (action.type) {
     case SET_CART:
-    return action.cart;
+      return action.cart;
     default:
       return state;
   }

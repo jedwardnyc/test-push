@@ -4,7 +4,6 @@ const app = express();
 const volleyball = require('volleyball');
 const path = require('path');
 
-
 app.use(volleyball);
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));

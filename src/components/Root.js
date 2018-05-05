@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, getLoggedIn, setCart } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart } from '../store';
 
 import Nav from './Nav';
+import Login from './Auth/Login';
 import Private from './Auth/AuthNeeded';
 import Admin from './Auth/AdminNeeded';
-import Login from './Auth/Login';
 import ForgotPW from './Auth/ForgotPW';
 import ResetPW from './Auth/ResetPW';
 import Products from './Product/Products';
@@ -35,6 +35,9 @@ class Root extends Component {
       .then(_user => {
         if(_user.isAdmin) this.props.fetchUsers();
         this.props.setCart(_user);
+        this.props.fetchOrders(_user);
+        this.props.fetchCreditCards(_user);
+        this.props.fetchAddresses(_user);
       });
     }
   }
@@ -58,7 +61,7 @@ class Root extends Component {
             <Route exact path='/products/:id' render={({ match, history }) => <ProductDetail id={match.params.id * 1} history={history} />} />
             <Route exact path='/account' component={Private(User)}/>
             <Route path='/account/orders' component={Private(Orders)}/>
-            <Route path='/account/card' component={Private(Cards)}/>
+            <Route path='/account/cards' component={Private(Cards)}/>
             <Route path='/account/edit-profile' component={Private(EditUser)}/>
             <Route path='/account/addresses' component={Private(Addresses)}/>
             <Route path='/admin/categories' component={Admin(AdminCategories)} />
@@ -82,6 +85,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchProducts: () => dispatch(fetchProducts()),
     fetchUsers: () => dispatch(fetchUsers()),
     fetchOrders: (user) => dispatch(fetchOrders(user)),
+    fetchCreditCards: (user) => dispatch(fetchCreditCards(user)),
+    fetchAddresses: (user) => dispatch(fetchAddresses(user)),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
     setCart: (user) => dispatch(setCart(user))
   };

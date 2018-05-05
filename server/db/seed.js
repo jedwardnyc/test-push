@@ -90,14 +90,14 @@ const addresses = {
 const credit_cards = {
   g1: {
     number: 4242424242424242,
-    first_name: 'Test',
-    last_name: 'Test',
+    firstname: 'Test',
+    lastname: 'Test',
     exp: '10/21',
   },
   g2: {
     number: 4242424242424242,
-    first_name: 'Jacob',
-    last_name: 'Rico',
+    firstname: 'Jacob',
+    lastname: 'Rico',
     exp: '10/21',
   },
 }

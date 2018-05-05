@@ -8,7 +8,10 @@ const Order = conn.define('orders', {
     values: ['CART', 'ORDERED'],
     defaultValue: 'CART'
   },
-  dateCreated: Sequelize.DATE,
+  dateCreated: {
+    type: Sequelize.DATE,
+    defaultValue: Date.now()
+  },
   dateOrdered: Sequelize.DATE
 });
 

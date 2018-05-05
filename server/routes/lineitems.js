@@ -8,10 +8,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/cart', (req, res, next) => {
-  // console.log('post cart', req.body);
   LineItem.addToLineItems(req.body)
   .then(lineItems => res.send(lineItems))
-  .catch(next); // throw error
+  .catch(next); 
 });
 
 router.post('/', (req, res, next) => {
