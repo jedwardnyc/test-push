@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Products = ({ categories, products }) => {
   return (
@@ -28,8 +28,15 @@ const Products = ({ categories, products }) => {
           categories && categories.map(category => {
             return (
               <div key={category.id}>
-                <div className='border-bottom p-2 mr-auto'>
-                  <h4>{category.name}</h4>
+                <div className='border-bottom p-2 mr-auto row'>
+                  <div className='col-md-2'>
+                    <h4>{category.name}</h4>
+                  </div>
+                  <div className='col-md-9' />
+                  <div className='col-md-1'>
+                    <NavLink className='btn btn-outline-secondary' to={`/products/categories/${category.id}`}>
+                      More</NavLink>
+                  </div>
                 </div>
                 <div className='d-flex flex-row mr-auto p-2'>
                   {
@@ -37,9 +44,9 @@ const Products = ({ categories, products }) => {
                       return (
                         <div className='col-md-3' key={product.id}>
                           <div className='card mr-2 p-2 mb-4 bg-light rounded box-shadow'>
-                            <Link to={`/products/${product.id}`} className='text-center'>
+                            <NavLink to={`/products/${product.id}`} className='text-center'>
                               <img className='card-img-top' src={product.imgUrl} width='150' height='150' />
-                              {product.name}</Link>
+                              {product.name}</NavLink>
                           </div>
                         </div>
                       );
@@ -56,9 +63,20 @@ const Products = ({ categories, products }) => {
 }
 
 const mapStateToProps = ({ categories, products }) => {
+  const filteredProducts = [];
+  products.filter(product => product.availability === true).reduce((total, current) => {
+    if (!total[current.category_id]) {
+      total[current.category_id] = 0;
+    }
+    total[current.category_id]++;
+    if (total[current.category_id] < 5) {
+      filteredProducts.push(current)
+    }
+    return total;
+  }, {});
   return {
     categories,
-    products: products.filter(product => product.availability === true)
+    products: filteredProducts
   };
 };
 
