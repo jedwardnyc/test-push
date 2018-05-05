@@ -4,15 +4,13 @@ import { connect } from 'react-redux';
 import { logout } from '../store';
 import fontawesome from '@fortawesome/fontawesome';
 import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
-import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const Nav = (props) => {
 
   fontawesome.library.add(faShoppingCart);
-  fontawesome.library.add(faSearch);
 
-  const { lineItemsLength, logout } = props;
+  const { totalLineItems, logout } = props;
   let { user } = props;
   if (!user) user = {};
   return (
@@ -58,23 +56,26 @@ const Nav = (props) => {
           </ul>
         }
         <Link className="nav-link" to="/cart">
-          <button className="btn btn-outline-light my-2 my-lg-0">{<FontAwesomeIcon icon={faShoppingCart} />} ({ lineItemsLength })</button>
+          <button className="btn btn-outline-light my-2 my-lg-0">{<FontAwesomeIcon icon={faShoppingCart} />} ({ totalLineItems })</button>
         </Link>
       </div>
     </nav>
   );
 };
 
-const mapStateToProps = ({ auth, cart }) => {
-  let lineItemsLength;
-  if (cart.line_items) {
-    lineItemsLength = cart.line_items.length;
-  } else {
-    lineItemsLength = 0;
-  }
+const mapStateToProps = ({ auth, cart, lineItems }) => {
+
+  const userCartItems = lineItems.filter(item => {
+    return item.order_id == cart.id && item;
+  });
+
+  const totalLineItems = userCartItems.reduce((sum, item) => {
+    return sum + item.quantity;
+  }, 0);
+
   return {
     user: auth.user,
-    lineItemsLength
+    totalLineItems
   };
 };
 
