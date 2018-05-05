@@ -3,7 +3,6 @@ const app = express();
 
 const volleyball = require('volleyball');
 const path = require('path');
-const db = require('./db');
 
 app.use(volleyball);
 app.use(require('body-parser').json());

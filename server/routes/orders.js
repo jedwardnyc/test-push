@@ -7,11 +7,10 @@ router.post('/', (req, res, next) => {
   .catch(next);
 });
 
-// send user to get her cart
 router.post('/cart', (req, res, next) => {
   Order.getCartForUser(req.body)
   .then(order => res.send(order))
-  .catch(next); // throw error
+  .catch(next); 
 });
 
 router.post('/', (req, res, next) => {
