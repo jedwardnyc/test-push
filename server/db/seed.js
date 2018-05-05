@@ -69,19 +69,23 @@ const lineItems = {
 }
 
 const addresses = {
-  g1: {   
+  g1: {  
+    name: 'Home', 
     line1: '699 Ocean Ave', 
     line2: 'Apt 1F',
     city: 'Brooklyn',
     state: 'NY',
-    zip: '11226' 
+    zip: '11226',
+    default: true 
   },
   g2: { 
+    name: 'Work',
     line1: '1234 Test Ave', 
     line2: '',
     city: 'St Paul',
     state: 'CA',
-    zip: '12345' 
+    zip: '12345',
+    default: false 
   },
 }
 

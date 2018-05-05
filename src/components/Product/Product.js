@@ -10,13 +10,11 @@ const Product = ({ category, filteredProducts }) => {
   return (
     <div className='container'>
       <h4 className='border border-bottom mr-2'>{category.id}</h4>
-
     </div>
   );
 }
 
 const mapStateToProps = ({ categories, products }, { id }) => {
-  console.log(id)
   const category = categories.find(category => category.id === id);
   const filteredProducts = products.filter(product => product.category_id === id);
   return {
