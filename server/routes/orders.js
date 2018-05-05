@@ -1,15 +1,14 @@
 const router = require('express').Router();
 const { Order } = require('../db').models;
 
-router.get('/', (req, res, next) => {
-  Order.findAll()
+router.post('/', (req, res, next) => {
+  Order.findAll({ where: { user_id: req.body.id }})
   .then(orders => res.send(orders))
   .catch(next);
 });
 
 // send user to get her cart
 router.post('/cart', (req, res, next) => {
-  console.log('post get cart for user')
   Order.getCartForUser(req.body)
   .then(order => res.send(order))
   .catch(next); // throw error

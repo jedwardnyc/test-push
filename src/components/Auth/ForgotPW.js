@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { forgot } from '../../store';
+import axios from 'axios';
 
 export default class ForgotPW extends Component {
   constructor(props) {

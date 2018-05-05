@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { GET_ORDERS, CREATE_ORDER, UPDATE_ORDER, DELETE_ORDER} from './constants';
 
-export const fetchOrders = () => {
+export const fetchOrders = (user) => {
   return (dispatch) => {
-    return axios.get('/api/orders')
+    console.log(user)
+    return axios.post('/api/orders', user)
     .then(res => res.data)
     .then(orders => dispatch({ type: GET_ORDERS, orders }))
     .catch(err => console.log(err));

@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs');
+const conn = require('./conn');
+
 
 const products = {
   g1: [
@@ -66,10 +68,44 @@ const lineItems = {
   ]
 }
 
+const addresses = {
+  g1: {   
+    line1: '699 Ocean Ave', 
+    line2: 'Apt 1F',
+    city: 'Brooklyn',
+    state: 'NY',
+    zip: '11226' 
+  },
+  g2: { 
+    line1: '1234 Test Ave', 
+    line2: '',
+    city: 'St Paul',
+    state: 'CA',
+    zip: '12345' 
+  },
+}
+
+const credit_cards = {
+  g1: {   
+    number: 4242424242424242,
+    first_name: 'Test',
+    last_name: 'Test',
+    exp: '10/21',
+  },
+  g2: { 
+    number: 4242424242424242,
+    first_name: 'Jacob',
+    last_name: 'Rico',
+    exp: '10/21',
+  },
+}
+
 module.exports = {
   products,
   categories,
   users,
   orders,
-  lineItems
+  lineItems, 
+  addresses,
+  credit_cards
 };

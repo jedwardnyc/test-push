@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from '../../store';
+import axios from 'axios';
+
 
 class ResetPW extends Component {
   constructor(props) {
@@ -67,10 +69,10 @@ class ResetPW extends Component {
                       required
                       name='passwordConfirm'
                     />
-                    <div class="valid-feedback">
+                    <div className='valid-feedback'>
                       Passwords match!
                     </div>
-                    <div class="invalid-feedback">
+                    <div className='invalid-feedback'>
                       Passwords must match!
                     </div>
                   </div>

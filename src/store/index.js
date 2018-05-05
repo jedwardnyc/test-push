@@ -8,6 +8,8 @@ import categories from './categories';
 import lineItems from './lineitems';
 import orders from './orders';
 import cart from './cart';
+import addresses from './addresses';
+import creditCards from './creditCards';
 
 const reducer = combineReducers({
   auth,
@@ -16,7 +18,9 @@ const reducer = combineReducers({
   categories,
   lineItems,
   orders,
-  cart
+  cart,
+  addresses,
+  creditCards
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
@@ -30,3 +34,5 @@ export * from './categories';
 export * from './lineitems';
 export * from './orders';
 export * from './cart';
+export * from './addresses';
+export * from './creditCards';

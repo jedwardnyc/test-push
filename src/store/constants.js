@@ -16,6 +16,7 @@ export const CREATE_ORDER = 'CREATE_ORDER';
 export const UPDATE_ORDER = 'UPDATE_ORDER';
 export const DELETE_ORDER = 'DELETE_ORDER';
 
+/* Consts for Cart */
 export const SET_CART = 'SET_CART';
 
 /* Consts for Products */
@@ -33,8 +34,15 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 /* Consts for Authentication */
 export const AUTHENTICATED = 'AUTHENTICATED';
 export const UNAUTHENTICATED = 'UNAUTHENTICATED';
-export const GET_LOGGED_IN = 'GET_LOGGED_IN';
 
-/* Consts for Errors */
-export const ERROR = 'ERROR';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
+/* Consts for Addresses */
+export const GET_ADDRESSES = 'GET_ADDRESSES';
+export const CREATE_ADDRESS = 'CREATE_ADDRESS';
+export const UPDATE_ADDRESS = 'UPDATE_ADDRESS';
+export const DELETE_ADDRESS = 'DELETE_ADDRESS';
+
+/* Consts for Credit Cards */
+export const GET_CREDIT_CARDS = 'GET_CREDIT_CARDS';
+export const CREATE_CREDIT_CARD = 'CREATE_CREDIT_CARD';
+export const UPDATE_CREDIT_CARD = 'UPDATE_CREDIT_CARD';
+export const DELETE_CREDIT_CARD = 'DELETE_CREDIT_CARD';

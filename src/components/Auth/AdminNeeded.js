@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 export default (CheckedComponent) => {
-  class Authenticated extends Component {
+  class AdminNeeded extends Component {
 
     componentWillMount() {
       if(!this.props.user) return null
-      if (!this.props.user.id) {
-        this.props.history.push('/login');
+      if (!this.props.user.isAdmin) {
+        this.props.history.push('/products');
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.user.id) {
-        this.props.history.push('/login');
+        this.props.history.push('/products');
       }
     }
 
@@ -28,5 +28,5 @@ const mapStateToProps = ({ auth }) => {
   };
 };
 
-  return connect(mapStateToProps)(Authenticated);
+  return connect(mapStateToProps)(AdminNeeded);
 };
