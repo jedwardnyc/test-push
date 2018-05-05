@@ -35,6 +35,7 @@ class AdminUsers extends React.Component {
                           Reset Password
                       </button>
                       <button 
+                      
                         className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } grid-btn`}> 
                           { user.isAdmin ? 'Remove Admin' : 'Make Admin' } 
                       </button>

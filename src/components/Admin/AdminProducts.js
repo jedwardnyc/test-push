@@ -53,7 +53,7 @@ class AdminProducts extends React.Component {
     const { products } = this.props;
     const { name, price, description, imgUrl } = this.state;
     return (
-      <div className='container'>
+      <div className='container mt-3'>
         <div className='border-bottom p-2'>
           <h4>Add new product</h4>
           <form className='form-group' onSubmit={this.onSave}>
