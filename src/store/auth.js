@@ -49,9 +49,9 @@ export const getLoggedIn = (token) => {
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {
     case AUTHENTICATED:
-      return Object.assign({}, state, { user: action.user }, { users: [action.user] });
+      return Object.assign({}, state, { user: action.user });
     case UNAUTHENTICATED:
-      return Object.assign({}, state, { user: {} }, { users: [] });
+      return Object.assign({}, state, { user: {} });
     case GET_USERS: 
       return state
     default:
