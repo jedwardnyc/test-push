@@ -3,7 +3,6 @@ import { GET_ORDERS, CREATE_ORDER, UPDATE_ORDER, DELETE_ORDER} from './constants
 
 export const fetchOrders = (user) => {
   return (dispatch) => {
-    console.log(user)
     return axios.post('/api/orders', user)
     .then(res => res.data)
     .then(orders => dispatch({ type: GET_ORDERS, orders }))

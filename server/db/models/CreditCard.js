@@ -5,10 +5,10 @@ const CreditCard = conn.define('credit_card', {
   number: {
     type: Sequelize.BIGINT
   },
-  first_name: {
+  firstname: {
     type: Sequelize.STRING
   },
-  last_name: {
+  lastname: {
     type: Sequelize.STRING
   },
   exp: {
