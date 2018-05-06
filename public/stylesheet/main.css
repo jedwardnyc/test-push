@@ -147,3 +147,27 @@ nav .spacer {
   max-width: 500px;
   width: 100%;
 }
+.address-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.address-item {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: 4fr 1fr;
+  padding: 10px;
+  border: 1px solid black;
+  box-shadow: 2px 2px darkslategrey;
+  border-radius: 10px;
+}
+
+.address-info {
+  grid-row: 1;
+  justify-self: center;
+}
+
+.address-buttons {
+  grid-row: 2;
+  justify-self: center;
+}

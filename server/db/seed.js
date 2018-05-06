@@ -46,7 +46,7 @@ const hashedUserPW = bcrypt.hashSync('test', 8);
 const users = {
   g1: { firstname: 'Admin', lastname: 'Test', email: 'admin@test.com', password: hashedAdminPW, isAdmin: true },
   g2: { firstname: 'Chaehoon', lastname: 'Lim', email: 'test@test.com', password: hashedUserPW, isAdmin: false },
-  g3: { firstname: 'Jacob', lastname: 'Rico', email: 'jacob.rico@test.com', password: hashedUserPW, isAdmin: false },
+  g3: { firstname: 'Jacob', lastname: 'Rico', email: 'jacob@test.com', password: hashedUserPW, isAdmin: false },
   g4: { firstname: 'Baltazar', lastname: 'Villegas', email: 'baltazar@test.com', password: hashedUserPW, isAdmin: false },
 }
 
@@ -74,18 +74,22 @@ const lineItems = {
 
 const addresses = {
   g1: {
+    name: 'Home',
     line1: '699 Ocean Ave',
     line2: 'Apt 1F',
     city: 'Brooklyn',
     state: 'NY',
-    zip: '11226'
+    zip: '11226',
+    default: true
   },
   g2: {
+    name: 'Work',
     line1: '1234 Test Ave',
     line2: '',
     city: 'St Paul',
     state: 'CA',
-    zip: '12345'
+    zip: '12345',
+    default: false
   },
 }
 

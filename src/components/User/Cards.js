@@ -21,10 +21,10 @@ const CreditCards = (props) => {
     )
   
   }
-
+  if (!user) return null;
   return (
     <div className='container mt-3'>
-      <h1 className='mb-2'> Credit Cards </h1>
+      <h1 className='mb-2'> {user.firstname}'s Credit Cards </h1>
       <button className='btn btn-dark mb-4'> Add Card </button>
       <div className='card-list'>
         {
