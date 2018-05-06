@@ -7,8 +7,9 @@ const Order = require('./models/Order');
 const Product = require('./models/Product');
 const CreditCard = require('./models/CreditCard');
 const Address = require('./models/Address');
+const StarRating = require('./models/StarRating');
 
-const { products, categories, users, lineItems, orders, addresses, credit_cards } = require('./seed.js');
+const { products, categories, users, lineItems, orders, addresses, credit_cards, starRatings } = require('./seed.js');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
@@ -17,6 +18,11 @@ LineItem.belongsTo(Product);
 Product.belongsTo(Category);
 Address.belongsTo(User);
 CreditCard.belongsTo(User);
+StarRating.belongsTo(User);
+StarRating.belongsTo(Product);
+User.hasMany(StarRating);
+Product.hasMany(StarRating);
+
 
 const sync = () => conn.sync({ force: true });
 
@@ -25,13 +31,13 @@ const seed = () => {
     Object.keys(products).forEach(productKey => {
       Category.create(categories[productKey])
         .then(category => {
-            products[productKey].map(product => {
-              Product.create(product)
-                .then(_product => {
-                  _product.setCategory(category);
-                })
-                .catch(err => console.log(err));
-            })
+          products[productKey].map(product => {
+            Product.create(product)
+              .then(_product => {
+                _product.setCategory(category);
+              })
+              .catch(err => console.log(err));
+          })
         })
         .catch(err => console.log(err));
     }),
@@ -57,9 +63,19 @@ const seed = () => {
           })
         })
         .catch(err => console.log(err));
-    })
+    }),
+    // Object.keys(products).forEach(key => {
+    //   Product.create(products[key])
+    //     .then(product => {
+    //       StarRating.create(starRatings[key])
+    //         .then(starRating => {
+    //           starRating.setProduct(product)
+    //         })
+    //     })
+    // }),
   ])
 };
+
 
 module.exports = {
   conn,
@@ -72,6 +88,7 @@ module.exports = {
     Product,
     User,
     CreditCard,
-    Address
+    Address,
+    StarRating
   }
 };

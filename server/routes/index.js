@@ -8,5 +8,6 @@ router.use('/lineitems', require('./lineitems'));
 router.use('/orders', require('./orders'));
 router.use('/addresses', require('./addresses'));
 router.use('/creditCards', require('./creditCards'));
+router.use('/starRatings', require('./starRatings'));
 
 module.exports = router;

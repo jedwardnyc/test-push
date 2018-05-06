@@ -137,3 +137,13 @@ nav .spacer {
   font-size: 30px;
   font-weight: bold;
 }
+
+.custom-overlay {
+  background: rgba(36, 123, 160, 0.7);
+}
+
+.custom-modal {
+  background: #b2dbbf;
+  max-width: 500px;
+  width: 100%;
+}
