@@ -31,11 +31,11 @@ class Root extends Component {
     this.props.fetchProducts();
     this.props.fetchLineItems();
     this.props.fetchStarRatings();
+    this.props.fetchUsers();
     const user = localStorage.getItem('user');
     if (user) {
       this.props.getLoggedIn({ token: user })
       .then(_user => {
-        if(_user.isAdmin) this.props.fetchUsers();
         this.props.setCart(_user);
         this.props.fetchOrders(_user);
         this.props.fetchCreditCards(_user);
