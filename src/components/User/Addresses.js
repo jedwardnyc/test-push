@@ -33,22 +33,51 @@ class Addresses extends Component {
           {
             addresses.map(address => {
               return (
-                <div className='address-item' key={address.id}>
-                  <div className='address-info'>
-                    <h3>{address.line1}</h3>
-                    <h3>{address.line2 ? address.line2 : null}</h3>
-                    <h3>{address.city}, {address.state} {address.zip}</h3>
+                <div key={address.id}>
+                {
+                  edit ? 
+                  <div className='address-add-item'>
+                    <EditAddress address={address} edit={true} />
+                    <div className='address-add-buttons'>
+                      <button onClick={(ev) => {
+                        ev.preventDefault();
+                        this.setState({ edit: false })}} 
+                        className='btn btn-danger btn-sm'> Cancel </button>
+                    </div>
                   </div>
-                  <div className='address-buttons'>
-                    <button className='btn btn-sm btn-secondary mr-1'> Edit Address </button>
-                    <button className='btn btn-sm btn-danger'> Remove Address </button>
+                  :
+                  <div className='address-item'>
+                    <div className='address-info'>
+                      <h3>{address.line1}</h3>
+                      <h3>{address.line2 ? address.line2 : null}</h3>
+                      <h3>{address.city}, {address.state} {address.zip}</h3>
+                    </div>
+                    <div className='address-buttons'>
+                      <button onClick={(ev) => {
+                        ev.preventDefault();
+                        this.setState({ edit: true })}}  
+                        className='btn btn-sm btn-secondary mr-1'> Edit Address </button>
+                      <button className='btn btn-sm btn-danger'> Remove Address </button>
+                    </div>
                   </div>
+                }
+                  
                 </div>
               )
             })
           }
           {
-            add ? <EditAddress /> : null
+            add ?
+            <div className='address-add-item'> 
+              <EditAddress />
+              <div className='address-add-buttons'>
+                <button onClick={(ev) => {
+                  ev.preventDefault();
+                  this.setState({ add: false })}} 
+                  className='btn btn-sm btn-danger'> Cancel </button>
+              </div>
+            </div>
+            : null
           }
         </div>
         <Link to='/account'><button className='mt-4 btn btn-sm btn-dark'> Back to Account </button></Link>

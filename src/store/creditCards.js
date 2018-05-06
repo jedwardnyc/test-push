@@ -3,7 +3,7 @@ import { GET_CREDIT_CARDS, CREATE_CREDIT_CARD, UPDATE_CREDIT_CARD, DELETE_CREDIT
 
 export const fetchCreditCards = (user) => {
   return (dispatch) => {
-    return axios.post('/api/creditcards', user)
+    return axios.post('/api/creditcards/get', user)
       .then(res => res.data)
       .then(creditCards => dispatch({ type: GET_CREDIT_CARDS, creditCards }))
       .catch(err => console.log(err));

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { CreditCard } = require('../db').models;
 
-router.post('/', (req, res, next) => {
+router.post('/get', (req, res, next) => {
   CreditCard.findAll({ where: { user_id: req.body.id }})
   .then(creditCards => {
     res.send(creditCards);
