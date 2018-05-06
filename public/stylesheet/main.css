@@ -1,5 +1,4 @@
 body {
-  background-color: lightgrey;
   box-sizing: border-box;
 }
 
@@ -102,6 +101,8 @@ nav .spacer {
 
 .account-title {
   grid-column: 1 / -1;
+  font-weight: bold;
+  font-size: 45px;
 }
 
 .account-btns {
@@ -143,11 +144,30 @@ nav .spacer {
   grid-template-columns: 1fr 1fr;
 }
 
+.address-header {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin-bottom: 20px;
+}
+
+.address-title {
+  grid-column: 1;
+  justify-self: start;
+  align-self: center;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.address-add {
+  grid-column: 2;
+  margin: 20% 30px;
+}
+
 .address-item {
   grid-column: 1;
   display: grid;
   grid-template-rows: 4fr 1fr;
-  padding: 10px;
+  padding-bottom: 10px;
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
@@ -156,9 +176,108 @@ nav .spacer {
 .address-info {
   grid-row: 1;
   justify-self: center;
+  align-self: center;
 }
 
 .address-buttons {
   grid-row: 2;
+  justify-self: center;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.address-add-item {
+  display: grid;
+  padding: 20px 50px;
+  margin-left: 10px; 
+  border: 1px solid black;
+  box-shadow: 2px 2px darkslategrey;
+  border-radius: 10px;
+}
+
+.address-add-buttons {
+  justify-self: center;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.cc-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.cc-header {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin-bottom: 20px;
+}
+
+.cc-title {
+  grid-column: 1;
+  justify-self: start;
+  align-self: center;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.cc-add {
+  grid-column: 2;
+  margin: 20% 30px;
+}
+
+.cc-item {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: 4fr 1fr;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  box-shadow: 2px 2px darkslategrey;
+  border-radius: 10px;
+} 
+
+.cc-info {
+  grid-row: 1;
+  justify-self: center;
+  margin-bottom: 10px;
+}
+
+.cc-buttons {
+  grid-row: 2;
+  justify-self: center;
+}
+
+.order-list {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.order-header {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin-bottom: 20px;
+}
+
+.order-title {
+  grid-column: 1;
+  justify-self: start;
+  align-self: center;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.order-item {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: 4fr 1fr;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  box-shadow: 2px 2px darkslategrey;
+  border-radius: 10px;
+} 
+
+.order-info {
+  grid-row: 1;
   justify-self: center;
 }

@@ -18,7 +18,7 @@ class User extends Component {
 
     return (
       <div id='account' className='container mt-3'>
-      <h1 className='account-title'> {user.fullname}'s Account </h1>
+      <div className='account-title'> {user.fullname}'s Account </div>
         <div className='account-btns'> 
           <Link to='/account/orders' className='account-btn'>
             <div className='account-pix'>
