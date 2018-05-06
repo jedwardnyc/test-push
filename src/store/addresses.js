@@ -3,7 +3,7 @@ import { GET_ADDRESSES, CREATE_ADDRESS, UPDATE_ADDRESS, DELETE_ADDRESS} from './
 
 export const fetchAddresses = (user) => {
   return (dispatch) => {
-    return axios.post('/api/addresses', user)
+    return axios.post('/api/addresses/get', user)
     .then(res => res.data)
     .then(addresses => dispatch({ type: GET_ADDRESSES, addresses }))
     .catch(err => console.log(err));

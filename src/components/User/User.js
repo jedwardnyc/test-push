@@ -18,7 +18,7 @@ class User extends Component {
 
     return (
       <div id='account' className='container mt-3'>
-      <h1 className='account-title'> {user.fullname}'s Account </h1>
+      <div className='account-title'> {user.fullname}'s Account </div>
         <div className='account-btns'> 
           <Link to='/account/orders' className='account-btn'>
             <div className='account-pix'>
@@ -38,7 +38,7 @@ class User extends Component {
           </Link>
           <Link to='/account/addresses' className='account-btn'>
             <div className='account-pix'>
-              <img src='/public/icons/Addresses.svg' />
+              <img src='/public/icons/Address.svg' />
             </div>
             <div className='account-info'>
               Addresses ({addresses.length})
@@ -51,8 +51,39 @@ class User extends Component {
             <div className='account-info'>
               Profile
             </div>
-        </Link>
-      </div>
+          </Link>
+        </div>
+        <div className='account-admin'> Administrative Features </div>
+        {
+          user.isAdmin ? 
+          <div className='account-btns-admin'>
+            <Link to='/admin/categories' className='account-btn'>
+              <div className='account-pix'>
+                <img src='/public/icons/Categories.svg' />
+              </div>
+              <div className='account-info-admin'>
+                Edit Categories              
+              </div>
+            </Link>
+            <Link to='/admin/products' className='account-btn'>
+              <div className='account-pix'>
+                <img src='/public/icons/Products.svg' />
+              </div>
+              <div className='account-info-admin'>
+                Edit Products            
+              </div>
+            </Link>
+            <Link to='/admins/users' className='account-btn'>
+              <div className='account-pix'>
+                <img src='/public/icons/Users.svg' />
+              </div>
+              <div className='account-info-admin'>
+                Edit Users            
+              </div>
+            </Link>
+          </div>
+          : null
+        }
       </div>
     )
   }

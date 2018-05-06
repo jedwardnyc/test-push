@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Order } = require('../db').models;
 
-router.post('/', (req, res, next) => {
+router.post('/get', (req, res, next) => {
   Order.findAll({ where: { user_id: req.body.id }})
   .then(orders => res.send(orders))
   .catch(next);

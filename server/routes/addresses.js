@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Address } = require('../db').models;
 
-router.post('/', (req, res, next) => {
+router.post('/get', (req, res, next) => {
   Address.findAll({ where: { user_id: req.body.id } })
   .then(addresses => res.send(addresses))
   .catch(next);
@@ -16,6 +16,7 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   Address.findById(req.params.id)
   .then(address => {
+    console.log(req.body)
     address.update(req.body);
     res.send(address);
   })

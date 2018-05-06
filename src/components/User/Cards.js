@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const CreditCards = (props) => {
 
@@ -13,10 +14,10 @@ const CreditCards = (props) => {
     const discover = new RegExp('^6011-?\d{4}-?\d{4}-?\d{4}$')
 
     return (
-      visa.test(card*1) ? 'Visa' : 
-      masterCard.test(card*1) ? 'Master Card' : 
-      amex.test(card*1) ? 'American Express' : 
-      discover.test(card*1) ? 'Discover' : 
+      visa.test(card*1) ? 'VISA' : 
+      masterCard.test(card*1) ? 'MC' : 
+      amex.test(card*1) ? 'AMEX' : 
+      discover.test(card*1) ? 'DISCOVER' : 
       'Not a valid card'
     )
   
@@ -24,23 +25,30 @@ const CreditCards = (props) => {
   if (!user) return null;
   return (
     <div className='container mt-3'>
-      <h1 className='mb-2'> {user.firstname}'s Credit Cards </h1>
-      <button className='btn btn-dark mb-4'> Add Card </button>
-      <div className='card-list'>
+      <div className='cc-header'>
+        <div className='mb-2 cc-title'> {user.firstname}'s Credit Cards </div>
+        <button className='btn btn-dark cc-add'> Add Card </button>
+      </div>
+      <div className='cc-list'>
         {
           creditCards.map(creditCard => {
             return (
-              <div className='card-item' key={creditCard.id}>
-                <h3>{creditCard.firstname} {creditCard.lastname}</h3>
-                <h4>{cardType(creditCard.number)}: XXXX XXXX XXXX {creditCard.number.slice(-4)}</h4> 
-                <h4>EXP: {creditCard.exp}</h4>
-                <button className='btn btn-sm btn-secondary mr-1'> Edit Card </button>
-                <button className='btn btn-sm btn-danger'> Remove Card </button>
+              <div className='cc-item' key={creditCard.id}>
+                <div className='cc-info'>
+                  <h2>{creditCard.firstname} {creditCard.lastname}</h2>
+                  <h4>{cardType(creditCard.number)}: XXXX XXXX XXXX {creditCard.number.slice(-4)}</h4> 
+                  <h4>EXP: {creditCard.exp}</h4>
+                </div>
+                <div className='cc-buttons'>
+                  <button className='btn btn-sm btn-secondary mr-1'> Edit Card </button>
+                  <button className='btn btn-sm btn-danger'> Remove Card </button>
+                </div>
               </div>
             )
           })
         }
       </div>
+      <Link to='/account'><button className='mt-4 btn btn-sm btn-dark'> Back to Account </button></Link>
     </div>
   )
 }
