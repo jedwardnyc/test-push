@@ -46,6 +46,8 @@ const hashedUserPW = bcrypt.hashSync('test', 8);
 const users = {
   g1: { firstname: 'Admin', lastname: 'Test', email: 'admin@test.com', password: hashedAdminPW, isAdmin: true },
   g2: { firstname: 'Chaehoon', lastname: 'Lim', email: 'test@test.com', password: hashedUserPW, isAdmin: false },
+  g3: { firstname: 'Jacob', lastname: 'Rico', email: 'jacob@test.com', password: hashedUserPW, isAdmin: false },
+  g4: { firstname: 'Baltazar', lastname: 'Villegas', email: 'baltazar@test.com', password: hashedUserPW, isAdmin: false },
 }
 
 const orders = {
@@ -71,23 +73,23 @@ const lineItems = {
 }
 
 const addresses = {
-  g1: {  
-    name: 'Home', 
-    line1: '699 Ocean Ave', 
+  g1: {
+    name: 'Home',
+    line1: '699 Ocean Ave',
     line2: 'Apt 1F',
     city: 'Brooklyn',
     state: 'NY',
     zip: '11226',
-    default: true 
+    default: true
   },
-  g2: { 
+  g2: {
     name: 'Work',
-    line1: '1234 Test Ave', 
+    line1: '1234 Test Ave',
     line2: '',
     city: 'St Paul',
     state: 'CA',
     zip: '12345',
-    default: false 
+    default: false
   },
 }
 
@@ -106,6 +108,22 @@ const credit_cards = {
   },
 }
 
+const starRatings = {
+  g1: [
+    { rating: 3, description: 'good product' },
+    { rating: 2, description: 'good product' },
+  ],
+  g2: [
+    { rating: 5, description: 'good product' },
+    { rating: 1, description: 'good product' }
+  ],
+  g3: [
+    { rating: 2, description: 'good product' },
+    { rating: 9, description: 'good product' },
+    { rating: 4, description: 'good product' }
+  ]
+}
+
 module.exports = {
   products,
   categories,
@@ -113,5 +131,6 @@ module.exports = {
   orders,
   lineItems,
   addresses,
-  credit_cards
+  credit_cards,
+  starRatings
 };

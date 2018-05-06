@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings } from '../store';
 
 import Nav from './Nav';
 import Login from './Auth/Login';
@@ -23,12 +23,14 @@ import Cards from './User/Cards';
 import EditUser from './User/EditUser';
 import Addresses from './User/Addresses';
 
+
 class Root extends Component {
 
   componentDidMount() {
     this.props.fetchCategories();
     this.props.fetchProducts();
     this.props.fetchLineItems();
+    this.props.fetchStarRatings();
     const user = localStorage.getItem('user');
     if (user) {
       this.props.getLoggedIn({ token: user })
@@ -88,7 +90,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchCreditCards: (user) => dispatch(fetchCreditCards(user)),
     fetchAddresses: (user) => dispatch(fetchAddresses(user)),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
-    setCart: (user) => dispatch(setCart(user))
+    setCart: (user) => dispatch(setCart(user)),
+    fetchStarRatings: () => dispatch(fetchStarRatings())
   };
 };
 

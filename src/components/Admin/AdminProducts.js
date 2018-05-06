@@ -26,10 +26,17 @@ class AdminProducts extends React.Component {
 
   onChange(ev) {
     const state = this.state;
+    const fileReader = new FileReader();
 
     switch (ev.target.name) {
       case 'imgUrl':
-        state.imgUrl = ev.target.files[0];
+        if (ev.target.files[0]) {
+          fileReader.readAsDataURL(ev.target.files[0]);
+          fileReader.onload = function (ev) {
+            state.imgUrl = ev.target.result;
+            console.log(state.imgUrl)
+          }
+        }
         break;
       default:
         state[ev.target.name] = ev.target.value;
@@ -43,10 +50,9 @@ class AdminProducts extends React.Component {
       name: this.state.name,
       price: this.state.price,
       description: this.state.description,
-      imgUrl: this.state.imgUrl.name
+      imgUrl: this.state.imgUrl
     }
     this.props.createProduct(product);
-    //this.props.uploadImg(this.state.imgUrl);
   }
 
   render() {

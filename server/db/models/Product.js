@@ -4,7 +4,7 @@ const Sequelize = conn.Sequelize;
 const Product = conn.define('products', {
   name: Sequelize.STRING,
   price: Sequelize.DECIMAL,
-  imgUrl: Sequelize.STRING,
+  imgUrl: Sequelize.TEXT,
   description: Sequelize.TEXT,
   availability: {
     type: Sequelize.BOOLEAN,
