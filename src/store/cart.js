@@ -2,7 +2,7 @@ import axios from 'axios';
 import { SET_CART } from './constants';
 
 // get cart (order with 'CART' status) and cart's line items
-const setCart = user => {
+export const setCart = user => {
   return dispatch => {
     return axios.post('/api/orders/cart', user)
     .then(res => res.data)
@@ -17,6 +17,21 @@ const setCart = user => {
   };
 };
 
+export const checkOutUser = userId => {
+  return dispatch => {
+    return axios.get(`/api/orders/users/${userId}/checkout`)
+    .then(res => res.data)
+    .then(cart => {
+      dispatch({
+        type: SET_CART,
+        cart
+      });
+      return cart;
+    })
+  .catch(err => console.log(err));
+  };
+};
+
 const cartReducer = ( state =  [], action ) => {
   switch (action.type) {
     case SET_CART:
@@ -27,4 +42,3 @@ const cartReducer = ( state =  [], action ) => {
 };
 
 export default cartReducer;
-export { setCart };

@@ -35,7 +35,7 @@ class ProductDetail extends React.Component {
         </div>
         <div className="col-sm">
           <h3 className="text-left pt-3 pb-3">{product.name}</h3>
-          <h5 className="mt-3 mb-3">Price: ${product.price}</h5>
+          <h5 className="mt-3 mb-3">Price: ${ product.price.toLocaleString('USD') }</h5>
           <div className="card">
             <div className="card-body rounded">
               <div className="row">

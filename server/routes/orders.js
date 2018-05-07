@@ -10,7 +10,17 @@ router.post('/', (req, res, next) => {
 router.post('/cart', (req, res, next) => {
   Order.getCartForUser(req.body)
   .then(order => res.send(order))
-  .catch(next); 
+  .catch(next);
+});
+
+router.get('/users/:id/checkout', (req, res, next) => {
+  // console.log('/cart/checkout');
+  Order.checkOutUser(req.params.id)
+  .then(cart => {
+    console.log('/users/:id/checkout-> cart', cart);
+    res.send(cart);
+  })
+  .catch(next);
 });
 
 router.post('/', (req, res, next) => {
