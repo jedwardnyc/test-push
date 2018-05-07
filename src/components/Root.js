@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings } from '../store';
 
 import Nav from './Nav';
 import Login from './Auth/Login';
@@ -23,17 +23,19 @@ import Cards from './User/Cards';
 import EditUser from './User/EditUser';
 import Addresses from './User/Addresses';
 
+
 class Root extends Component {
 
   componentDidMount() {
     this.props.fetchCategories();
     this.props.fetchProducts();
     this.props.fetchLineItems();
+    this.props.fetchStarRatings();
+    this.props.fetchUsers();
     const user = localStorage.getItem('user');
     if (user) {
       this.props.getLoggedIn({ token: user })
       .then(_user => {
-        if(_user.isAdmin) this.props.fetchUsers();
         this.props.setCart(_user);
         this.props.fetchOrders(_user);
         this.props.fetchCreditCards(_user);
@@ -65,7 +67,7 @@ class Root extends Component {
             <Route path='/account/edit-profile' component={Private(EditUser)}/>
             <Route path='/account/addresses' component={Private(Addresses)}/>
             <Route path='/admin/categories' component={Admin(AdminCategories)} />
-            <Route path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
+            <Route exact path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
             <Route path='/cart' render={({ match, history }) => <Cart history={history} />} />
@@ -88,7 +90,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchCreditCards: (user) => dispatch(fetchCreditCards(user)),
     fetchAddresses: (user) => dispatch(fetchAddresses(user)),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
-    setCart: (user) => dispatch(setCart(user))
+    setCart: (user) => dispatch(setCart(user)),
+    fetchStarRatings: () => dispatch(fetchStarRatings())
   };
 };
 

@@ -24,7 +24,7 @@ class Cart extends React.Component {
     if (this.props.userCartItems.length) {
       this.props.checkOutUser(this.props.userId);
     } else {
-      console.log('onPlaceOrder: no order items. [Place your Order] button shoud be disabled.');
+      console.log('onPlaceOrder: no order items. [Place your Order] button should be disabled.');
     }
   }
 

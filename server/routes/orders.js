@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Order } = require('../db').models;
 
-router.post('/', (req, res, next) => {
+router.post('/get', (req, res, next) => {
   Order.findAll({ where: { user_id: req.body.id }})
   .then(orders => res.send(orders))
   .catch(next);
@@ -17,7 +17,6 @@ router.get('/users/:id/checkout', (req, res, next) => {
   // console.log('/cart/checkout');
   Order.checkOutUser(req.params.id)
   .then(cart => {
-    console.log('/users/:id/checkout-> cart', cart);
     res.send(cart);
   })
   .catch(next);

@@ -103,6 +103,7 @@ nav .spacer {
   grid-column: 1 / -1;
   font-weight: bold;
   font-size: 45px;
+  justify-self: center;
 }
 
 .account-btns {
@@ -139,6 +140,40 @@ nav .spacer {
   font-weight: bold;
 }
 
+.custom-overlay {
+  background: rgba(36, 123, 160, 0.7);
+}
+
+.custom-modal {
+  background: #b2dbbf;
+  max-width: 500px;
+  width: 100%;
+}
+
+.account-admin {
+  grid-column: 1 / -1;
+  font-weight: bold;
+  font-size: 45px;
+  justify-self: center;
+  margin-top: 40px;
+}
+
+.account-btns-admin {
+  margin-top: 25px;
+  display: inherit;
+  grid-column: 2 / 4;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.account-info-admin {
+  grid-column: 2;
+  align-self: center;
+  justify-self: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .address-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -166,12 +201,12 @@ nav .spacer {
 .address-item {
   grid-column: 1;
   display: grid;
-  grid-template-rows: 4fr 1fr;
+  grid-template-rows: 3fr 1fr;
   padding-bottom: 10px;
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
-} 
+}
 
 .address-info {
   grid-row: 1;
@@ -186,19 +221,22 @@ nav .spacer {
   margin-top: 5px;
 }
 
-.address-add-item {
+.address-form {
+  align-content: center;
+}
+
+.address-add-buttons {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.add-item {
   display: grid;
-  padding: 20px 50px;
+  padding: 25px 30px;
   margin-left: 10px; 
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
-}
-
-.address-add-buttons {
-  justify-self: center;
-  margin-bottom: 10px;
-  margin-top: 5px;
 }
 
 .cc-list {
@@ -281,3 +319,28 @@ nav .spacer {
   grid-row: 1;
   justify-self: center;
 }
+
+.user-edit-header {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin-bottom: 20px;
+}
+
+.user-edit-title {
+  grid-column: 1;
+  justify-self: start;
+  align-self: center;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.user-edit {
+  grid-column: 1;
+  display: grid;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  box-shadow: 2px 2px darkslategrey;
+  border-radius: 10px;
+} 
+
