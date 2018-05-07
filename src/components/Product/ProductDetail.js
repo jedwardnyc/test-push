@@ -41,7 +41,7 @@ class ProductDetail extends React.Component {
     };
     this.props.createStarRating(review);
     this.onCloseModal();
-    this.setState({ rating:1, description: '', product_id: '', user_id: '' });
+    this.setState({ rating: 1, description: '', product_id: '', user_id: '' });
   }
 
   onDeleteRating(id) {
@@ -56,9 +56,9 @@ class ProductDetail extends React.Component {
   onSave(ev) {
     const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
     this.props.addLineItemToCart(lineItem)
-    .then(() => {
-      this.props.history.push('/cart')
-    });
+      .then(() => {
+        this.props.history.push('/cart')
+      });
   }
 
   render() {
@@ -67,9 +67,6 @@ class ProductDetail extends React.Component {
     const { onSave, onChange } = this;
 
     if (!product) {
-      return null;
-    }
-    if (!user) {
       return null;
     }
     return (
@@ -149,7 +146,7 @@ class ProductDetail extends React.Component {
               ratingFilteredProducts && ratingFilteredProducts.map(starRating => {
                 return (
                   <div className='column' key={starRating.id}>
-                    {/*<p>{ratingUsers[user.id]}</p>*/}
+                    {/*<p>{ratingUsers[starRating.user_id]}</p>*/}
                     <Rating
                       initialRating={starRating.rating}
                       readonly
@@ -159,7 +156,7 @@ class ProductDetail extends React.Component {
                     <button onClick={() => this.onDeleteRating(starRating.id)} type='button' className='close' aria-label='Close'>
                       <span aria-hidden='true'>&times;</span>
                     </button>
-                    <p className='p-2'>{starRating.description}</p>
+                    <p className='p-1'>{starRating.description}</p>
 
                   </div>
                 );
@@ -173,8 +170,6 @@ class ProductDetail extends React.Component {
 }
 
 const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) => {
-
-  const user = auth.user;
   const product = products.find(product => product.id === id);
 
   const starRatingUser = starRatings.find(starRating => starRating.user_id === user.id);
@@ -188,23 +183,24 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
 
   // const ratingUsers = starRatings.reduce((result, starRating) => {
   //   const userId = starRating.user_id;
-  //   const userName = users.find(user => user.id === userId).fullname;
-
-  //   if(!result[userId]){
-  //     result[userId] = userName;
+  //   if (users) {
+  //     const userName = users.find(user => user.id === userId);
+  //     if (!result[userId]) {
+  //       result[userId] = userName.fullname;
+  //     }
+  //     return result;
   //   }
-  //   return result;
   // }, {});
 
   return {
-    user,
+    user: auth.user,
     product,
     cart,
     quantityOptions,
     starRatings,
     starRatingUser,
     starRatingProduct,
-    ratingFilteredProducts
+    ratingFilteredProducts,
     //ratingUsers
   };
 };

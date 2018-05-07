@@ -17,14 +17,16 @@ StarRating.addToStarRatings = function (starRating) {
       where: [attr]
     })
       .then(_starRating => {
+        // if star rating for user/product on db
         if (_starRating) {
-          // if (_starRating.rating != starRating.rating) {
-          //   Object.assign(_starRating, { rating: starRating.rating, description: starRating.description });
-          //   return _starRating.save();
-          // }
-          return null;//'_starRating';
+          // if quantity different, add new
+          if (_starRating.description != starRating.description) {
+            Object.assign(_starRating, { rating: starRating.rating, description: starRating.description });
+            return _starRating.save();
+          }
+          return _starRating;
         }
-        
+        // if star rating not on db, create
         attr.rating = starRating.rating;
         attr.description = starRating.description;
         return this.create(attr);
