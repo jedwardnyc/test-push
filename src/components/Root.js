@@ -67,7 +67,7 @@ class Root extends Component {
             <Route path='/account/edit-profile' component={Private(EditUser)}/>
             <Route path='/account/addresses' component={Private(Addresses)}/>
             <Route path='/admin/categories' component={Admin(AdminCategories)} />
-            <Route path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
+            <Route exact path='/admin/products' render={({ match, history }) => <AdminProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/products/:id' render={({ match, history }) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
             <Route path='/cart' render={({ match }) => <Cart history={history} />} />
