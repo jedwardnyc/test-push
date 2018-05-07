@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateLineItem, deleteLineItem } from '../store/lineitems';
-import { updateOrder } from '../store/orders';
+import { checkOutUser } from '../store/cart';
 
 class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.onSaveQuantity = this.onSaveQuantity.bind(this);
-    this.onPlaceAnOrder = this.onPlaceAnOrder.bind(this);
+    this.onPlaceOrder = this.onPlaceOrder.bind(this);
   }
 
   onSaveQuantity(ev) {
@@ -20,20 +20,17 @@ class Cart extends React.Component {
     this.props.deleteLineItem(itemId);
   }
 
-  onPlaceAnOrder(ev) {
-    ev.preventDefault();
-    console.log('onPlaceAnOrder');
-    // const order = {
-    //   id: this.state.orderId,
-    //   status: 'ordered',
-    //   dateOrdered: Date.now()
-    // };
-    // this.props.updateOrder(order);
+  onPlaceOrder(ev) {
+    if (this.props.userCartItems.length) {
+      this.props.checkOutUser(this.props.userId);
+    } else {
+      console.log('onPlaceOrder: no order items. [Place your Order] button should be disabled.');
+    }
   }
 
   render() {
     const { quantityOptions, userCartItems, productMap, subTotal, totalLineItems } = this.props;
-    const { onSaveQuantity } = this;
+    const { onSaveQuantity, onPlaceOrder } = this;
 
     return (
       <div className="container mt-5 ml-5 row">
@@ -79,7 +76,7 @@ class Cart extends React.Component {
           <div className="bg-light rounded box-shadow">
             <div className="h5 pt-4">Total item{ totalLineItems > 1 ? 's' : '' }: { totalLineItems }</div>
             <div className="h5 p-2">Subtotal: ${ subTotal.toLocaleString('USD') }</div>
-            <button className="btn btn-block btn-primary p-2" onClick={this.onPlaceAnOrder}>Place your Order</button>
+            <button className="btn btn-block btn-primary p-2" onClick={ onPlaceOrder }>Place your Order</button>
           </div>
         </div>
       </div>
@@ -119,20 +116,25 @@ const mapStateToProps = ({ cart, lineItems, products }) => {
     return sum + item.quantity;
   }, 0);
 
+  // getting user id from cart to check out
+  const userId = cart.user_id;
+
   return {
     quantityOptions,
     userCartItems,
     productMap,
     subTotal,
-    totalLineItems
+    totalLineItems,
+    userId
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
     updateLineItem: (lineItem) => dispatch(updateLineItem(lineItem)),
     deleteLineItem: id => dispatch(deleteLineItem(id)),
-    updateOrder: (order) => dispatch(updateOrder(order))
+    checkOutUser: userId => dispatch(checkOutUser(userId, history))
+    .then(() => history.push('/account/orders'))
   };
 };
 
