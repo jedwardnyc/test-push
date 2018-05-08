@@ -9,7 +9,8 @@ class CreditCards extends Component {
     super(props);
     this.state = {
       add: false,
-      edit: false
+      edit: false,
+      id: undefined
     }
     this.edit = this.edit.bind(this)
     this.add = this.add.bind(this)
@@ -26,7 +27,7 @@ class CreditCards extends Component {
   render() {
 
     const { creditCards, user } = this.props;
-    const { edit, add } = this.state;
+    const { edit, add, id } = this.state;
 
     const cardType = (card) => {
       const masterCard = new RegExp('(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}')
@@ -38,7 +39,7 @@ class CreditCards extends Component {
         masterCard.test(card*1) ? 'MC' : 
         amex.test(card*1) ? 'AMEX' : 
         discover.test(card*1) ? 'DISCOVER' : 
-        'Not a valid card'
+        'Not Valid'
       )
     }
 
@@ -61,10 +62,9 @@ class CreditCards extends Component {
               return (
                 <div key={creditCard.id}>
                   {
-                    edit ?
-                    <div className='add-item'>
+                    edit && id === creditCard.id ? 
+                    
                       <EditCard creditCard={creditCard} edit={this.edit} user={user}/>
-                    </div>
                     : 
                     <div className='cc-item'>
                       <div className='cc-info'>
@@ -75,7 +75,7 @@ class CreditCards extends Component {
                       <div className='cc-buttons'>
                         <button onClick={(ev) => {
                             ev.preventDefault();
-                            this.setState({ edit: true })}}
+                            this.setState({ edit: true, id: creditCard.id })}}
                           className='btn btn-sm btn-secondary mr-1'>   
                           Edit Card 
                         </button>
@@ -96,9 +96,7 @@ class CreditCards extends Component {
           }
           {
             add ?
-            <div className='add-item'> 
-              <EditCard user={user} add={this.add}/>
-            </div>
+            <EditCard user={user} add={this.add}/>
             : null
           }
         </div>
