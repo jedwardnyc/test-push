@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { updateUser } from '../../store'; 
+import { updateUser, getLoggedIn } from '../../store'; 
 
 class EditUser extends Component {
   constructor(props){
     super(props);
     this.state = this.props.user;
     this.update = this.update.bind(this);
+  }
+
+  componentWillUnmount(){
+    const _user = localStorage.getItem('user');
+    this.props.getLoggedIn({ token: _user });
   }
 
   componentWillReceiveProps(nextProps){
@@ -17,12 +22,12 @@ class EditUser extends Component {
   update(ev){
     ev.preventDefault();
     this.props.updateUser(this.state);
+    window.history.back()
   }
 
   render(){
     const { firstname, lastname, email } = this.state || '';
     const { user } = this.props;
-    console.log(this.state)
     if (!user) return null;
     return (
       <div className='container mt-3'>
@@ -33,6 +38,7 @@ class EditUser extends Component {
           <div className='user-edit'>
           <div className='form-row'>
             <div className='form-group col-6'>
+              <label> First Name </label>
               <input 
                 className='form-control' 
                 placeholder='Jane'
@@ -40,6 +46,7 @@ class EditUser extends Component {
                 onChange={(ev) => this.setState({ firstname: ev.target.value })}/>
             </div>
             <div className='form-group col-6'>
+              <label> Last Name </label>
               <input 
                 className='form-control' 
                 placeholder='Doe'
@@ -48,6 +55,7 @@ class EditUser extends Component {
             </div>
             </div>
             <div className='form-group'>
+              <label> Email </label>  
               <input 
                 className='form-control' 
                 placeholder='example@test.com'
@@ -77,7 +85,8 @@ const mapState = ({ auth }) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    updateUser: user => dispatch(updateUser(user))
+    updateUser: user => dispatch(updateUser(user)),
+    getLoggedIn: user => dispatch(getLoggedIn(user))
   }
 }
 

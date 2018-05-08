@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from '../../store';
 import axios from 'axios';
-
+import bcrypt from 'bcryptjs';
 
 class ResetPW extends Component {
   constructor(props) {

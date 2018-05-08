@@ -52,8 +52,6 @@ const authReducer = ( state = {}, action ) => {
       return Object.assign({}, state, { user: action.user });
     case UNAUTHENTICATED:
       return Object.assign({}, state, { user: {} });
-    case UPDATE_USER:
-      return Object.assign({}, state, { user: action.user });
     case GET_USERS: 
       return state;
     default:

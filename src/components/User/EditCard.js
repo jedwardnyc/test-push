@@ -14,18 +14,18 @@ class EditCard extends Component {
   update(ev){
     ev.preventDefault();
     this.props.updateCreditCard(this.state)
-    this.props.edit({edit:false})
+    this.props.edit({ edit:false, id: undefined })
   }
 
   create(ev){
     ev.preventDefault();
     this.props.createCreditCard(this.state)
-    this.props.add({add:false})
+    this.props.add({ add:false, id: undefined })
   }
 
   cancel(ev){
     ev.preventDefault();
-    this.props.add ? this.props.add({add:false}) : this.props.edit({edit:false})
+    this.props.add ? this.props.add({ add:false, id: undefined }) : this.props.edit({ edit:false, id: undefined })
   }
 
   render(){
@@ -33,17 +33,17 @@ class EditCard extends Component {
     const { number, firstname, lastname, exp } = this.state;
     const { edit } = this.props;
     return (
-      <form onSubmit={ edit ? this.update : this.create }>
-        <div className='address-form'>
+      <div className='cc-item'>
+        <form onSubmit={ edit ? this.update : this.create }>
           <div className='form-row'>
-            <div className='form-group col-4'>
+            <div className='form-group col-6'>
               <input 
                 className='form-control' 
                 placeholder='Janeathon'
                 value={ firstname ? firstname : '' } 
                 onChange={(ev) => this.setState({ firstname: ev.target.value })}/>
             </div>
-            <div className='form-group col-4'>
+            <div className='form-group col-6'>
               <input 
                 className='form-control' 
                 placeholder='Smithy'
@@ -52,14 +52,14 @@ class EditCard extends Component {
             </div>
           </div>
           <div className='form-row'>
-            <div className='form-group col-4'>
+            <div className='form-group col-8'>
               <input 
                 className='form-control' 
                 placeholder='1234 4678 9012 3456'
                 value={ number ? number : '' } 
                 onChange={(ev) => this.setState({ number: ev.target.value })}/>
             </div>
-            <div className='form-group col-2'>
+            <div className='form-group col-4'>
               <input 
                 className='form-control' 
                 placeholder='01/20'
@@ -67,8 +67,10 @@ class EditCard extends Component {
                 onChange={(ev) => this.setState({ exp: ev.target.value })}/>
             </div>
           </div>
-          <div className='address-add-buttons'>
-            <button 
+          </form>
+          <div className='cc-buttons'>
+            <button
+              onClick={ edit ? this.update : this.create }
               className='btn btn-sm btn-secondary mr-1'> 
               { edit ? 'Edit Card' : 'Add Card' }
             </button>
@@ -77,8 +79,7 @@ class EditCard extends Component {
               Cancel 
             </button>
           </div>
-        </div>
-      </form>
+      </div>
     )
   }
 }

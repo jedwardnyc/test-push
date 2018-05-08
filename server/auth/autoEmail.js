@@ -14,7 +14,7 @@ const sendReset = (user, token) => {
   
   let mailOptions = {
     to: user.email,
-    from: 'passwordreset@thelightweb.com',
+    from: '"Password Reset" <passwordreset@thelightweb.com>',
     subject: 'The Light Web Password Reset',
     text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
       Please click on the following link, or paste this into your browser to complete the process:
@@ -45,7 +45,7 @@ const sendAdmin = (user, token) => {
   
   let mailOptions = {
     to: user.email,
-    from: 'admin@thelightweb.com',
+    from: 'The Light Web Admins <admin@thelightweb.com>',
     subject: 'The Light Web Password',
     text: `You are receiving this because an administrative user has requested that you reset your password on this account.
       Please click on the following link, or paste this into your browser to complete the process:
@@ -77,7 +77,7 @@ const sendConfirmation = (user) => {
   
   let mailOptions = {
     to: user.email,
-    from: 'passwordreset@thelightweb.com',
+    from: '"Password Reset" <passwordreset@thelightweb.com>',
     subject: 'Your password has been changed',
     text: `Hello ${user.fullname},
     This is a confirmation that the password for your account ${user.email} has just been changed`,
@@ -105,7 +105,7 @@ const sendWelcome = (user) => {
   
   let mailOptions = {
     to: user.email,
-    from: 'welcome@thelightweb.com',
+    from: 'The Light Web <welcome@thelightweb.com>',
     subject: 'Your account has been created!',
     text: `Hello ${user.firstname},
     Welcome to The Light Web, you center for all things dark web sounding, but actually legal.
