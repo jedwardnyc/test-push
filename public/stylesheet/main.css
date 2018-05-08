@@ -1,5 +1,35 @@
-body {
+* {
   box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+
+.footer-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: aliceblue;
 }
 
 #password {
@@ -231,7 +261,7 @@ nav .spacer {
   display: grid;
   padding: 25px 30px;
   grid-template-rows: 4fr 1fr;
-  margin-left: 10px; 
+  margin-left: 10px;
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
@@ -280,7 +310,7 @@ nav .spacer {
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
-} 
+}
 
 .cc-info {
   grid-row: 1;
@@ -321,10 +351,9 @@ nav .spacer {
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
-} 
+}
 
 .order-info {
   grid-row: 1;
   justify-self: center;
 }
-

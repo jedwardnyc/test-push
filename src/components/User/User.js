@@ -19,7 +19,7 @@ class User extends Component {
     return (
       <div id='account' className='container mt-3'>
       <div className='account-title'> {user.fullname}'s Account </div>
-        <div className='account-btns'> 
+        <div className='account-btns'>
           <Link to='/account/orders' className='account-btn'>
             <div className='account-pix'>
               <img src='/public/icons/Orders.svg' />
@@ -55,14 +55,14 @@ class User extends Component {
         </div>
         <div className='account-admin'> Administrative Features </div>
         {
-          user.isAdmin ? 
+          user.isAdmin ?
           <div className='account-btns-admin'>
             <Link to='/admin/categories' className='account-btn'>
               <div className='account-pix'>
                 <img src='/public/icons/Categories.svg' />
               </div>
               <div className='account-info-admin'>
-                Edit Categories              
+                Edit Categories
               </div>
             </Link>
             <Link to='/admin/products' className='account-btn'>
@@ -70,7 +70,7 @@ class User extends Component {
                 <img src='/public/icons/Products.svg' />
               </div>
               <div className='account-info-admin'>
-                Edit Products            
+                Edit Products
               </div>
             </Link>
             <Link to='/admins/users' className='account-btn'>
@@ -78,7 +78,7 @@ class User extends Component {
                 <img src='/public/icons/Users.svg' />
               </div>
               <div className='account-info-admin'>
-                Edit Users            
+                Edit Users
               </div>
             </Link>
           </div>

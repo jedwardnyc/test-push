@@ -29,15 +29,15 @@ class AdminUsers extends React.Component {
                 <div className='list-item' key={user.id}>
                   <div className='list-name'>{user.fullname}</div>
                     <div className='list-btns'>
-                      <button 
+                      <button
                         onClick={() => this.forgot({ email: user.email }) }
                         className='btn btn-sm btn-secondary grid-btn'>
                           Reset Password
                       </button>
-                      <button 
-                      
-                        className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } grid-btn`}> 
-                          { user.isAdmin ? 'Remove Admin' : 'Make Admin' } 
+                      <button
+
+                        className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } grid-btn`}>
+                          { user.isAdmin ? 'Remove Admin' : 'Make Admin' }
                       </button>
                       <button onClick={() => this.props.deleteUser(user)} type='button' className='close grid-btn'>
                       <span>&times;</span>

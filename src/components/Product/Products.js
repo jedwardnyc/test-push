@@ -23,7 +23,7 @@ const Products = ({ categories, products }) => {
           </div>
         </div>
       </div>
-      <div className='container'>
+      <div className='content container'>
         {
           categories && categories.map(category => {
             return (

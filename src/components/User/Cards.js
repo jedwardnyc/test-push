@@ -14,13 +14,13 @@ const CreditCards = (props) => {
     const discover = new RegExp('^6011-?\d{4}-?\d{4}-?\d{4}$')
 
     return (
-      visa.test(card*1) ? 'VISA' : 
-      masterCard.test(card*1) ? 'MC' : 
-      amex.test(card*1) ? 'AMEX' : 
-      discover.test(card*1) ? 'DISCOVER' : 
+      visa.test(card*1) ? 'VISA' :
+      masterCard.test(card*1) ? 'MC' :
+      amex.test(card*1) ? 'AMEX' :
+      discover.test(card*1) ? 'DISCOVER' :
       'Not a valid card'
     )
-  
+
   }
   if (!user) return null;
   return (
@@ -36,7 +36,7 @@ const CreditCards = (props) => {
               <div className='cc-item' key={creditCard.id}>
                 <div className='cc-info'>
                   <h2>{creditCard.firstname} {creditCard.lastname}</h2>
-                  <h4>{cardType(creditCard.number)}: XXXX XXXX XXXX {creditCard.number.slice(-4)}</h4> 
+                  <h4>{cardType(creditCard.number)}: XXXX XXXX XXXX {creditCard.number.slice(-4)}</h4>
                   <h4>EXP: {creditCard.exp}</h4>
                 </div>
                 <div className='cc-buttons'>

@@ -20,12 +20,12 @@ class Addresses extends Component {
       <div className='container mt-3'>
         <div className='address-header'>
           <div className='address-title'> {user.firstname}'s Addresses </div>
-          <button 
+          <button
             onClick={(ev) => {
               ev.preventDefault()
               this.setState({ add: true })
             }}
-            className='btn btn-dark address-add'> 
+            className='btn btn-dark address-add'>
             Add Address
           </button>
         </div>
@@ -35,13 +35,13 @@ class Addresses extends Component {
               return (
                 <div key={address.id}>
                 {
-                  edit ? 
+                  edit ?
                   <div className='address-add-item'>
                     <EditAddress address={address} edit={true} />
                     <div className='address-add-buttons'>
                       <button onClick={(ev) => {
                         ev.preventDefault();
-                        this.setState({ edit: false })}} 
+                        this.setState({ edit: false })}}
                         className='btn btn-danger btn-sm'> Cancel </button>
                     </div>
                   </div>
@@ -55,25 +55,25 @@ class Addresses extends Component {
                     <div className='address-buttons'>
                       <button onClick={(ev) => {
                         ev.preventDefault();
-                        this.setState({ edit: true })}}  
+                        this.setState({ edit: true })}}
                         className='btn btn-sm btn-secondary mr-1'> Edit Address </button>
                       <button className='btn btn-sm btn-danger'> Remove Address </button>
                     </div>
                   </div>
                 }
-                  
+
                 </div>
               )
             })
           }
           {
             add ?
-            <div className='address-add-item'> 
+            <div className='address-add-item'>
               <EditAddress />
               <div className='address-add-buttons'>
                 <button onClick={(ev) => {
                   ev.preventDefault();
-                  this.setState({ add: false })}} 
+                  this.setState({ add: false })}}
                   className='btn btn-sm btn-danger'> Cancel </button>
               </div>
             </div>

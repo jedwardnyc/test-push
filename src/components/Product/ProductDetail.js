@@ -170,6 +170,7 @@ class ProductDetail extends React.Component {
 }
 
 const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) => {
+  const user = auth.user;
   const product = products.find(product => product.id === id);
 
   const starRatingUser = starRatings.find(starRating => starRating.user_id === user.id);
@@ -193,7 +194,7 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
   // }, {});
 
   return {
-    user: auth.user,
+    user,
     product,
     cart,
     quantityOptions,

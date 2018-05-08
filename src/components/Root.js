@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings } from '../store';
 
 import Nav from './Nav';
+import Footer from './Footer';
 import Login from './Auth/Login';
 import Private from './Auth/AuthNeeded';
 import Admin from './Auth/AdminNeeded';
@@ -73,6 +74,7 @@ class Root extends Component {
             <Route path='/cart' render={({ match }) => <Cart history={history} />} />
             <Route path='/forgot' component={ForgotPW} />
             <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
+            <Footer />
           </div>
         </Router>
       </div>
