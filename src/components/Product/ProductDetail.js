@@ -41,7 +41,7 @@ class ProductDetail extends React.Component {
     };
     this.props.createStarRating(review);
     this.onCloseModal();
-    this.setState({ rating:1, description: '', product_id: '', user_id: '' });
+    this.setState({ rating: 1, description: '', product_id: '', user_id: '' });
   }
 
   onDeleteRating(id) {
@@ -57,7 +57,7 @@ class ProductDetail extends React.Component {
     const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
     this.props.addLineItemToCart(lineItem)
     .then(() => {
-      this.props.history.push('/cart')
+      this.props.history.push('/cart');
     });
   }
 
@@ -69,25 +69,25 @@ class ProductDetail extends React.Component {
     if (!product) {
       return null;
     }
-   
+
     return (
-      <div className='container'>
-        <div className='border rounded mt-5 bg-light row'>
-          <div className='col-sm'>
-            <img className='img-fluid mt-4 mb-4' src={product.imgUrl} width='400' height='200' />
+      <div className="container">
+        <div className="border rounded mt-5 bg-light row">
+          <div className="col-sm">
+            <img className="img-fluid mt-4 mb-4" src={ product.imgUrl } />
           </div>
-          <div className='col-sm'>
-            <h3 className='text-left pt-3 pb-3'>{product.name}</h3>
-            <h5 className='mt-3 mb-3'>Price: ${product.price}</h5>
-            <div className='card'>
-              <div className='card-body rounded'>
-                <div className='row'>
-                  <div className='col sm-12 med-6'>
-                    <div className='input-group'>
-                      <div className='input-group-prepend'>
-                        <label className='input-group-text' htmlFor='inputQuantity'>Quantity</label>
+          <div className="col-sm">
+            <h3 className="text-left pt-3 pb-3">{ product.name }</h3>
+            <h5 className="mt-3 mb-3">Price: ${ product.price.toLocaleString('USD') }</h5>
+            <div className="card">
+              <div className="card-body rounded">
+                <div className="row">
+                  <div className="col sm-12 med-6">
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <label className="input-group-text" htmlFor="inputQuantity">Quantity</label>
                       </div>
-                      <select className='custom-select p-2 mr-2' id='inputQuantity' name='quantity' onChange={onChange}>
+                      <select className="custom-select p-2 mr-2" id="inputQuantity" name="quantity" onChange={onChange}>
                         {
                           quantityOptions.map(option => {
                             return (
@@ -98,24 +98,25 @@ class ProductDetail extends React.Component {
                       </select>
                     </div>
                   </div>
-                  <div className='col sm-12 med-6'>
-                    <button className='btn btn-primary float-right' disabled={!product.availability} onClick={onSave}>Add to Cart</button>
+                  <div className="col sm-12 med-6">
+                    <button className="btn btn-primary float-right" disabled={!product.availability} onClick={onSave}>Add to Cart</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='mt-4 mb-4'><div className='h5'>Description:</div> {product.description}</div>
-            <div className='h4 mt-4 mb-4 text-danger'>{!product.availability ? 'Currently Unavailable' : ''}</div>
-            <div className='col-md-10' />
-            { 
-              user && user.id ? 
-              <button disabled={starRatingUser && starRatingProduct} 
-                className='btn btn-primary btn-md ml-4 mb-2 float-right' 
+            <div className="mt-4 mb-4"><div className="h5">Description:</div> {product.description}</div>
+            <div className="h4 mt-4 mb-4 text-danger">{!product.availability ? 'Currently Unavailable' : ''}</div>
+            <div className="col-md-10" />
+            {
+              user && user.id ?
+              <button
+disabled={starRatingUser && starRatingProduct}
+                className="btn btn-primary btn-md ml-4 mb-2 float-right"
                 onClick={() => this.onOpenModal()}>
                 Review
               </button>
-              : null 
-            }         
+              : null
+            }
             </div>
         </div>
         <Modal
@@ -124,48 +125,48 @@ class ProductDetail extends React.Component {
           center
           classNames={{ overlay: 'custom-overlay', modal: 'custom-modal' }}
         >
-        <div className='bg-light'>
-          <h4 className='text-center'>Review</h4>
-          <form className='form-group'>
-            <div className='mr-auto p-2'>
+        <div className="bg-light">
+          <h4 className="text-center">Review</h4>
+          <form className="form-group">
+            <div className="mr-auto p-2">
               <p>Name: {product.name}</p>
               <Rating
-                name='rating'
+                name="rating"
                 initialRating={this.state.rating}
                 onChange={(rating) => this.onChangeStar(rating)}
                 value={rating}
-                emptySymbol={<img src='/public/icons/star-gray.png' className='icon' />}
-                fullSymbol={<img src='/public/icons/star-yellow.png' className='icon' />}
+                emptySymbol={<img src="/public/icons/star-gray.png" className="icon" />}
+                fullSymbol={<img src="/public/icons/star-yellow.png" className="icon" />}
               />
             </div>
             <textarea
-              name='description'
-              className='form-control'
+              name="description"
+              className="form-control"
               onChange={onChange}
               value={description}
-              rows='4'
+              rows="4"
             />
-            <button className='btn btn-primary btn-lg mt-2 float-right' onClick={this.onSaveModal}>save</button>
+            <button className="btn btn-primary btn-lg mt-2 float-right" onClick={this.onSaveModal}>save</button>
           </form>
         </div>
         </Modal>
-        <div className='mt-3'>
+        <div className="mt-3">
           {
             ratingFilteredProducts ?
               ratingFilteredProducts && ratingFilteredProducts.map(starRating => {
                 return (
-                  <div className='column' key={starRating.id}>
+                  <div className="column" key={starRating.id}>
                     {/* <p>{ratingUsers[user.id]}</p> */}
                     <Rating
                       initialRating={starRating.rating}
                       readonly
-                      emptySymbol={<img src='/public/icons/star-gray.png' className='icon' />}
-                      fullSymbol={<img src='/public/icons/star-yellow.png' className='icon' />}
+                      emptySymbol={<img src="/public/icons/star-gray.png" className="icon" />}
+                      fullSymbol={<img src="/public/icons/star-yellow.png" className="icon" />}
                     />
-                      <button onClick={() => this.onDeleteRating(starRating.id)} type='button' className='close' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
+                      <button onClick={() => this.onDeleteRating(starRating.id)} type="button" className="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                       </button>
-                    <p className='p-2'>{starRating.description}</p>
+                    <p className="p-2">{starRating.description}</p>
                   </div>
                 );
               })
@@ -192,16 +193,6 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
     quantityOptions.push(<option value={i} key={i}>{i}</option>);
   }
 
-  // const ratingUsers = starRatings.reduce((result, starRating) => {
-  //   const userId = starRating.user_id;
-  //   const userName = users.find(user => user.id === userId).fullname;
-
-  //   if(!result[userId]){
-  //     result[userId] = userName;
-  //   }
-  //     return result;
-  //   }, {});
-  // }
 
   return {
     user,
@@ -211,8 +202,7 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
     starRatings,
     starRatingUser,
     starRatingProduct,
-    ratingFilteredProducts,
-    // ratingUsers
+    ratingFilteredProducts
   };
 };
 

@@ -1,6 +1,7 @@
 const conn = require('../conn');
 const Sequelize = conn.Sequelize;
 const LineItem = require('./LineItem');
+const User = require('./User');
 
 const Order = conn.define('orders', {
   status: {
@@ -33,7 +34,34 @@ Order.getCartForUser = function(user) {
     return this.findById(cart.id, {
       include: [ LineItem ]
     });
-  });
+  })
+  .then(cart => cart);
+};
+
+Order.checkOutUser = function(userId) {
+  return this.findOne({
+    where: [{
+      user_id: userId,
+      status: 'CART'
+    }]
+  })
+  .then(cart => {
+    cart = Object.assign(cart, {
+      status: 'ORDERED',
+      dateOrdered: Date.now()
+    });
+    return cart.save();
+  })
+  .then(() => {
+    return User.findById(userId);
+  })
+  .then(user => {
+    return this.create({
+      user_id: user.id,
+      status: 'CART'
+    });
+  })
+  .then(cart => cart);
 };
 
 module.exports = Order;
