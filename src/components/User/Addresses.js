@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import EditAddress from './EditAddress';
+import { deleteAddress } from '../../store';
 
 class Addresses extends Component {
   constructor(props){
@@ -10,6 +11,16 @@ class Addresses extends Component {
       add: false,
       edit: false
     }
+    this.edit = this.edit.bind(this)
+    this.add = this.add.bind(this)
+  }
+
+  edit(edit){
+    this.setState(edit)
+  }
+
+  add(add){
+    this.setState(add)
   }
 
   render(){
@@ -22,7 +33,7 @@ class Addresses extends Component {
           <div className='address-title'> {user.firstname}'s Addresses </div>
           <button
             onClick={(ev) => {
-              ev.preventDefault()
+              ev.preventDefault();
               this.setState({ add: true })
             }}
             className='btn btn-dark address-add'>
@@ -36,14 +47,8 @@ class Addresses extends Component {
                 <div key={address.id}>
                 {
                   edit ?
-                  <div className='address-add-item'>
-                    <EditAddress address={address} edit={true} />
-                    <div className='address-add-buttons'>
-                      <button onClick={(ev) => {
-                        ev.preventDefault();
-                        this.setState({ edit: false })}}
-                        className='btn btn-danger btn-sm'> Cancel </button>
-                    </div>
+                  <div className='add-item'>
+                    <EditAddress address={address} edit={this.edit} user={user}/>
                   </div>
                   :
                   <div className='address-item'>
@@ -53,29 +58,30 @@ class Addresses extends Component {
                       <h3>{address.city}, {address.state} {address.zip}</h3>
                     </div>
                     <div className='address-buttons'>
-                      <button onClick={(ev) => {
-                        ev.preventDefault();
-                        this.setState({ edit: true })}}
+                      <button
+                      onClick={(ev) => {
+                          ev.preventDefault();
+                          this.setState({ edit: true })}}
                         className='btn btn-sm btn-secondary mr-1'> Edit Address </button>
-                      <button className='btn btn-sm btn-danger'> Remove Address </button>
+                      <button
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          this.props.deleteAddress(address)
+                        }}
+                        className='btn btn-sm btn-danger'>
+                        Remove Address
+                      </button>
                     </div>
                   </div>
                 }
-
                 </div>
               )
             })
           }
           {
             add ?
-            <div className='address-add-item'>
-              <EditAddress />
-              <div className='address-add-buttons'>
-                <button onClick={(ev) => {
-                  ev.preventDefault();
-                  this.setState({ add: false })}}
-                  className='btn btn-sm btn-danger'> Cancel </button>
-              </div>
+            <div className='add-item'>
+              <EditAddress user={user} add={this.add}/>
             </div>
             : null
           }
@@ -89,8 +95,15 @@ class Addresses extends Component {
 const mapState = ({ auth, addresses }) => {
   return {
     addresses,
-    user: auth.user
+    user: auth.user,
   }
 }
 
-export default connect(mapState)(Addresses)
+const mapDispatch = dispatch => {
+  return {
+    deleteAddress: (address) => dispatch(deleteAddress(address)),
+  }
+}
+
+
+export default connect(mapState, mapDispatch)(Addresses)

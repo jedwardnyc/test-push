@@ -56,9 +56,9 @@ class ProductDetail extends React.Component {
   onSave(ev) {
     const lineItem = { quantity: this.state.quantity, product_id: this.props.id, order_id: this.props.cart.id };
     this.props.addLineItemToCart(lineItem)
-      .then(() => {
-        this.props.history.push('/cart')
-      });
+    .then(() => {
+      this.props.history.push('/cart');
+    });
   }
 
   render() {
@@ -70,23 +70,23 @@ class ProductDetail extends React.Component {
       return null;
     }
     return (
-      <div className='container'>
-        <div className='border rounded mt-5 bg-light row'>
-          <div className='col-sm'>
-            <img className='img-fluid mt-4 mb-4' src={product.imgUrl} width='400' height='200' />
+      <div className="container">
+        <div className="border rounded mt-5 bg-light row">
+          <div className="col-sm">
+            <img className="img-fluid mt-4 mb-4" src={ product.imgUrl } />
           </div>
-          <div className='col-sm'>
-            <h3 className='text-left pt-3 pb-3'>{product.name}</h3>
-            <h5 className='mt-3 mb-3'>Price: ${product.price}</h5>
-            <div className='card'>
-              <div className='card-body rounded'>
-                <div className='row'>
-                  <div className='col sm-12 med-6'>
-                    <div className='input-group'>
-                      <div className='input-group-prepend'>
-                        <label className='input-group-text' htmlFor='inputQuantity'>Quantity</label>
+          <div className="col-sm">
+            <h3 className="text-left pt-3 pb-3">{ product.name }</h3>
+            <h5 className="mt-3 mb-3">Price: ${ product.price.toLocaleString('USD') }</h5>
+            <div className="card">
+              <div className="card-body rounded">
+                <div className="row">
+                  <div className="col sm-12 med-6">
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <label className="input-group-text" htmlFor="inputQuantity">Quantity</label>
                       </div>
-                      <select className='custom-select p-2 mr-2' id='inputQuantity' name='quantity' onChange={onChange}>
+                      <select className="custom-select p-2 mr-2" id="inputQuantity" name="quantity" onChange={onChange}>
                         {
                           quantityOptions.map(option => {
                             return (
@@ -97,17 +97,26 @@ class ProductDetail extends React.Component {
                       </select>
                     </div>
                   </div>
-                  <div className='col sm-12 med-6'>
-                    <button className='btn btn-primary float-right' disabled={!product.availability} onClick={onSave}>Add to Cart</button>
+                  <div className="col sm-12 med-6">
+                    <button className="btn btn-primary float-right" disabled={!product.availability} onClick={onSave}>Add to Cart</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='mt-4 mb-4'><div className='h5'>Description:</div> {product.description}</div>
-            <div className='h4 mt-4 mb-4 text-danger'>{!product.availability ? 'Currently Unavailable' : ''}</div>
-            <div className='col-md-10' />
-            <button disabled={starRatingUser && starRatingProduct} className='btn btn-primary btn-md ml-4 mb-2 float-right' onClick={() => this.onOpenModal()}>Review</button>
-          </div>
+            <div className="mt-4 mb-4"><div className="h5">Description:</div> {product.description}</div>
+            <div className="h4 mt-4 mb-4 text-danger">{!product.availability ? 'Currently Unavailable' : ''}</div>
+            <div className="col-md-10" />
+            {
+              user && user.id ?
+              <button
+                disabled={starRatingUser && starRatingProduct}
+                className="btn btn-primary btn-md ml-4 mb-2 float-right"
+                onClick={() => this.onOpenModal()}>
+                Review
+              </button>
+              : null
+            }
+            </div>
         </div>
         <Modal
           open={open}
@@ -115,32 +124,32 @@ class ProductDetail extends React.Component {
           center
           classNames={{ overlay: 'custom-overlay', modal: 'custom-modal' }}
         >
-          <div className='bg-light'>
-            <h4 className='text-center'>Review</h4>
-            <form className='form-group'>
-              <div className='mr-auto p-2'>
-                <p>Name: {product.name}</p>
-                <Rating
-                  name='rating'
-                  initialRating={this.state.rating}
-                  onChange={(rating) => this.onChangeStar(rating)}
-                  value={rating}
-                  emptySymbol={<img src='/public/icons/star-gray.png' className='icon' />}
-                  fullSymbol={<img src='/public/icons/star-yellow.png' className='icon' />}
-                />
-              </div>
-              <textarea
-                name='description'
-                className='form-control'
-                onChange={onChange}
-                value={description}
-                rows='4'
+        <div className="bg-light">
+          <h4 className="text-center">Review</h4>
+          <form className="form-group">
+            <div className="mr-auto p-2">
+              <p>Name: {product.name}</p>
+              <Rating
+                name="rating"
+                initialRating={this.state.rating}
+                onChange={(rating) => this.onChangeStar(rating)}
+                value={rating}
+                emptySymbol={<img src="/public/icons/star-gray.png" className="icon" />}
+                fullSymbol={<img src="/public/icons/star-yellow.png" className="icon" />}
               />
-              <button className='btn btn-primary btn-lg mt-2 float-right' onClick={this.onSaveModal}>save</button>
-            </form>
-          </div>
+            </div>
+            <textarea
+              name="description"
+              className="form-control"
+              onChange={onChange}
+              value={description}
+              rows="4"
+            />
+            <button className="btn btn-primary btn-lg mt-2 float-right" onClick={this.onSaveModal}>save</button>
+          </form>
+        </div>
         </Modal>
-        <div className='mt-3'>
+        <div className="mt-3">
           {
             ratingFilteredProducts ?
               ratingFilteredProducts && ratingFilteredProducts.map(starRating => {
@@ -150,8 +159,8 @@ class ProductDetail extends React.Component {
                     <Rating
                       initialRating={starRating.rating}
                       readonly
-                      emptySymbol={<img src='/public/icons/star-gray.png' className='icon' />}
-                      fullSymbol={<img src='/public/icons/star-yellow.png' className='icon' />}
+                      emptySymbol={<img src="/public/icons/star-gray.png" className="icon" />}
+                      fullSymbol={<img src="/public/icons/star-yellow.png" className="icon" />}
                     />
                     <button onClick={() => this.onDeleteRating(starRating.id)} type='button' className='close' aria-label='Close'>
                       <span aria-hidden='true'>&times;</span>
@@ -176,6 +185,7 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
   const starRatingUser = starRatings.find(starRating => starRating.user_id === user.id);
   const starRatingProduct = starRatings.find(starRating => starRating.product_id === product.id);
   const ratingFilteredProducts = starRatings.filter(starRating => starRating.product_id === product.id);
+  const ratingUser = starRatings.filter(starRating => starRating.user_id === user.id).find(rating => rating.id === id);
 
   const quantityOptions = [];
   for (let i = 1; i <= 20; i++) {

@@ -73,7 +73,7 @@ class User extends Component {
                 Edit Products
               </div>
             </Link>
-            <Link to='/admins/users' className='account-btn'>
+            <Link to='/admin/users' className='account-btn'>
               <div className='account-pix'>
                 <img src='/public/icons/Users.svg' />
               </div>

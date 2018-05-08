@@ -1,6 +1,6 @@
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
-import { AUTHENTICATED, UNAUTHENTICATED, GET_USERS } from './constants';
+import { AUTHENTICATED, UNAUTHENTICATED, GET_USERS, UPDATE_USER } from './constants';
 
 export const login = ({ email, password }, history ) => {
   return (dispatch) => {
@@ -52,8 +52,10 @@ const authReducer = ( state = {}, action ) => {
       return Object.assign({}, state, { user: action.user });
     case UNAUTHENTICATED:
       return Object.assign({}, state, { user: {} });
+    case UPDATE_USER:
+      return Object.assign({}, state, { user: action.user });
     case GET_USERS: 
-      return state
+      return state;
     default:
       return state;
   }
