@@ -62,6 +62,7 @@ class ProductDetail extends React.Component {
   }
 
   render() {
+
     const { open, description, rating } = this.state;
     const { product, quantityOptions, user, starRatings, ratingUsers, starRatingUser, starRatingProduct, ratingFilteredProducts } = this.props;
     const { onSave, onChange } = this;
@@ -155,7 +156,7 @@ class ProductDetail extends React.Component {
               ratingFilteredProducts && ratingFilteredProducts.map(starRating => {
                 return (
                   <div className='column' key={starRating.id}>
-                    {/*<p>{ratingUsers[starRating.user_id]}</p>*/}
+                    <p>{ratingUsers[starRating.user_id]}</p>
                     <Rating
                       initialRating={starRating.rating}
                       readonly
@@ -192,16 +193,16 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
     quantityOptions.push(<option value={i} key={i}>{i}</option>);
   }
 
-  // const ratingUsers = starRatings.reduce((result, starRating) => {
-  //   const userId = starRating.user_id;
-  //   if (users) {
-  //     const userName = users.find(user => user.id === userId);
-  //     if (!result[userId]) {
-  //       result[userId] = userName.fullname;
-  //     }
-  //     return result;
-  //   }
-  // }, {});
+  const ratingUsers = starRatings.reduce((result, starRating) => {
+    const userId = starRating.user_id;
+    if (users) {
+      const user = users.find(user => user.id === userId);
+      if (!result[userId]) {
+        result[userId] = user.fullname;
+      }
+      return result;
+    }
+  }, {});
 
   return {
     user,
@@ -212,7 +213,7 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
     starRatingUser,
     starRatingProduct,
     ratingFilteredProducts,
-    //ratingUsers
+    ratingUsers
   };
 };
 
