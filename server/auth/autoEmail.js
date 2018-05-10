@@ -1,4 +1,4 @@
-const { gridKey } = require('./config');
+const gridKey = process.env.GRID_KEY;
 const nodemailer = require('nodemailer');
 
 const sendReset = (user, token) => {
