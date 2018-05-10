@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings } from '../store';
 
 import Nav from './Nav';
-import Footer from './Footer';
 import Login from './Auth/Login';
 import Private from './Auth/AuthNeeded';
 import Admin from './Auth/AdminNeeded';
@@ -73,8 +72,7 @@ class Root extends Component {
             <Route path='/admin/users' render={({ match, history }) => <AdminUsers id={match.params.id * 1} history={history} />} />
             <Route path='/cart' render={({ match, history }) => <Cart history={history} />} />
             <Route path='/forgot' component={ForgotPW} />
-            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
-            <Footer />
+            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token} />} />
           </div>
         </Router>
       </div>

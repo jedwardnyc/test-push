@@ -18,7 +18,6 @@ class Nav extends React.Component {
   render() {
     fontawesome.library.add(faShoppingCart);
 
-
     const { totalLineItems, logout } = this.props;
     let { user } = this.props;
 
@@ -28,9 +27,6 @@ class Nav extends React.Component {
         <Link className='text-center navbar-brand' activeclassname='active' to='/'>
           <img src='/public/icons/TLW-icon-light.svg' width='40' height='50' className='mr-3 d-inline-block' />
           The Light Web</Link>
-        <div>
-
-        </div>
         <div className='collapes navbar-collapse justify-content-end'>
           {
             user.id ?
@@ -75,7 +71,7 @@ class Nav extends React.Component {
       </nav>
     );
   }
-};
+}
 
 const mapStateToProps = ({ auth, cart, lineItems }) => {
 

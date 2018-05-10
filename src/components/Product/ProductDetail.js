@@ -6,7 +6,7 @@ import Modal from 'react-responsive-modal';
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { quantity: 1, open: false, description: '', rating: 3 };
+    this.state = { quantity: 1, open: false, description: '', rating: 3, delete: false };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onSaveModal = this.onSaveModal.bind(this);
@@ -64,7 +64,7 @@ class ProductDetail extends React.Component {
   render() {
 
     const { open, description, rating } = this.state;
-    const { product, quantityOptions, user, starRatings, ratingUsers, starRatingUser, starRatingProduct, ratingFilteredProducts } = this.props;
+    const { product, quantityOptions, user, starRatings, starRatingUser, starRatingProduct, ratingUsers, ratingFilteredProducts, users } = this.props;
     const { onSave, onChange } = this;
 
     if (!product) {
@@ -156,18 +156,22 @@ class ProductDetail extends React.Component {
               ratingFilteredProducts && ratingFilteredProducts.map(starRating => {
                 return (
                   <div className='column' key={starRating.id}>
-                    <p>{ratingUsers[starRating.user_id]}</p>
+                    <p>
+                    { ratingUsers[starRating.user_id] }
+                    </p>
                     <Rating
                       initialRating={starRating.rating}
                       readonly
                       emptySymbol={<img src="/public/icons/star-gray.png" className="icon" />}
                       fullSymbol={<img src="/public/icons/star-yellow.png" className="icon" />}
                     />
-                    <button onClick={() => this.onDeleteRating(starRating.id)} type='button' className='close' aria-label='Close'>
+                    {
+                      starRating.user_id == user.id ?
+                      <button onClick={() => this.onDeleteRating(starRating.id)} type='button' className='close' aria-label='Close'>
                       <span aria-hidden='true'>&times;</span>
-                    </button>
+                    </button> : ''
+                    }
                     <p className='p-1'>{starRating.description}</p>
-
                   </div>
                 );
               })
@@ -184,9 +188,20 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
   const product = products.find(product => product.id === id);
 
   const starRatingUser = starRatings.find(starRating => starRating.user_id === user.id);
-  const starRatingProduct = starRatings.find(starRating => starRating.product_id === product.id);
-  const ratingFilteredProducts = starRatings.filter(starRating => starRating.product_id === product.id);
-  const ratingUser = starRatings.filter(starRating => starRating.user_id === user.id).find(rating => rating.id === id);
+
+  const starRatingProduct = starRatings.find(starRating => {
+    if(product) {
+        return starRating.product_id === product.id
+      }
+    }
+  ); //sometimes error why
+
+  const ratingFilteredProducts = starRatings.filter(starRating => {
+    if(product) {
+        return starRating.product_id === product.id;
+      }
+    }
+  );
 
   const quantityOptions = [];
   for (let i = 1; i <= 20; i++) {
@@ -198,7 +213,9 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
     if (users) {
       const user = users.find(user => user.id === userId);
       if (!result[userId]) {
-        result[userId] = user.fullname;
+        if(user) {
+         result[userId] = user.fullname;
+        }
       }
       return result;
     }
@@ -206,6 +223,7 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
 
   return {
     user,
+    users,
     product,
     cart,
     quantityOptions,
