@@ -89,23 +89,23 @@ nav .spacer {
 .carousel-crop {
   display: inline-block;
   height: 215px;
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
   margin-bottom: 20px;
 }
 
 .carousel-crop-img1 {
-  width: 100vw;
+  width: 100%;
   margin-top: -300px;
 }
 
 .carousel-crop-img2 {
-  width: 100vw;
+  width: 100%;
   margin-top: -380px;
 }
 
 .carousel-crop-img3 {
-  width: 100vw;
+  width: 100%;
   margin-top: -300px;
 }
 

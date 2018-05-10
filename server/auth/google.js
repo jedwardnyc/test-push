@@ -11,7 +11,6 @@ const googleCredentials = {
   callbackURL: `${host}/auth/google/callback`
 }
 
-
 const verificationCb = (token, refreshToken, profile, done) => {
   const info = {
     firstname: profile.name.givenName,
@@ -33,7 +32,7 @@ passport.use(new GoogleStrategy(googleCredentials, verificationCb));
 
 router.get('/', passport.authenticate('google', { scope: 'email' }))
 
-router.get('/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+router.get('/callback', passport.authenticate('google', { failureRedirect: '/login', successFlash: true }), (req, res) => {
   res.redirect('/')
 }) 
 

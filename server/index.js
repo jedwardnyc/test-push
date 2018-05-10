@@ -27,11 +27,6 @@ passport.deserializeUser(function (id, done) {
     .catch(done);
 });
 
-app.use(function (req, res, next) {
-  // console.log('SESSION USER: ', req.user);
-  next();
-});
-
 app.use(volleyball);
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));

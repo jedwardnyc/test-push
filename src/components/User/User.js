@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchOrders, fetchCreditCards, fetchAddresses } from '../../store';
+import { fetchOrders, fetchCreditCards, fetchAddresses, getLoggedIn } from '../../store';
 
 class User extends Component {
 
   componentDidMount() {
     const { user } = this.props;
-    this.props.fetchOrders(user);
-    this.props.fetchCreditCards(user);
-    this.props.fetchAddresses(user);
+    
+    if(!user){
+      this.props.getLoggedIn()
+      .then((_user) => {
+        this.props.fetchOrders(_user);
+        this.props.fetchCreditCards(_user);
+        this.props.fetchAddresses(_user);
+      })
+    }
+    else {
+      this.props.fetchOrders(user);
+      this.props.fetchCreditCards(user);
+      this.props.fetchAddresses(user);
+    }
   }
 
   render(){
@@ -107,6 +118,7 @@ const mapDispatch = (dispatch) => {
     fetchOrders: (user) => dispatch(fetchOrders(user)),
     fetchCreditCards: (user) => dispatch(fetchCreditCards(user)),
     fetchAddresses: (user) => dispatch(fetchAddresses(user)),
+    getLoggedIn: () => dispatch(getLoggedIn())
   }
 }
 

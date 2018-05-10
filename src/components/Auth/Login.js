@@ -164,17 +164,16 @@ class Login extends Component {
               </div>
               :
               <div>
-                <button href="/auth/google" className='btn btn-outline-primary'><img src='public/icons/google.svg'/>Sign In with Google</button>
-                <br />
-                <div className="fb-login-button" data-size="medium" data-button-type="login_with" data-use-continue-as="true"></div>
-                <br />
                 <h4> Don't have an account? </h4>
                 <h6> Please Sign up by clicking below! </h6>
                 <button
-                  className='btn btn-block btn-primary mt-3 mb-4'
+                  className='btn btn-block btn-primary mt-3 mb-3'
                   onClick={(ev)=> {
                     ev.preventDefault();
                     this.setState({ signup: true })}}> Sign up </button>
+                <h6 className='mb-3'>---- <strong>or</strong> ----</h6>
+                <a href='/auth/google' className='btn btn-primary'><img src='public/icons/google.svg'/>Sign In with Google</a>
+                <div className='fb-login-button' data-size='large' data-button-type='login_with'></div>
               </div>
             }
           </div>
