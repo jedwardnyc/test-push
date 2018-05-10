@@ -14,6 +14,7 @@ class User extends Component {
 
   render(){
     const { user, orders, addresses, creditCards } = this.props;
+    
     if(!user) return null
 
     return (
@@ -53,34 +54,36 @@ class User extends Component {
             </div>
           </Link>
         </div>
-        <div className='account-admin'> Administrative Features </div>
         {
-          user.isAdmin ? 
-          <div className='account-btns-admin'>
-            <Link to='/admin/categories' className='account-btn'>
-              <div className='account-pix'>
-                <img src='/public/icons/Categories.svg' />
-              </div>
-              <div className='account-info-admin'>
-                Edit Categories              
-              </div>
-            </Link>
-            <Link to='/admin/products' className='account-btn'>
-              <div className='account-pix'>
-                <img src='/public/icons/Products.svg' />
-              </div>
-              <div className='account-info-admin'>
-                Edit Products            
-              </div>
-            </Link>
-            <Link to='/admin/users' className='account-btn'>
-              <div className='account-pix'>
-                <img src='/public/icons/Users.svg' />
-              </div>
-              <div className='account-info-admin'>
-                Edit Users            
-              </div>
-            </Link>
+          user.isAdmin ?
+          <div className='account-admin'> 
+            <div className='admin-title'> Administrative Features </div>
+            <div className='account-btns-admin'>
+              <Link to='/admin/categories' className='account-btn'>
+                <div className='account-pix'>
+                  <img src='/public/icons/Categories.svg' />
+                </div>
+                <div className='account-info-admin'>
+                  Edit Categories              
+                </div>
+              </Link>
+              <Link to='/admin/products' className='account-btn'>
+                <div className='account-pix'>
+                  <img src='/public/icons/Products.svg' />
+                </div>
+                <div className='account-info-admin'>
+                  Edit Products            
+                </div>
+              </Link>
+              <Link to='/admin/users' className='account-btn'>
+                <div className='account-pix'>
+                  <img src='/public/icons/Users.svg' />
+                </div>
+                <div className='account-info-admin'>
+                  Edit Users            
+                </div>
+              </Link>
+            </div>
           </div>
           : null
         }
@@ -103,7 +106,7 @@ const mapDispatch = (dispatch) => {
   return {
     fetchOrders: (user) => dispatch(fetchOrders(user)),
     fetchCreditCards: (user) => dispatch(fetchCreditCards(user)),
-    fetchAddresses: (user) => dispatch(fetchAddresses(user))
+    fetchAddresses: (user) => dispatch(fetchAddresses(user)),
   }
 }
 

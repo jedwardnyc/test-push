@@ -24,14 +24,15 @@ const User = conn.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
   resetPasswordToken: Sequelize.STRING,
-  resetPasswordExpire: Sequelize.DATE
+  resetPasswordExpire: Sequelize.DATE,
+  googleId: Sequelize.STRING,
+  facebookId: Sequelize.STRING
 }, { 
   getterMethods: {
     fullname(value) {
@@ -40,6 +41,4 @@ const User = conn.define('user', {
   }
 });
 
-
 module.exports = User;
-

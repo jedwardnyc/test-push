@@ -36,33 +36,54 @@ nav .spacer {
   margin-left: 10px;
 }
 
+.list-header{
+  display: grid;
+  grid-column: 1/-1;
+  grid-template-columns: 30% 20%;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+}
+
 .list-margin {
   margin-top: 20px;
 }
 
 .list-item {
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 75% 25%;
   margin-bottom: 10px;
 }
 
+.list-info {
+  display: grid;
+  grid-template-columns: 40% 20%;
+}
+
 .list-name {
+  grid-column: 1;
   align-self: center;
   font-weight: bold;
+  font-size: 20px;
+}
+
+.list-email {
+  grid-column: 2;
+  align-self: center;
+  justify-self: start;
   font-size: 20px;
 }
 
 .list-btns {
   display: inline-grid;
   grid-column: 2;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-row: 1;
   grid-column-gap: 10px;
 }
 
-.grid-btn {
+.list-btn {
   grid-row: 1;
-  justify-self: center;
+  justify-self: end;
 }
 
 .carousel-crop {
@@ -158,9 +179,13 @@ nav .spacer {
   margin-top: 40px;
 }
 
+.admin-title {
+  text-align: center;
+}
+
 .account-btns-admin {
   margin-top: 25px;
-  display: inherit;
+  display: grid;
   grid-column: 2 / 4;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;

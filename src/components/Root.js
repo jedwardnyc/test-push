@@ -33,6 +33,7 @@ class Root extends Component {
     this.props.fetchStarRatings();
     this.props.fetchUsers();
     const user = localStorage.getItem('user');
+
     if (user) {
       this.props.getLoggedIn({ token: user })
       .then(_user => {
@@ -42,14 +43,15 @@ class Root extends Component {
         this.props.fetchAddresses(_user);
       });
     }
+    this.props.getLoggedIn()
   }
 
   render() {
-
-    const user = localStorage.getItem('user')
-    if(user) {
-      this.props.getLoggedIn({ token: user });
-    }
+    // const user = localStorage.getItem('user')
+    // if(user) {
+    //   console.log(user)
+    //   this.props.getLoggedIn({ token: user });
+    // }
     
     return (
       <div>

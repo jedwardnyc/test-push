@@ -17,12 +17,21 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/me', (req, res) => {
-  const token = req.body.token;
-  jwt.verify(token, secret, (err, decoded) => {
-    User.findById(decoded.id, { attributes: { exclude: ['password'] } })
-    .then(user => res.send(user))
-    .catch(err => res.status(404).send({ message: 'Whoops! Looks like we can\'t find you!' }))
-  });
+  console.log("user", req.user, "token", req.body)
+  if(req.user) {
+    res.send(req.user)
+  }
+  if(req.body.token) {
+    const token = req.body.token;
+    jwt.verify(token, secret, (err, decoded) => {
+      User.findById(decoded.id, { attributes: { exclude: ['password'] } })
+      .then(user => {
+        console.log("token user", user)
+        res.send(user)
+      })
+      .catch(err => res.status(404).send({ message: 'Whoops! Looks like we can\'t find you!' }))
+    });
+  }
 });
 
 router.post('/login', (req, res) => {
@@ -35,6 +44,13 @@ router.post('/login', (req, res) => {
     })
     .catch(err => res.status(404).send( {error: err }));
 });
+
+router.delete('/logout', (req, res) => {
+  if(req.user){
+    req.user.destroy();
+  }
+  res.sendStatus(204)
+})
 
 router.post('/forgot', (req, res) => {
   User.findOne({ where: { email: req.body.email },  attributes: { exclude: ['password'] }  })

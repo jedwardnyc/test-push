@@ -164,6 +164,10 @@ class Login extends Component {
               </div>
               :
               <div>
+                <button href="/auth/google" className='btn btn-outline-primary'><img src='public/icons/google.svg'/>Sign In with Google</button>
+                <br />
+                <div className="fb-login-button" data-size="medium" data-button-type="login_with" data-use-continue-as="true"></div>
+                <br />
                 <h4> Don't have an account? </h4>
                 <h6> Please Sign up by clicking below! </h6>
                 <button

@@ -24,31 +24,40 @@ class AdminUsers extends React.Component {
     const { users } = this.props;
     return (
       <div className='container'>
-        <div className='border-bottom p-2 mr-auto'>
-            <h4>Users</h4>
+        <div className='mt-3 mr-auto'>
+            <h2>Edit Users</h2>
         </div>
         <ul className='list-group list-margin'>
+        <div className='list-item'>
+          <div className='list-header'>
+            <div className='list-name'>Name</div>
+            <div className='list-email'><strong>Email</strong></div>
+          </div>
+        </div>
         {
             users && users.map(user => {
               return (
                 user &&
                 <div className='list-item' key={user.id}>
-                  <div className='list-name'>{user.fullname}</div>
-                    <div className='list-btns'>
-                      <button 
-                        onClick={() => this.forgot({ email: user.email }) }
-                        className='btn btn-sm btn-secondary grid-btn'>
-                          Reset Password
-                      </button>
-                      <button
-                        onClick={() => this.makeAdmin( user ) }   
-                        className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } grid-btn`}> 
-                          { user.isAdmin ? 'Remove Admin' : 'Make Admin' } 
-                      </button>
-                      <button onClick={() => this.props.deleteUser(user)} type='button' className='close grid-btn'>
-                      <span>&times;</span>
-                      </button>
-                    </div>
+                  <div className='list-info'>
+                    <div className='list-name'>{user.fullname}</div>
+                    <div className='list-email'>{user.email}</div>
+                  </div>
+                  <div className='list-btns'>
+                    <button 
+                      onClick={() => this.forgot({ email: user.email }) }
+                      className='btn btn-sm btn-secondary list-btn'>
+                        Reset Password
+                    </button>
+                    <button
+                      onClick={() => this.makeAdmin( user ) }   
+                      className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } list-btn`}> 
+                        { user.isAdmin ? 'Remove Admin' : 'Make Admin' } 
+                    </button>
+                    <button onClick={() => this.props.deleteUser(user)} type='button' className='close list-btn'>
+                    <span>&times;</span>
+                    </button>
+                  </div>
                 </div>
               );
             })

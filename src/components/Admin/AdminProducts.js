@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { createProduct } from '../../store/products';
 
+
 class AdminProducts extends React.Component {
   constructor(props) {
     super(props)
@@ -35,6 +36,7 @@ class AdminProducts extends React.Component {
           fileReader.onload = function (ev) {
             state.imgUrl = ev.target.result;
             console.log(state.imgUrl)
+            console.log('state',state)
           }
         }
         break;
