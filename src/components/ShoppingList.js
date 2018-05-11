@@ -71,11 +71,8 @@ const mapStateToProps = ({ cart, lineItems, products }) => {
   for (let i = 1; i <= 20; i++) {
     quantityOptions.push(i);
   }
-
-  // not checking orders b/c cart always status = 'CART'
-  const userCartItems = lineItems.filter(item => {
-    return item.order_id == cart.id && item;
-  });
+  
+  const userCartItems = lineItems.filter(item => item.order_id == cart.id && item );
 
   const productMap = products.reduce((memo, product) => {
     memo[product.id] = product;

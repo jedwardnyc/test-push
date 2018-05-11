@@ -4,6 +4,7 @@ import { checkOutUser, createAddress, createCreditCard } from '../store';
 import ShoppingList from './ShoppingList';
 import EditAddress from './User/EditAddress';
 import EditCard from './User/EditCard';
+import Checkout from './Stripe';
 
 class Purchase extends Component {
   constructor(props) {
@@ -11,17 +12,10 @@ class Purchase extends Component {
     this.state = {
       editAddress: false,
       editCard: false,
-      line1: undefined,
-      line2: undefined,
-      city: undefined,
-      state: undefined,
-      zip: undefined,
-      firstname: undefined,
-      lastname: undefined,
-      number: undefined,
-      exp: undefined,
-      card: undefined,
-      address: undefined
+      address: {},
+      card: {},
+      cardId: undefined,
+      addressId: undefined
     }
     this.onPlaceOrder = this.onPlaceOrder.bind(this);
     this.addressToggle = this.addressToggle.bind(this);
@@ -29,19 +23,21 @@ class Purchase extends Component {
   }
 
   onPlaceOrder(ev) {
-    const { card, address, editCard, editAddress, line1, line2, city, state, zip, firstname, lastname, number, exp } = this.state;
+    const { cardId, addressId, editCard, editAddress } = this.state;
+    const { line1, line2, city, state, zip } = this.state.address;
+    const { firstname, lastname, number, exp } = this.state.card;
     const { userId, checkOutUser, createCreditCard, createAddress, userCartItems } = this.props;
     if (userCartItems.length) {
       if (editCard) { 
         createCreditCard({ firstname, lastname, number, exp, user_id: userId })
         .then(res => {
-          checkOutUser( userId, res.creditCard.id, address)
+          checkOutUser( userId, res.creditCard.id, addressId)
         })
       }
       if (editAddress) { 
         createAddress({ line1, line2, city, state, zip, user_id: userId })
         .then(res => {
-          checkOutUser( userId, card, res.address.id)
+          checkOutUser( userId, cardId, res.address.id)
         })
       }
       if (editCard && editAddress) {
@@ -52,7 +48,7 @@ class Purchase extends Component {
         .then(([address, card]) => checkOutUser(userId, creditCard.card, address.address))
       }
       else {
-        checkOutUser(userId, card, address)
+        checkOutUser(userId, cardId, addressId)
       }
     }
     else {
@@ -72,8 +68,8 @@ class Purchase extends Component {
 
   render() {
     const { onPlaceOrder, addressToggle, cardToggle } = this;
-    const { userCartItems, user, addresses, creditCards, line1, line2, city, state, zip } = this.props;
-    const { editAddress, editCard } = this.state;
+    const { userCartItems, subTotal, totalLineItems, user, userId, addresses, creditCards, line1, line2, city, state, zip, history } = this.props;
+    const { editAddress, editCard, address, card, addressId, cardId } = this.state;
     if (!user) return null;
     return (
       <div className="container-fluid m-4">
@@ -100,14 +96,14 @@ class Purchase extends Component {
                             <input 
                               className='form-control' 
                               placeholder='1234 Main St'
-                              onChange={(ev) => this.setState({ line1: ev.target.value })}/>
+                              onChange={(ev) => this.setState(Object.assign(address, { line1: ev.target.value }))}/>
                           </div>
                           <div className='form-group'>
                             <label> Apt/Floor/Suite </label>
                             <input 
                               className='form-control' 
                               placeholder='Apartment or floor'
-                              onChange={(ev) => this.setState({ line2: ev.target.value })}/>
+                              onChange={(ev) => this.setState(Object.assign(address, { line2: ev.target.value }))}/>
                           </div>
                           <div className='form-row'>
                             <div className='form-group col-md-6'>
@@ -115,28 +111,28 @@ class Purchase extends Component {
                               <input 
                                 className='form-control' 
                                 placeholder='City Town'
-                                onChange={(ev) => this.setState({ city: ev.target.value })}/>
+                                onChange={(ev) => this.setState(Object.assign(address, { city: ev.target.value }))}/>
                             </div>
                             <div className='form-group col-md-2'>
                               <label> State </label>
                               <input 
                                 className='form-control' 
                                 placeholder='CA'
-                                onChange={(ev) => this.setState({ state: ev.target.value })}/>
+                                onChange={(ev) => this.setState(Object.assign(address, { state: ev.target.value }))}/>
                             </div>
                             <div className='form-group col-md-4'>
                               <label> Zip </label>
                               <input 
                                 className='form-control' 
                                 placeholder='12345'
-                                onChange={(ev) => this.setState({ zip: ev.target.value })}/>
+                                onChange={(ev) => this.setState(Object.assign(address, { zip: ev.target.value }))}/>
                             </div>
                           </div>
                         </div>
                       </form>
                       : 
                       <div>
-                        <select onChange={(ev) => this.setState({ address: ev.target.value *1 })}>
+                        <select onChange={(ev) => this.setState({ addressId: ev.target.value *1 })}>
                           <option value='-1'> --- Select an Address --- </option>
                         {
                           addresses.map(address => <option key={address.id} value={address.id}>{address.line1}</option>)
@@ -167,13 +163,13 @@ class Purchase extends Component {
                           <input 
                             className='form-control' 
                             placeholder='Janeathon'
-                            onChange={(ev) => this.setState({ firstname: ev.target.value })}/>
+                            onChange={(ev) => this.setState(Object.assign(card, { firstname: ev.target.value }))}/>
                         </div>
                         <div className='form-group col-6'>
                           <input 
                             className='form-control' 
                             placeholder='Smithy'
-                            onChange={(ev) => this.setState({ lastname: ev.target.value })}/>
+                            onChange={(ev) => this.setState(Object.assign(card, { lastname: ev.target.value }))}/>
                         </div>
                       </div>
                       <div className='form-row'>
@@ -181,19 +177,19 @@ class Purchase extends Component {
                           <input 
                             className='form-control' 
                             placeholder='1234 4678 9012 3456'
-                            onChange={(ev) => this.setState({ number: ev.target.value *1})}/>
+                            onChange={(ev) => this.setState(Object.assign(card, { number: ev.target.value *1}))}/>
                         </div>
                         <div className='form-group col-4'>
                           <input 
                             className='form-control' 
                             placeholder='01/20'
-                            onChange={(ev) => this.setState({ exp: ev.target.value })}/>
+                            onChange={(ev) => this.setState(Object.assign(card, { exp: ev.target.value }))}/>
                         </div>
                       </div>
                     </form>
                     : 
                     <div>
-                      <select onChange={(ev) => this.setState({ card: ev.target.value *1 })}>
+                      <select onChange={(ev) => this.setState({ cardId: ev.target.value *1 })}>
                         <option value='-1'> --- Select an Credit Card --- </option>
                       {
                         creditCards.map(creditCard => <option key={creditCard.id} value={creditCard.id}> {creditCard.firstname}</option>)
@@ -225,8 +221,11 @@ class Purchase extends Component {
           <div className="col-sm-3 text-center">
             <div className="card card-side bg-light">
               <div className="card-body">
-                <p className="card-text"><button className="btn btn-block btn-primary p-2" onClick={ onPlaceOrder } disabled={ !userCartItems.length }>Purchase</button></p>
-                <h5 className="card-title">Order summary:</h5>
+                <h5 className="card-title">Order summary</h5>
+                <h5 className="card-title">Total item{ totalLineItems > 1 ? 's' : '' }: { totalLineItems }</h5>
+                <h5 className="card-title">Subtotal: ${ subTotal.toLocaleString('USD') }</h5>
+                <p className="card-text"><button className="btn btn-block btn-primary p-2" onClick={ onPlaceOrder } disabled={ !userCartItems.length }> Checkout </button></p>
+                <Checkout name='The Light Web' description='A light site for your dark needs' history={history} amount={subTotal} user={userId} address={addressId ? addressId : address ? address : null }/>
               </div>
             </div>
           </div>
@@ -236,24 +235,37 @@ class Purchase extends Component {
   }
 }
 
-const mapStateToProps = ({ cart, lineItems, auth, addresses, creditCards }) => {
+const mapStateToProps = ({ cart, lineItems, auth, products, addresses, creditCards }) => {
 
-  // not checking orders b/c cart always status = 'CART'
-  const userCartItems = lineItems.filter(item => {
-    return item.order_id == cart.id && item;
-  });
-
-  const userAddresses = addresses.filter(address => address.user_id === auth.user.id )
-  const userCards = creditCards.filter(creditCard => creditCard.user_id === auth.user.id )
-  // getting user id from cart to check out
+  const userCartItems = lineItems.filter(item => item.order_id == cart.id && item );
+  const userAddresses = addresses.filter(address => address.user_id === auth.user.id );
+  const userCards = creditCards.filter(creditCard => creditCard.user_id === auth.user.id );
   const userId = cart.user_id;
+
+  const productMap = products.reduce((memo, product) => {
+    memo[product.id] = product;
+    return memo;
+  }, {});
+
+  const subTotal = userCartItems.reduce((sum, item) => {
+    sum += (productMap[item.product_id].price * item.quantity);
+    return sum;
+  }, 0);
+
+  const totalLineItems = userCartItems.reduce((sum, item) => {
+    return sum + item.quantity;
+  }, 0);
+
   return {
     userCartItems,
     userId,
     user: auth.user,
     addresses: userAddresses,
-    creditCards: userCards
+    creditCards: userCards,
+    subTotal,
+    totalLineItems
   };
+
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {

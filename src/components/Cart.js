@@ -26,7 +26,7 @@ const Cart = ({ userCartItems, subTotal, totalLineItems }) => {
 };
 
 const mapStateToProps = ({ cart, lineItems, products }) => {
-  // not checking orders b/c cart always status = 'CART'
+ 
   const userCartItems = lineItems.filter(item => {
     return item.order_id == cart.id && item;
   });
