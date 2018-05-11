@@ -2,14 +2,14 @@ import React from 'react'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
-import { publicStripe } from './config';
+import { publicStripe } from '../../server/auth/config';
 import { checkOutUser, createAddress } from '../store';
 
 const Checkout = (props) => {
  
   const { name, description, amount } = props;
-  const STRIPE_PUBLISHABLE = publicStripe;
-  
+  const STRIPE_PUBLISHABLE = publicStripe || process.env.PUBLIC_STRIPE;
+
   const CURRENCY = 'USD';
 
   const usdToCents = (amount) => amount * 100;

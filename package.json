@@ -8,6 +8,7 @@
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "start:dev": "npm run webpack -- -w & nodemon server --ignore dist/",
+    "start": "node server",
     "seed": "node server/seedFunc.js"
   },
   "keywords": [],

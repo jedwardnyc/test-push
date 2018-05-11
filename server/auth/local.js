@@ -3,7 +3,7 @@ const User = require('../db/models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cyrpto = require('crypto');
-const { secret } = require('./config');
+const secret = require('./config').secret || process.env.SECRET;
 const { sendReset, sendAdmin, sendConfirmation, sendWelcome } = require('./autoEmail');
 
 router.post('/register', (req, res) => {

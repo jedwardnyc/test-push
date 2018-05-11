@@ -50,12 +50,6 @@ const users = {
   g4: { firstname: 'Baltazar', lastname: 'Villegas', email: 'baltazar@test.com', password: hashedUserPW, isAdmin: false },
 }
 
-const orders = {
-  g1: { status: 'ORDERED' },
-  g2: { status: 'ORDERED' },
-  g3: { status: 'CART' },
-}
-
 const lineItems = {
   g1: [
     { quantity: 3, product_id: 13, order_id: 1 },
@@ -128,7 +122,6 @@ module.exports = {
   products,
   categories,
   users,
-  orders,
   lineItems,
   addresses,
   credit_cards,
