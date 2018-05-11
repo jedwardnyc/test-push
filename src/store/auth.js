@@ -39,30 +39,15 @@ export const logout = () => {
 
 export const getLoggedIn = (token) => {
   return (dispatch) => {
-    console.log('called getloggedin', token)
     return axios.post('/auth/local/me', token)
     .then(res => res.data)
     .then(user => {
-      console.log("log", user)
       dispatch({ type: AUTHENTICATED, user });
       return user;
     })
     .catch(err => console.log(err))
   };
 };
-
-// export const sessionAuth = () => {
-//   return (dispatch) => {
-//     console.log('called sessionAuth')
-//     return axios.get('/auth/google')
-//     .then(res => res.data)
-//     .then(user => {
-//       dispatch({ type: AUTHENTICATED, user });
-//       return user;
-//     })
-//     .catch(err => console.log(err))
-//   };
-// }
 
 const authReducer = ( state = {}, action ) => {
   switch (action.type) {

@@ -1,31 +1,13 @@
 const config = require('../server/auth/config');
 const express = require('express');
 const app = express();
-const session = require('express-session');
 const passport = require('passport');
 
 const volleyball = require('volleyball');
 const path = require('path');
 const User = require('./db/models/User');
 
-app.use(session({
-  secret: config.secret,
-})); 
-
 app.use(passport.initialize());
-app.use(passport.session()); 
-
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  User.findById(id)
-    .then(function (user) {
-      done(null, user);
-    })
-    .catch(done);
-});
 
 app.use(volleyball);
 app.use(require('body-parser').json());

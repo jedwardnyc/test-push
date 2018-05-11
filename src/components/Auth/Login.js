@@ -173,7 +173,8 @@ class Login extends Component {
                     this.setState({ signup: true })}}> Sign up </button>
                 <h6 className='mb-3'>---- <strong>or</strong> ----</h6>
                 <a href='/auth/google' className='btn btn-primary'><img src='public/icons/google.svg'/>Sign In with Google</a>
-                <div className='fb-login-button' data-size='large' data-button-type='login_with'></div>
+                <br />
+                <a href='/auth/github' className='btn btn-secondary'>Sign In with Github</a>
               </div>
             }
           </div>

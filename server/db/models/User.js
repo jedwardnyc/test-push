@@ -32,7 +32,7 @@ const User = conn.define('user', {
   resetPasswordToken: Sequelize.STRING,
   resetPasswordExpire: Sequelize.DATE,
   googleId: Sequelize.STRING,
-  facebookId: Sequelize.STRING
+  githubId: Sequelize.STRING
 }, { 
   getterMethods: {
     fullname(value) {
