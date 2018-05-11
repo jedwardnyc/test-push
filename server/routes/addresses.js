@@ -16,7 +16,6 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   Address.findById(req.params.id)
   .then(address => {
-    console.log(req.body)
     address.update(req.body);
     res.send(address);
   })

@@ -262,8 +262,8 @@ nav .spacer {
 
 .add-item {
   display: grid;
-  padding: 25px 30px;
-  margin-left: 10px;
+  padding: 10px;
+  margin-left: 10px; 
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
@@ -294,7 +294,6 @@ nav .spacer {
 }
 
 .cc-item {
-  grid-column: 1;
   display: grid;
   grid-template-rows: 4fr 1fr;
   padding: 10px;

@@ -6,7 +6,7 @@ import { fetchOrders, fetchCreditCards, fetchAddresses } from '../../store';
 class User extends Component {
 
   componentDidMount() {
-    const {user} = this.props;
+    const { user } = this.props;
     this.props.fetchOrders(user);
     this.props.fetchCreditCards(user);
     this.props.fetchAddresses(user);

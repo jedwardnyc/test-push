@@ -7,11 +7,17 @@ class AdminUsers extends React.Component {
   constructor(props) {
     super(props)
     this.forgot = this.forgot.bind(this);
+    this.makeAdmin = this.makeAdmin.bind(this);
   }
 
   forgot(email) {
     return axios.post('/auth/local/adminReset', email)
     .catch(err => console.log(err))
+  }
+
+  makeAdmin(user){
+    const admin = user.isAdmin ? false : true
+    this.props.updateUser({ id: user.id, isAdmin: admin })
   }
 
   render() {
@@ -35,9 +41,9 @@ class AdminUsers extends React.Component {
                           Reset Password
                       </button>
                       <button
-
-                        className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } grid-btn`}>
-                          { user.isAdmin ? 'Remove Admin' : 'Make Admin' }
+                        onClick={() => this.makeAdmin( user ) }   
+                        className={`btn btn-sm btn-${ user.isAdmin ? 'danger' : 'success' } grid-btn`}> 
+                          { user.isAdmin ? 'Remove Admin' : 'Make Admin' } 
                       </button>
                       <button onClick={() => this.props.deleteUser(user)} type='button' className='close grid-btn'>
                       <span>&times;</span>
@@ -59,7 +65,7 @@ const mapStateToProps = ({ users }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, { history }) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     deleteUser: (user) => dispatch(deleteUser(user)),
     updateUser: (user) => dispatch(updateUser(user))
