@@ -20,11 +20,7 @@ export const addLineItemToCart = (lineItem, history) => {
         lineItems
       });
     })
-    .then(lineItems => {
-      // this doesn't work
-      // history.push('/cart');
-      return lineItems;
-    })
+    .then(lineItems => lineItems)
     .catch(err => console.log(err));
   };
 };

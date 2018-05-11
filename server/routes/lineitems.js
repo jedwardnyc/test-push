@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 router.post('/cart', (req, res, next) => {
   LineItem.addToLineItems(req.body)
   .then(lineItems => res.send(lineItems))
-  .catch(next); 
+  .catch(next);
 });
 
 router.post('/', (req, res, next) => {

@@ -31,9 +31,7 @@ Order.getCartForUser = function(user) {
     return this.create(attr);
   })
   .then(cart => {
-    return this.findById(cart.id, {
-      include: [ LineItem ]
-    });
+    return this.findById(cart.id);
   })
   .then(cart => cart);
 };
