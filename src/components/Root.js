@@ -72,7 +72,7 @@ class Root extends Component {
             <Route path='/admin/users' component={Admin(AdminUsers)} />
             <Route path='/cart' render={({ match }) => <Cart history={history} />} />
             <Route path='/forgot' component={ForgotPW} />
-            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
+            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token} />} />
           </div>
         </Router>
       </div>
