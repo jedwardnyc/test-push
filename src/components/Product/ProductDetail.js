@@ -6,7 +6,7 @@ import Modal from 'react-responsive-modal';
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { quantity: 1, open: false, description: '', rating: 3 };
+    this.state = { quantity: 1, open: false, description: '', rating: 3, delete: false };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onSaveModal = this.onSaveModal.bind(this);
@@ -62,14 +62,14 @@ class ProductDetail extends React.Component {
   }
 
   render() {
+
     const { open, description, rating } = this.state;
-    const { product, quantityOptions, user, starRatings, ratingUsers, starRatingUser, starRatingProduct, ratingFilteredProducts } = this.props;
+    const { product, quantityOptions, user, starRatings, starRatingUser, starRatingProduct, ratingUsers, ratingFilteredProducts, users } = this.props;
     const { onSave, onChange } = this;
 
     if (!product) {
       return null;
     }
-
     return (
       <div className="container">
         <div className="border rounded mt-5 bg-light row">
@@ -110,7 +110,7 @@ class ProductDetail extends React.Component {
             {
               user && user.id ?
               <button
-disabled={starRatingUser && starRatingProduct}
+                disabled={starRatingUser && starRatingProduct}
                 className="btn btn-primary btn-md ml-4 mb-2 float-right"
                 onClick={() => this.onOpenModal()}>
                 Review
@@ -155,18 +155,23 @@ disabled={starRatingUser && starRatingProduct}
             ratingFilteredProducts ?
               ratingFilteredProducts && ratingFilteredProducts.map(starRating => {
                 return (
-                  <div className="column" key={starRating.id}>
-                    {/* <p>{ratingUsers[user.id]}</p> */}
+                  <div className='column' key={starRating.id}>
+                    <p>
+                    { ratingUsers[starRating.user_id] }
+                    </p>
                     <Rating
                       initialRating={starRating.rating}
                       readonly
                       emptySymbol={<img src="/public/icons/star-gray.png" className="icon" />}
                       fullSymbol={<img src="/public/icons/star-yellow.png" className="icon" />}
                     />
-                      <button onClick={() => this.onDeleteRating(starRating.id)} type="button" className="close" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    <p className="p-2">{starRating.description}</p>
+                    {
+                      starRating.user_id == user.id ?
+                      <button onClick={() => this.onDeleteRating(starRating.id)} type='button' className='close' aria-label='Close'>
+                      <span aria-hidden='true'>&times;</span>
+                    </button> : ''
+                    }
+                    <p className='p-1'>{starRating.description}</p>
                   </div>
                 );
               })
@@ -179,30 +184,54 @@ disabled={starRatingUser && starRatingProduct}
 }
 
 const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) => {
-
   const user = auth.user;
   const product = products.find(product => product.id === id);
 
   const starRatingUser = starRatings.find(starRating => starRating.user_id === user.id);
-  const starRatingProduct = starRatings.find(starRating => starRating.product_id === product.id);
-  const ratingFilteredProducts = starRatings.filter(starRating => starRating.product_id === product.id);
-  const ratingUser = starRatings.filter(starRating => starRating.user_id === user.id).find(rating => rating.id === id);
+
+  const starRatingProduct = starRatings.find(starRating => {
+    if(product) {
+        return starRating.product_id === product.id
+      }
+    }
+  ); //sometimes error why
+
+  const ratingFilteredProducts = starRatings.filter(starRating => {
+    if(product) {
+        return starRating.product_id === product.id;
+      }
+    }
+  );
 
   const quantityOptions = [];
   for (let i = 1; i <= 20; i++) {
     quantityOptions.push(<option value={i} key={i}>{i}</option>);
   }
 
+  const ratingUsers = starRatings.reduce((result, starRating) => {
+    const userId = starRating.user_id;
+    if (users) {
+      const user = users.find(user => user.id === userId);
+      if (!result[userId]) {
+        if(user) {
+         result[userId] = user.fullname;
+        }
+      }
+      return result;
+    }
+  }, {});
 
   return {
     user,
+    users,
     product,
     cart,
     quantityOptions,
     starRatings,
     starRatingUser,
     starRatingProduct,
-    ratingFilteredProducts
+    ratingFilteredProducts,
+    ratingUsers
   };
 };
 
