@@ -1,5 +1,35 @@
-body {
+* {
   box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+
+.footer-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: aliceblue;
 }
 
 #password {
@@ -360,7 +390,3 @@ nav .spacer {
 .card-side {
   max-width: 18rem;
 }
-
-/* .card-header {
-  padding: 0.25rem 1.25rem;
-} */
