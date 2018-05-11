@@ -36,7 +36,8 @@ Order.getCartForUser = function(user) {
   .then(cart => cart);
 };
 
-Order.checkOutUser = function(userId) {
+Order.checkOutUser = function(userId, cardId, addressId) {
+  console.log(cardId, addressId)
   return this.findOne({
     where: [{
       user_id: userId,
@@ -46,7 +47,9 @@ Order.checkOutUser = function(userId) {
   .then(cart => {
     cart = Object.assign(cart, {
       status: 'ORDERED',
-      dateOrdered: Date.now()
+      dateOrdered: Date.now(),
+      credit_card_id: cardId,
+      address_id: addressId
     });
     return cart.save();
   })

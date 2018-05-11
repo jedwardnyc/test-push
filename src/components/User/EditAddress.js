@@ -31,7 +31,7 @@ class EditAddress extends Component {
   render(){
     
     const { line1, line2, city, state, zip } = this.state;
-    const { edit } = this.props;
+    const { edit, add } = this.props;
     return (
       <div className='add-item'>
         <form onSubmit={ edit ? this.update : this.create }>
@@ -80,17 +80,21 @@ class EditAddress extends Component {
             </div>
           </div>
         </form>
-        <div className='address-add-buttons'>
-          <button 
-            onClick={ edit ? this.update : this.create } 
-            className='btn btn-sm btn-secondary mr-1'> 
-            { edit ? 'Edit Address' : 'Add Address' }
-          </button>
-          <button onClick={this.cancel} 
-            className='btn btn-danger btn-sm'> 
-            Cancel 
-          </button>
-        </div>
+        {
+          edit || add ?
+          <div className='address-add-buttons'>
+            <button 
+              onClick={ edit ? this.update : this.create } 
+              className='btn btn-sm btn-secondary mr-1'> 
+              { edit ? 'Edit Address' : 'Add Address' }
+            </button>
+            <button onClick={this.cancel} 
+              className='btn btn-danger btn-sm'> 
+              Cancel 
+            </button>
+          </div>
+          : null
+        }
       </div>
     )
   }

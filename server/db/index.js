@@ -14,6 +14,8 @@ const { products, categories, users, lineItems, orders, addresses, credit_cards,
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
 Order.hasMany(LineItem);
+Order.belongsTo(CreditCard);
+Order.belongsTo(Address);
 LineItem.belongsTo(Product);
 Product.belongsTo(Category);
 Address.belongsTo(User);
@@ -63,16 +65,7 @@ const seed = () => {
           })
         })
         .catch(err => console.log(err));
-    }),
-    // Object.keys(products).forEach(key => {
-    //   Product.create(products[key])
-    //     .then(product => {
-    //       StarRating.create(starRatings[key])
-    //         .then(starRating => {
-    //           starRating.setProduct(product)
-    //         })
-    //     })
-    // }),
+    })
   ])
 };
 

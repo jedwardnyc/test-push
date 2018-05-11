@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const Orders = ({ userOrders, user, lineItems, productMap }) => {
   if (!user) return null;
@@ -22,7 +23,7 @@ const Orders = ({ userOrders, user, lineItems, productMap }) => {
               <div className="card-header">
                 <div className="row">
                   <div className="col-sm-8">
-                    <strong>Order #: { order.id }</strong> placed on <strong>{ Date(order.dateOrdered) }</strong>
+                    <strong>Order #: { order.id }</strong> placed on <strong>{ moment(order.dateOrdered).format("dddd, MMMM Do YYYY @ h:mm a") }</strong>
                   </div>
                   <div className="col-sm-4 text-right">
                     <strong>Total: ${ orderTotal.toLocaleString('USD') }</strong>

@@ -13,8 +13,9 @@ router.post('/cart', (req, res, next) => {
   .catch(next);
 });
 
-router.get('/users/:id/checkout', (req, res, next) => {
-  Order.checkOutUser(req.params.id)
+router.post('/users/:id/checkout', (req, res, next) => {
+  console.log(req.body)
+  Order.checkOutUser(req.params.id, req.body.card, req.body.address)
   .then(cart => {
     res.send(cart);
   })

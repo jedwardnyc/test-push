@@ -17,9 +17,9 @@ export const setCart = user => {
   };
 };
 
-export const checkOutUser = userId => {
+export const checkOutUser = (userId, card, address) => {
   return dispatch => {
-    return axios.get(`/api/orders/users/${userId}/checkout`)
+    return axios.post(`/api/orders/users/${userId}/checkout`, {card, address})
     .then(res => res.data)
     .then(cart => {
       dispatch({
