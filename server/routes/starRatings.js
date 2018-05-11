@@ -7,6 +7,12 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+// router.post('/', (req, res, next) => {
+//   StarRating.addToStarRatings(req.body)
+//     .then(starRatings => res.send(starRatings))
+//     .catch(next);
+// });
+
 router.post('/', (req, res, next) => {
   StarRating.create(req.body)
     .then(starRating => res.send(starRating))

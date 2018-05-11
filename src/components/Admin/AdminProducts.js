@@ -25,21 +25,23 @@ class AdminProducts extends React.Component {
   }
 
   onChange(ev) {
-    const change = {};
+    const state = this.state;
+    const fileReader = new FileReader();
+
     switch (ev.target.name) {
       case 'imgUrl':
         if (ev.target.files[0]) {
-          const fileReader = new FileReader();
           fileReader.readAsDataURL(ev.target.files[0]);
-          fileReader.onload = (ev) => {
-            this.setState({ imgUrl: ev.target.result });
+          fileReader.onload = function (ev) {
+            state.imgUrl = ev.target.result;
+            console.log(state.imgUrl)
           }
         }
         break;
       default:
-        change[ev.target.name] = ev.target.value;
-        this.setState(change);
+        state[ev.target.name] = ev.target.value;
     }
+    this.setState(state);
   }
 
   onSave(ev) {
@@ -128,6 +130,7 @@ const mapStateToProps = ({ products }) => {
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     createProduct: (product) => dispatch(createProduct(product)),
+    uploadImg: (imgUrl) => dispatch(uploadImg(imgUrl))
   }
 }
 
