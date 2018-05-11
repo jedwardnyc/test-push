@@ -172,7 +172,7 @@ class Login extends Component {
                     ev.preventDefault();
                     this.setState({ signup: true })}}> Sign up </button>
                 <h6 className='mb-3'>---- <strong>or</strong> ----</h6>
-                <a href='/auth/google' className='btn btn-primary'><img src='public/icons/google.svg'/>Sign In with Google</a>
+                <a href='/auth/google' className='btn btn-primary mb-2'><img src='public/icons/google.svg'/>Sign In with Google</a>
                 <br />
                 <a href='/auth/github' className='btn btn-secondary'>Sign In with Github</a>
               </div>

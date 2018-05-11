@@ -7,8 +7,8 @@ export const login = ({ email, password }, history ) => {
     return axios.post(`/auth/local/login`, { email, password })
     .then(res => res.data)
     .then(user => {
-      dispatch(getLoggedIn(user));
       localStorage.setItem('user', user.token);
+      dispatch(getLoggedIn(user))
       history.push('/');
     })
   };
