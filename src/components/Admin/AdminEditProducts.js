@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateProduct } from '../../store/products';
+import { updateProduct, deleteProduct } from '../../store/products';
 
 class AdminEditProducts extends React.Component {
   constructor(props) {
@@ -8,6 +8,7 @@ class AdminEditProducts extends React.Component {
     this.state = this.productState(this.props);
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   productState(props) {
@@ -41,6 +42,10 @@ class AdminEditProducts extends React.Component {
       availability: this.state.availability
     }
     this.props.updateProduct(product);
+  }
+
+  onDelete(id) {
+    this.props.deleteProduct({id});
   }
 
   render() {
@@ -104,6 +109,7 @@ class AdminEditProducts extends React.Component {
               value={description}
               rows='4'
             />
+              <button onClick={()=> deleteProduct(product.id) } className='btn btn-primary float-right mt-3 ml-2'>Delete</button>
             <button className='btn btn-primary float-right mt-3'>Save Change</button>
           </form>
         </div>
@@ -120,18 +126,20 @@ class AdminEditProducts extends React.Component {
   }
 }
 
-const mapStateToProps = ({ products, categories }, { id }) => {
+const mapStateToProps = ({ products, categories, starRatings }, { id }) => {
   const product = products.find(product => product.id === id);
 
   return {
     product,
-    categories
+    categories,
+    starRatings
   }
 }
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    updateProduct: (product) => dispatch(updateProduct(product, history))
+    updateProduct: (product) => dispatch(updateProduct(product, history)),
+    deleteProduct: (product) => dispatch(deleteProduct(product))
   }
 }
 
