@@ -48,12 +48,12 @@ class CreditCards extends Component {
       <div className='container mt-3'>
         <div className='cc-header'>
           <div className='mb-2 cc-title'> {user.firstname}'s Credit Cards </div>
-          <button
+          <button 
             onClick={(ev) => {
               ev.preventDefault();
               this.setState({ add: true })}}
-            className='btn btn-dark cc-add'>
-            Add Card
+            className='btn btn-dark cc-add'> 
+            Add Card 
           </button>
         </div>
         <div className='cc-list'>
@@ -69,7 +69,7 @@ class CreditCards extends Component {
                     <div className='cc-item'>
                       <div className='cc-info'>
                         <h2>{creditCard.firstname} {creditCard.lastname}</h2>
-                        <h4>{cardType(creditCard.number)}: XXXX XXXX XXXX {creditCard.number.slice(-4)}</h4>
+                        <h4>{cardType(creditCard.number)}: XXXX XXXX XXXX {creditCard.number.slice(-4)}</h4> 
                         <h4>EXP: {creditCard.exp}</h4>
                       </div>
                       <div className='cc-buttons'>
@@ -79,13 +79,13 @@ class CreditCards extends Component {
                           className='btn btn-sm btn-secondary mr-1'>   
                           Edit Card 
                         </button>
-                        <button
+                        <button 
                           onClick={(ev) => {
                             ev.preventDefault();
                             this.props.deleteCreditCard(creditCard)
                           }}
-                          className='btn btn-sm btn-danger'>
-                          Remove Card
+                          className='btn btn-sm btn-danger'>  
+                          Remove Card 
                         </button>
                       </div>
                     </div>

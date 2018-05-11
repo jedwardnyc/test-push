@@ -12,7 +12,7 @@ const Product = ({ category, filteredProducts }) => {
       <h4 className='mr-2 border-bottom mb-3 p-2 row'>{category.name}
         <div className='col-md-9' />
         <div className='col-md-1'>
-          <NavLink className='btn btn-outline-secondary ml-5' to={'/products'}>
+          <NavLink className='btn btn-outline-secondary' to={'/products'}>
             Main Menu</NavLink>
         </div>
       </h4>
