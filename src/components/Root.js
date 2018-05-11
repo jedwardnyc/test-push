@@ -22,6 +22,7 @@ import Orders from './User/Orders';
 import Cards from './User/Cards';
 import EditUser from './User/EditUser';
 import Addresses from './User/Addresses';
+import Purchase from './Purchase';
 
 
 class Root extends Component {
@@ -50,7 +51,7 @@ class Root extends Component {
     if(user) {
       this.props.getLoggedIn({ token: user });
     }
-    
+
     return (
       <div>
         <Router>
@@ -70,9 +71,10 @@ class Root extends Component {
             <Route exact path='/admin/products' component={Admin(AdminProducts)} />
             <Route path='/admin/products/:id' render={({match, history}) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/users' component={Admin(AdminUsers)} />
-            <Route path='/cart' render={({ match }) => <Cart history={history} />} />
+            <Route path='/cart' render={({ match, history }) => <Cart history={history} />} />
+            <Route path='/purchase' render={({ match, history }) => <Purchase history={history} />} />
             <Route path='/forgot' component={ForgotPW} />
-            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
+            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token} />} />
           </div>
         </Router>
       </div>

@@ -233,7 +233,7 @@ nav .spacer {
 .add-item {
   display: grid;
   padding: 10px;
-  margin-left: 10px; 
+  margin-left: 10px;
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
@@ -271,7 +271,7 @@ nav .spacer {
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
-} 
+}
 
 .cc-info {
   grid-row: 1;
@@ -312,7 +312,7 @@ nav .spacer {
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
-} 
+}
 
 .order-info {
   grid-row: 1;
@@ -341,5 +341,26 @@ nav .spacer {
   border: 1px solid black;
   box-shadow: 2px 2px darkslategrey;
   border-radius: 10px;
-} 
+}
 
+.shopping-list .shopping-item-row {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.shopping-list img {
+  max-width: 180px;
+  height: auto;
+}
+
+.orders img {
+  max-width: 80px;
+  height: auto;
+}
+
+.card-side {
+  max-width: 18rem;
+}
+
+/* .card-header {
+  padding: 0.25rem 1.25rem;
+} */
