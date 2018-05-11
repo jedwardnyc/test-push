@@ -1,8 +1,8 @@
-const stripe = require("stripe")("sk_test_qg6RPYQiaTyOWrjxTep6uqjD");
+const { secretStripe } = require('../auth/config');
+const stripe = require("stripe")(secretStripe);
 const router = require('express').Router();
 
 router.post('/checkout', (req,res) => {
-  console.log(req.body)
   stripe.charges.create({
     amount: req.body.amount,
     currency: req.body.currency,
