@@ -25,7 +25,7 @@ app.use((err, req, res, next) => {
   console.log(`*** There is an error! ${err.stack} ***`);
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 
