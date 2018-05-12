@@ -1,5 +1,4 @@
-const { secretStripe } = require('../auth/config');
-const stripe = require("stripe")(secretStripe || process.env.SECRET_STRIPE);
+const stripe = require("stripe")(process.env.SECRET_STRIPE)
 const router = require('express').Router();
 
 router.post('/checkout', (req,res) => {
