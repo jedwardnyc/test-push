@@ -8,6 +8,7 @@ const Checkout = (props) => {
 
   const { name, description, amount } = props;
   const CURRENCY = 'USD';
+  const PUBLISHED_KEY = 'pk_test_furtUjPSZ4NnBAWEDDzDt4dG';
 
   const usdToCents = (amount) => amount * 100;
 
@@ -48,7 +49,7 @@ const Checkout = (props) => {
     amount={usdToCents(amount)}
     token={onToken(amount, description)}
     currency={CURRENCY}
-    stripeKey={process.env.PUBLIC_STRIPE}
+    stripeKey={PUBLISHED_KEY}
     />
   )
 }
