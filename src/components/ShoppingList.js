@@ -72,7 +72,9 @@ const mapStateToProps = ({ cart, lineItems, products }) => {
     quantityOptions.push(i);
   }
   
-  const userCartItems = lineItems.filter(item => item.order_id == cart.id );
+  const userCartItems = lineItems.filter(item => {
+    return item.order_id == cart.id && item
+  });
 
   const productMap = products.reduce((memo, product) => {
     memo[product.id] = product;
