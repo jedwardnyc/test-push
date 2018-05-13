@@ -37,7 +37,6 @@ Order.getCartForUser = function(user) {
 };
 
 Order.checkOutUser = function(userId, cardId, addressId) {
-  console.log(cardId, addressId)
   return this.findOne({
     where: [{
       user_id: userId,

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, HashRouter as Router, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../store';
+import { logout, createSearchResult, deleteSearchResult } from '../store';
 import fontawesome from '@fortawesome/fontawesome';
 import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Autosuggest from 'react-autosuggest';
-import SearchResult from './Product/SearchResult';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -63,14 +62,33 @@ class Nav extends React.Component {
       suggestions: []
     });
   }
-  
+
+  onResults(value, results) {
+    this.props.searchResults.forEach(searchResult => {
+      this.props.deleteSearchResult({ id: searchResult.id })
+    })
+    const product = results.find(product => product.name === value);
+    if(product) {
+      this.setState({ value: '' });
+      this.props.history.push(`/products/${product.id}`);
+      return;
+    } else {
+    results.forEach(product => {
+      this.props.createSearchResult(product);
+    })
+    this.setState({ value: '' });
+    this.props.history.push('/products/searchResults');
+  }
+  }
+
   render() {
+    
     fontawesome.library.add(faShoppingCart);
 
-    const { totalLineItems, logout } = this.props;
+    const { totalLineItems, logout, onResults } = this.props;
     let { user } = this.props;
 
-    const { value, suggestions } = this.state;
+    const { value, suggestions, results } = this.state;
     const inputProps = {
       value,
       onChange: this.onChange
@@ -93,10 +111,10 @@ class Nav extends React.Component {
               inputProps={inputProps}
             />
             <div className='input-group-append'>
-              <Link
+              <button
                 className='btn btn-outline-light'
-                to='/products/searchResults'
-              >Search</Link>
+                onClick={() => this.onResults(value, results)}
+              >Search</button>
             </div>
           </div>
           <div className='col-md-3 collapse navbar-collapse justify-content-end'>
@@ -147,7 +165,7 @@ class Nav extends React.Component {
 }
 
 
-const mapStateToProps = ({ auth, cart, lineItems, products }) => {
+const mapStateToProps = ({ auth, cart, lineItems, products, searchResults }) => {
 
   const userCartItems = lineItems.filter(item => {
     return item.order_id == cart.id && item;
@@ -160,13 +178,16 @@ const mapStateToProps = ({ auth, cart, lineItems, products }) => {
   return {
     user: auth.user,
     totalLineItems,
-    products
+    products,
+    searchResults
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    createSearchResult: (product) => dispatch(createSearchResult(product)),
+    deleteSearchResult: (product) => dispatch(deleteSearchResult(product))
   };
 };
 

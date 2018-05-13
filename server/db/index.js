@@ -8,8 +8,9 @@ const Product = require('./models/Product');
 const CreditCard = require('./models/CreditCard');
 const Address = require('./models/Address');
 const StarRating = require('./models/StarRating');
+const SearchResult = require('./models/SearchResult');
 
-const { products, categories, users, lineItems, addresses, credit_cards, starRatings } = require('./seed.js');
+const { products, categories, users, lineItems, addresses, credit_cards } = require('./seed.js');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
@@ -72,6 +73,7 @@ module.exports = {
     User,
     CreditCard,
     Address,
-    StarRating
+    StarRating,
+    SearchResult
   }
 };

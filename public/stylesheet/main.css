@@ -450,3 +450,8 @@ nav .spacer {
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
 }
+
+.react-autosuggest__suggestion-match {
+  color: red;
+  font-weight: bold;
+}

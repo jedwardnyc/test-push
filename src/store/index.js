@@ -11,6 +11,7 @@ import cart from './cart';
 import addresses from './addresses';
 import creditCards from './creditCards';
 import starRatings from './starRatings';
+import searchResults from './searchResults';
 
 const reducer = combineReducers({
   auth,
@@ -22,7 +23,8 @@ const reducer = combineReducers({
   cart,
   addresses,
   creditCards,
-  starRatings
+  starRatings,
+  searchResults
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
@@ -39,3 +41,4 @@ export * from './cart';
 export * from './addresses';
 export * from './creditCards';
 export * from './starRatings';
+export * from './searchResults';

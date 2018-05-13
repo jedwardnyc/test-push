@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings, fetchSearchResults } from '../store';
 
 import Nav from './Nav';
 import Login from './Auth/Login';
@@ -34,6 +34,7 @@ class Root extends Component {
     this.props.fetchLineItems();
     this.props.fetchStarRatings();
     this.props.fetchUsers();
+    this.props.fetchSearchResults();
     const user = localStorage.getItem('user');
     if (user) {
       this.props.getLoggedIn({ token: user })
@@ -96,6 +97,7 @@ const mapDispatchToProps = (dispatch) => {
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
     setCart: (user) => dispatch(setCart(user)),
     fetchStarRatings: () => dispatch(fetchStarRatings()),
+    fetchSearchResults: () => dispatch(fetchSearchResults())
   };
 };
 

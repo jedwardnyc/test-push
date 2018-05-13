@@ -47,8 +47,8 @@ class Addresses extends Component {
               return (
                 <div key={address.id}>
                 {
-                  edit && id === address.id ? 
-                  <EditAddress address={address} edit={this.edit} user={user}/>
+                  edit && id === address.id ?
+                  <EditAddress address={address} edit={this.edit} user={user} />
                   :
                   <div className='address-item'>
                     <div className='address-info'>
@@ -60,7 +60,7 @@ class Addresses extends Component {
                       <button
                       onClick={(ev) => {
                           ev.preventDefault();
-                          this.setState({ edit: true, id: address.id })}}  
+                          this.setState({ edit: true, id: address.id })}}
                         className='btn btn-sm btn-secondary mr-1'> Edit Address </button>
                       <button
                         onClick={(ev) => {
@@ -79,7 +79,7 @@ class Addresses extends Component {
           }
           {
             add ?
-            <EditAddress user={user} add={this.add}/>
+            <EditAddress user={user} add={this.add} />
             : null
           }
         </div>

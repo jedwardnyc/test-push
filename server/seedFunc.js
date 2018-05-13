@@ -1,5 +1,4 @@
 const db = require('./db');
-const conn = require('./db/conn');
 
 console.log('Syncing database');
 db.sync()
