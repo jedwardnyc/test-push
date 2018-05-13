@@ -99,6 +99,7 @@ const mapStateToProps = ({ categories, products }) => {
     }
     return total;
   }, {});
+
   return {
     categories,
     products: filteredProducts
