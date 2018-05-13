@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const SearchResult = ({ searchResults }) => {
-  return(
+  return (
     <div className='container mt-5 mr-auto'>
-      <h4 className='mr-2 border-bottom mb-3 p-2 row'>Search results ({searchResults.length || ''})
+      <h4 className='mr-2 border-bottom mb-3 p-2 row'>Search results ({searchResults.length || 0})
         <div className='col-md-8' />
         <div className='col-md-1'>
           <Link className='btn btn-outline-secondary ml-5' to={'/products'}>

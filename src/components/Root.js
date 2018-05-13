@@ -62,7 +62,7 @@ class Root extends Component {
             <Route path='/login' component={Login} />
             <Route exact path='/' render={()=> <Redirect to='products' />} />
             <Route exact path='/products' component={Products} />
-            <Route exact path='/products/searchResults' component={SearchResult} />
+            <Route exact path='/products/searchResults' render={({ history }) => <SearchResult history={history} />} />
             <Route exact path='/products/categories/:id' render={({ match }) => <Product id={match.params.id * 1} />} />
             <Route exact path='/products/:id' render={({ match, history }) => <ProductDetail id={match.params.id * 1} history={history} />} />
             <Route exact path='/account' component={Private(User)} />
