@@ -6,7 +6,7 @@ import { checkOutUser, createAddress } from '../store';
 
 const Checkout = (props) => {
 
-  const { name, description, amount } = props;
+  const { name, description, amount, user } = props;
   const CURRENCY = 'USD';
   const PUBLISHED_KEY = 'pk_test_furtUjPSZ4NnBAWEDDzDt4dG';
 
@@ -15,14 +15,14 @@ const Checkout = (props) => {
   const successPayment = () => {
     const { address, user, createAddress, checkOutUser, history } = props;
     if (address.line1) {
-      createAddress(Object.assign({}, address, { user_id: user }))
+      createAddress(Object.assign({}, address, { user_id: user.id }))
       .then(res => {
-        checkOutUser( user, null, res.address.id)
+        checkOutUser( user.id, null, res.address.id)
         history.push('/')
       })
     }
     else {
-      checkOutUser(user, null, address)
+      checkOutUser(user.id, null, address)
       history.push('/')
     }
   };
@@ -44,12 +44,13 @@ const Checkout = (props) => {
 
   return (
     <StripeCheckout
-    name={name}
-    description={description}
-    amount={usdToCents(amount)}
-    token={onToken(amount, description)}
-    currency={CURRENCY}
-    stripeKey={PUBLISHED_KEY}
+      name={name}
+      description={description}
+      amount={usdToCents(amount)}
+      token={onToken(amount, description)}
+      currency={CURRENCY}
+      stripeKey={PUBLISHED_KEY}
+      email={user.email}
     />
   )
 }

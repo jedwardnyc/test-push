@@ -81,7 +81,7 @@ class Purchase extends Component {
                 <div className="card-header" id="headingOne">
                   <h5 className="mb-0">
                     <button className="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    1 &mdash; Shipping address
+                    Shipping address
                     </button>
                   </h5>
                 </div>
@@ -146,67 +146,10 @@ class Purchase extends Component {
                 </div>
               </div>
               <div className="card">
-                <div className="card-header" id="headingTwo">
-                  <h5 className="mb-0">
-                    <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    2 &mdash; Payment method
-                    </button>
-                  </h5>
-                </div>
-                <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                  <div className="card-body">
-                  {
-                    editCard ?
-                    <form>
-                      <div className='form-row'>
-                        <div className='form-group col-6'>
-                          <input 
-                            className='form-control' 
-                            placeholder='Janeathon'
-                            onChange={(ev) => this.setState(Object.assign(card, { firstname: ev.target.value }))}/>
-                        </div>
-                        <div className='form-group col-6'>
-                          <input 
-                            className='form-control' 
-                            placeholder='Smithy'
-                            onChange={(ev) => this.setState(Object.assign(card, { lastname: ev.target.value }))}/>
-                        </div>
-                      </div>
-                      <div className='form-row'>
-                        <div className='form-group col-8'>
-                          <input 
-                            className='form-control' 
-                            placeholder='1234 4678 9012 3456'
-                            onChange={(ev) => this.setState(Object.assign(card, { number: ev.target.value *1}))}/>
-                        </div>
-                        <div className='form-group col-4'>
-                          <input 
-                            className='form-control' 
-                            placeholder='01/20'
-                            onChange={(ev) => this.setState(Object.assign(card, { exp: ev.target.value }))}/>
-                        </div>
-                      </div>
-                    </form>
-                    : 
-                    <div>
-                      <select onChange={(ev) => this.setState({ cardId: ev.target.value *1 })}>
-                        <option value='-1'> --- Select an Credit Card --- </option>
-                      {
-                        creditCards.map(creditCard => <option key={creditCard.id} value={creditCard.id}> {creditCard.firstname}</option>)
-                      }
-                      </select>
-                      <h6> or </h6>
-                    </div>
-                  }
-                    <button onClick={this.cardToggle}> { editCard ? 'Cancel' : 'Add a new credit card' }</button>
-                  </div>
-                </div>
-              </div>
-              <div className="card">
                 <div className="card-header" id="headingThree">
                   <h5 className="mb-0">
                     <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      3 &mdash; Review items
+                      Review items
                     </button>
                   </h5>
                 </div>
@@ -224,8 +167,13 @@ class Purchase extends Component {
                 <h5 className="card-title">Order summary</h5>
                 <h5 className="card-title">Total item{ totalLineItems > 1 ? 's' : '' }: { totalLineItems }</h5>
                 <h5 className="card-title">Subtotal: ${ subTotal.toLocaleString('USD') }</h5>
-                <p className="card-text"><button className="btn btn-block btn-primary p-2" onClick={ onPlaceOrder } disabled={ !userCartItems.length }> Checkout </button></p>
-                <Checkout name='The Light Web' description='A light site for your dark needs' history={history} amount={subTotal} user={userId} address={addressId ? addressId : address ? address : null }/>
+                <Checkout 
+                  name='The Light Web' 
+                  description='A light site for your dark needs' 
+                  history={history} 
+                  amount={subTotal} 
+                  user={user} 
+                  address={addressId ? addressId : address ? address : null }/>
               </div>
             </div>
           </div>
