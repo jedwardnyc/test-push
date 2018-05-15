@@ -10,7 +10,7 @@ const Address = require('./models/Address');
 const StarRating = require('./models/StarRating');
 const SearchResult = require('./models/SearchResult');
 
-const { products, categories, users, lineItems, addresses, credit_cards } = require('./seed.js');
+const { products, categories, users, addresses, credit_cards } = require('./seed.js');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
