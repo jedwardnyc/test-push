@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-const Product = ({ category, filteredProducts, products }) => {
+const Product = ({ category, filteredProducts }) => {
 
   if (!category) {
     return null;
@@ -18,7 +18,7 @@ const Product = ({ category, filteredProducts, products }) => {
       </h4>
       <div className='row'>
         {
-          products && products.map(product => {
+          filteredProducts && filteredProducts.map(product => {
             return (
               <div className='col-md-3' key={product.id}>
                 <div className='card mr-2 p-2 mb-4 bg-light rounded box-shadow'>

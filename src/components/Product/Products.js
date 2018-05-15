@@ -88,7 +88,6 @@ const Products = ({ categories, products }) => {
 }
 
 const mapStateToProps = ({ categories, products }) => {
-  console.log('products :', products);
   const filteredProducts = [];
   products.filter(product => product.availability === true).reduce((total, current) => {
     if (!total[current.category_id]) {

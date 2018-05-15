@@ -32,7 +32,9 @@ class SearchResult extends React.Component {
                 className='form-control'
                 name='category_id'
                 onChange= {this.onChange}>
-                <option>Category</option>
+                {
+                 <option value='0'>Category</option>
+                }
                 {
                   categories.map(category => {
                     return (
@@ -75,7 +77,6 @@ const mapStateToProps = ({ searchResults, categories, products }) => {
     }
     return result
   },{});
-  console.log('productsList :', productsList);
   const filteredProducts = products.filter(product => product.id === productsList[product.name]);
 
   const _productsList = filteredProducts.reduce((result, product) => {
