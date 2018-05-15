@@ -5,7 +5,6 @@ const passport = require('passport');
 
 const volleyball = require('volleyball');
 const path = require('path');
-const User = require('./db/models/User');
 
 app.use(passport.initialize());
 

@@ -13,7 +13,6 @@ const githubCredentials = {
 }
 
 const verificationCb = (token, refreshToken, profile, done) => {
-  console.log(profile)
   const info = {
     firstname: profile.displayName.split(' ')[0],
     lastname: profile.displayName.split(' ')[1],

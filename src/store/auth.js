@@ -29,11 +29,8 @@ export const signUp = ({ email, password, firstname, lastname }, history ) => {
 
 export const logout = () => {
   return (dispatch) => {
-    return axios.delete('/auth/local/logout')
-    .then(() => {
-      localStorage.clear();
-      dispatch({ type: UNAUTHENTICATED });
-    })
+    localStorage.clear();
+    dispatch({ type: UNAUTHENTICATED });
   }
 };
 

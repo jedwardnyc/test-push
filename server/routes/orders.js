@@ -14,7 +14,6 @@ router.post('/cart', (req, res, next) => {
 });
 
 router.get('/users/:id/checkout', (req, res, next) => {
-  // console.log('/cart/checkout');
   Order.checkOutUser(req.params.id)
   .then(cart => {
     res.send(cart);

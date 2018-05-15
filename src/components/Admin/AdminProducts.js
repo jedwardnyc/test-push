@@ -35,8 +35,6 @@ class AdminProducts extends React.Component {
           fileReader.readAsDataURL(ev.target.files[0]);
           fileReader.onload = function (ev) {
             state.imgUrl = ev.target.result;
-            console.log(state.imgUrl)
-            console.log('state',state)
           }
         }
         break;

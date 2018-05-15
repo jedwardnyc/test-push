@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Address } = require('../db').models;
 
 router.post('/get', (req, res, next) => {
-  console.log(req.body.id)
   Address.findAll({ where: { user_id: req.body.id } })
   .then(addresses => res.send(addresses))
   .catch(next);
