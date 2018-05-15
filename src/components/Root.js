@@ -35,6 +35,7 @@ class Root extends Component {
     this.props.fetchStarRatings();
     this.props.fetchUsers();
     this.props.fetchSearchResults();
+
     const user = localStorage.getItem('user');
     if (user) {
       this.props.getLoggedIn({ token: user })
@@ -48,12 +49,12 @@ class Root extends Component {
   }
 
   render() {
-
+ 
     const user = localStorage.getItem('user')
     if(user) {
       this.props.getLoggedIn({ token: user });
     }
-
+    
     return (
       <div>
         <Router>

@@ -167,10 +167,14 @@ class Login extends Component {
                 <h4> Don't have an account? </h4>
                 <h6> Please Sign up by clicking below! </h6>
                 <button
-                  className='btn btn-block btn-primary mt-3 mb-4'
+                  className='btn btn-block btn-primary mt-3 mb-3'
                   onClick={(ev)=> {
                     ev.preventDefault();
                     this.setState({ signup: true })}}> Sign up </button>
+                <h6 className='mb-3'>---- <strong>or</strong> ----</h6>
+                <a href='/auth/google' className='btn btn-primary mb-2'><img src='public/icons/google.svg'/>Sign In with Google</a>
+                <br />
+                <a href='/auth/github' className='btn btn-secondary'>Sign In with Github</a>
               </div>
             }
           </div>

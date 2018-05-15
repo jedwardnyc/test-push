@@ -1,10 +1,14 @@
+const config = require('../server/auth/config');
 const express = require('express');
 const app = express();
+const passport = require('passport');
 
 require('dotenv').config();
 
 const volleyball = require('volleyball');
 const path = require('path');
+
+app.use(passport.initialize());
 
 app.use(volleyball);
 app.use(require('body-parser').json());
