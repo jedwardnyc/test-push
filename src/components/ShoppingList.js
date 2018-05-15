@@ -7,11 +7,16 @@ class ShoppingList extends Component {
   constructor() {
     super();
     this.onSaveQuantity = this.onSaveQuantity.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   onSaveQuantity(ev) {
     const lineItem = { id: ev.target.name * 1, quantity: ev.target.value * 1 };
     this.props.updateLineItem(lineItem);
+  }
+
+  onDelete(itemId) {
+    this.props.deleteLineItem(itemId);
   }
 
   render() {
@@ -71,7 +76,7 @@ const mapStateToProps = ({ cart, lineItems, products }) => {
   for (let i = 1; i <= 20; i++) {
     quantityOptions.push(i);
   }
-  
+
   const userCartItems = lineItems.filter(item => {
     return item.order_id == cart.id && item
   });
