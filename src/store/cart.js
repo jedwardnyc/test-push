@@ -21,12 +21,16 @@ export const checkOutUser = (userId, card, address) => {
   return dispatch => {
     return axios.post(`/api/orders/users/${userId}/checkout`, {card, address})
     .then(res => res.data)
-    .then(cart => {
+    .then(cartObjects => {
+      dispatch({
+        type: CREATE_ORDER,
+        order: cartObjects.ordered
+      });
       dispatch({
         type: SET_CART,
-        cart
+        cart: cartObjects.cart
       });
-      return cart;
+      return cartObjects.cart;
     })
   .catch(err => console.log(err));
   };

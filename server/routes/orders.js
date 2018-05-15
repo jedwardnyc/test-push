@@ -15,8 +15,8 @@ router.post('/cart', (req, res, next) => {
 
 router.post('/users/:id/checkout', (req, res, next) => {
   Order.checkOutUser(req.params.id, req.body.card, req.body.address)
-  .then(cart => {
-    res.send(cart);
+  .then(cartObjects => {
+    res.send(cartObjects);
   })
   .catch(next);
 });
