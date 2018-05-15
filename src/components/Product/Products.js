@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -99,6 +99,7 @@ const mapStateToProps = ({ categories, products }) => {
     }
     return total;
   }, {});
+
   return {
     categories,
     products: filteredProducts

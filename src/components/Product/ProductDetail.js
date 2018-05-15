@@ -175,7 +175,7 @@ class ProductDetail extends React.Component {
                   </div>
                 );
               })
-              : ''
+            : ''
           }
         </div>
       </div>
@@ -194,7 +194,7 @@ const mapStateToProps = ({ auth, products, cart, starRatings, users }, { id }) =
         return starRating.product_id === product.id
       }
     }
-  ); //sometimes error why
+  );
 
   const ratingFilteredProducts = starRatings.filter(starRating => {
     if(product) {

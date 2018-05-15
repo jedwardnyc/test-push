@@ -102,28 +102,11 @@ const credit_cards = {
   },
 }
 
-const starRatings = {
-  g1: [
-    { rating: 3, description: 'good product' },
-    { rating: 2, description: 'good product' },
-  ],
-  g2: [
-    { rating: 5, description: 'good product' },
-    { rating: 1, description: 'good product' }
-  ],
-  g3: [
-    { rating: 2, description: 'good product' },
-    { rating: 9, description: 'good product' },
-    { rating: 4, description: 'good product' }
-  ]
-}
-
 module.exports = {
   products,
   categories,
   users,
   lineItems,
   addresses,
-  credit_cards,
-  starRatings
+  credit_cards
 };

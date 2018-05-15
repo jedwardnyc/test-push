@@ -40,7 +40,8 @@ const mapStateToProps = ({ categories, products }, { id }) => {
   const filteredProducts = products.filter(product => product.availability === true).filter(product => product.category_id === id);
   return {
     category,
-    filteredProducts
+    filteredProducts,
+    products
   }
 }
 
