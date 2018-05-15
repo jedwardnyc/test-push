@@ -1,103 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { updateLineItem, deleteLineItem } from '../store/lineitems';
-import { checkOutUser } from '../store/cart';
+import ShoppingList from './ShoppingList';
 
-class Cart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onSaveQuantity = this.onSaveQuantity.bind(this);
-    this.onPlaceOrder = this.onPlaceOrder.bind(this);
-  }
-
-  onSaveQuantity(ev) {
-    const lineItem = { id: ev.target.name * 1, quantity: ev.target.value * 1 };
-    this.props.updateLineItem(lineItem);
-  }
-
-  onDelete(itemId) {
-    this.props.deleteLineItem(itemId);
-  }
-
-  onPlaceOrder(ev) {
-    if (this.props.userCartItems.length) {
-      this.props.checkOutUser(this.props.userId);
-    } else {
-      console.log('onPlaceOrder: no order items. [Place your Order] button should be disabled.');
-    }
-  }
-
-  render() {
-    const { quantityOptions, userCartItems, productMap, subTotal, totalLineItems } = this.props;
-    const { onSaveQuantity, onPlaceOrder } = this;
-
-    return (
-      <div className="container mt-5 ml-5 row">
-        <div className="col-sm-8">
-          <h3 className="border-bottom border-gray pb-2 mb-0 row">Shopping Cart
-            <div className="row">
-              <h6 className="pl-5 mb-0">Price</h6>
-              <h6 className="pl-5 mb-0">Quantity</h6>
-            </div>
-          </h3>
-          {
-            userCartItems && userCartItems.map(item => {
-                const product = productMap[item.product_id];
-                return (
-                <div className="my-3 p-3 bg-light rounded box-shadow" key={ product.id }>
-                  <div className="media pt-1">
-                    <Link to={`/products/${product.id}`}><img src={ product.imgUrl } className="mr-2 rounded" width="100" height="100" /></Link>
-                    <div className="row">
-                      <Link to={`/products/${product.id}`} className="h5 ml-4 p-1">{ product.name }</Link>
-                      <div className="row">
-                        <h6 className="pl-5 mb-0">${ product.price }</h6>
-                        <div className="pl-2">
-                        <select name={ item.id } className="form-control p-2 mr-2" value={ item.quantity } onChange={ onSaveQuantity }>
-                        {
-                          quantityOptions.map(number => {
-                            return (
-                              <option value={number} key={number} >{number}</option>
-                            );
-                          })
-                        }
-                      </select>
-                        </div>
-                        <button className="btn btn-danger ml-2" onClick={() => this.onDelete(item.id)}>Delete</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                );
-              })
-            }
+const Cart = ({ userCartItems, subTotal, totalLineItems }) => {
+  return (
+    <div className="container-fluid m-4">
+      <div className="row">
+        <div className="col-sm-9">
+          <div className="h1 border-bottom border-gray pb-2 mb-0">Shopping Cart</div>
+          <ShoppingList />
         </div>
-        <div className="col-sm-3 ml-2 text-center">
-          <div className="bg-light rounded box-shadow">
-            <div className="h5 pt-4">Total item{ totalLineItems > 1 ? 's' : '' }: { totalLineItems }</div>
-            <div className="h5 p-2">Subtotal: ${ subTotal.toLocaleString('USD') }</div>
-            <button className="btn btn-block btn-primary p-2" onClick={ onPlaceOrder }>Place your Order</button>
+        <div className="col-sm-3 text-center">
+          <div className="card card-side bg-light" style={{maxWidth: '18rem'}}>
+            <div className="card-body">
+              <h5 className="card-title">Total item{ totalLineItems > 1 ? 's' : '' }: { totalLineItems }</h5>
+              <h5 className="card-title">Subtotal: ${ subTotal.toLocaleString('USD') }</h5>
+              <p className="card-text"><Link to="/purchase" className="btn btn-primary"  disabled={ !userCartItems.length }>Place your Order</Link></p>
+            </div>
           </div>
         </div>
       </div>
-    );
-  }
-
-  renderDelete(product, lineItems) {
-    const lineItem = lineItems.find(lineItem => lineItem.product_id === product.id);
-    return (
-      <button className="btn btn-danger ml-2" onClick={() => this.onDelete(lineItem.id)}>Delete</button>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const mapStateToProps = ({ cart, lineItems, products }) => {
-  const quantityOptions = [];
-  for (let i = 1; i <= 20; i++) {
-    quantityOptions.push(i);
-  }
-
-  // not checking orders b/c cart always status = 'CART'
+ 
   const userCartItems = lineItems.filter(item => {
     return item.order_id == cart.id && item;
   });
@@ -116,26 +45,12 @@ const mapStateToProps = ({ cart, lineItems, products }) => {
     return sum + item.quantity;
   }, 0);
 
-  // getting user id from cart to check out
-  const userId = cart.user_id;
-
   return {
-    quantityOptions,
     userCartItems,
     productMap,
     subTotal,
-    totalLineItems,
-    userId
+    totalLineItems
   };
 };
 
-const mapDispatchToProps = (dispatch, { history }) => {
-  return {
-    updateLineItem: (lineItem) => dispatch(updateLineItem(lineItem)),
-    deleteLineItem: id => dispatch(deleteLineItem(id)),
-    checkOutUser: userId => dispatch(checkOutUser(userId, history))
-    .then(() => history.push('/account/orders'))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps)(Cart);

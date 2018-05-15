@@ -8,12 +8,15 @@ const Product = require('./models/Product');
 const CreditCard = require('./models/CreditCard');
 const Address = require('./models/Address');
 const StarRating = require('./models/StarRating');
+const SearchResult = require('./models/SearchResult');
 
-const { products, categories, users, lineItems, orders, addresses, credit_cards, starRatings } = require('./seed.js');
+const { products, categories, users, addresses, credit_cards } = require('./seed.js');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
 Order.hasMany(LineItem);
+Order.belongsTo(CreditCard);
+Order.belongsTo(Address);
 LineItem.belongsTo(Product);
 Product.belongsTo(Category);
 Address.belongsTo(User);
@@ -53,26 +56,7 @@ const seed = () => {
               creditcard.setUser(user)
             })
         })
-    }),
-    Object.keys(lineItems).forEach(key => {
-      Order.create(orders[key])
-        .then(() => {
-          lineItems[key].map(lineItem => {
-            LineItem.create(lineItem)
-              .catch(err => console.log(err));
-          })
-        })
-        .catch(err => console.log(err));
-    }),
-    // Object.keys(products).forEach(key => {
-    //   Product.create(products[key])
-    //     .then(product => {
-    //       StarRating.create(starRatings[key])
-    //         .then(starRating => {
-    //           starRating.setProduct(product)
-    //         })
-    //     })
-    // }),
+    })
   ])
 };
 
@@ -89,6 +73,7 @@ module.exports = {
     User,
     CreditCard,
     Address,
-    StarRating
+    StarRating,
+    SearchResult
   }
 };

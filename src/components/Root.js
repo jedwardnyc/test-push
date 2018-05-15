@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings } from '../store';
+import { fetchCategories, fetchProducts, fetchLineItems, fetchUsers, fetchOrders, fetchAddresses, fetchCreditCards, getLoggedIn, setCart, fetchStarRatings, fetchSearchResults } from '../store';
 
 import Nav from './Nav';
 import Login from './Auth/Login';
@@ -22,6 +22,8 @@ import Orders from './User/Orders';
 import Cards from './User/Cards';
 import EditUser from './User/EditUser';
 import Addresses from './User/Addresses';
+import Purchase from './Purchase';
+import SearchResult from './Product/SearchResult';
 
 
 class Root extends Component {
@@ -32,7 +34,8 @@ class Root extends Component {
     this.props.fetchLineItems();
     this.props.fetchStarRatings();
     this.props.fetchUsers();
-    
+    this.props.fetchSearchResults();
+
     const user = localStorage.getItem('user');
     if (user) {
       this.props.getLoggedIn({ token: user })
@@ -46,29 +49,36 @@ class Root extends Component {
   }
 
   render() {
+ 
+    const user = localStorage.getItem('user')
+    if(user) {
+      this.props.getLoggedIn({ token: user });
+    }
     
     return (
       <div>
         <Router>
           <div>
-            <Nav />
+            <Route render={({ history }) => <Nav history={history} />} />
             <Route path='/login' component={Login} />
             <Route exact path='/' render={()=> <Redirect to='products' />} />
             <Route exact path='/products' component={Products} />
+            <Route exact path='/products/searchResults' render={({ history }) => <SearchResult history={history} />} />
             <Route exact path='/products/categories/:id' render={({ match }) => <Product id={match.params.id * 1} />} />
             <Route exact path='/products/:id' render={({ match, history }) => <ProductDetail id={match.params.id * 1} history={history} />} />
-            <Route exact path='/account' component={Private(User)}/>
-            <Route path='/account/orders' component={Private(Orders)}/>
-            <Route path='/account/cards' component={Private(Cards)}/>
-            <Route path='/account/edit-profile' component={Private(EditUser)}/>
-            <Route path='/account/addresses' component={Private(Addresses)}/>
+            <Route exact path='/account' component={Private(User)} />
+            <Route path='/account/orders' component={Private(Orders)} />
+            <Route path='/account/cards' component={Private(Cards)} />
+            <Route path='/account/edit-profile' component={Private(EditUser)} />
+            <Route path='/account/addresses' component={Private(Addresses)} />
             <Route path='/admin/categories' component={Admin(AdminCategories)} />
             <Route exact path='/admin/products' component={Admin(AdminProducts)} />
             <Route path='/admin/products/:id' render={({match, history}) => <AdminEditProducts id={match.params.id * 1} history={history} />} />
             <Route path='/admin/users' component={Admin(AdminUsers)} />
-            <Route path='/cart' render={({ match }) => <Cart history={history} />} />
+            <Route path='/cart' render={({ history }) => <Cart history={history} />} />
+            <Route path='/purchase' render={({ history }) => <Purchase history={history} />} />
             <Route path='/forgot' component={ForgotPW} />
-            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token}/>} />
+            <Route path='/reset/:token' render={({ match }) => <ResetPW token={match.params.token} />} />
           </div>
         </Router>
       </div>
@@ -87,7 +97,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchAddresses: (user) => dispatch(fetchAddresses(user)),
     getLoggedIn: (user) => dispatch(getLoggedIn(user)),
     setCart: (user) => dispatch(setCart(user)),
-    fetchStarRatings: () => dispatch(fetchStarRatings())
+    fetchStarRatings: () => dispatch(fetchStarRatings()),
+    fetchSearchResults: () => dispatch(fetchSearchResults())
   };
 };
 

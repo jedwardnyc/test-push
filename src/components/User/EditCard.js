@@ -31,7 +31,7 @@ class EditCard extends Component {
   render(){
     
     const { number, firstname, lastname, exp } = this.state;
-    const { edit } = this.props;
+    const { edit, add } = this.props;
     return (
       <div className='cc-item'>
         <form onSubmit={ edit ? this.update : this.create }>
@@ -67,18 +67,22 @@ class EditCard extends Component {
                 onChange={(ev) => this.setState({ exp: ev.target.value })}/>
             </div>
           </div>
-          </form>
-          <div className='cc-buttons'>
-            <button
-              onClick={ edit ? this.update : this.create }
-              className='btn btn-sm btn-secondary mr-1'> 
-              { edit ? 'Edit Card' : 'Add Card' }
-            </button>
-            <button onClick={this.cancel} 
-              className='btn btn-danger btn-sm'> 
-              Cancel 
-            </button>
-          </div>
+        </form>
+          {
+            edit || add ?
+            <div className='cc-buttons'>
+              <button
+                onClick={ edit ? this.update : this.create }
+                className='btn btn-sm btn-secondary mr-1'> 
+                { edit ? 'Edit Card' : 'Add Card' }
+              </button>
+              <button onClick={this.cancel} 
+                className='btn btn-danger btn-sm'> 
+                Cancel 
+              </button>
+            </div>
+            : null
+          }
       </div>
     )
   }

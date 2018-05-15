@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ const Products = ({ categories, products }) => {
           </div>
         </div>
       </div>
-      <div className='container'>
+      <div className='content container'>
         {
           categories && categories.map(category => {
             return (
@@ -58,6 +58,28 @@ const Products = ({ categories, products }) => {
           })
         }
       </div>
+        <footer className='bg-dark pt-4 mt-4 footer row'>
+          <div className='col-sm-4 col-md-4 col-lg-4'>
+            <h4 className='footer-text text-uppercase font-weight-bold text-center border-bottom mr-auto'>The Light Web</h4>
+            <p className='footer-text text-center p-2'>Here introduces the website
+            </p>
+          </div>
+          <div className='col-sm-4 col-md-4 col-lg-4'>
+            <h4 className='footer-text text-uppercase font-weight-bold text-center border-bottom mr-auto'>about us</h4>
+            <div className='text-center'>
+              <a className='footer-text' href='https://www.linkedin.com/in/baltazarv/'>Baltazar Villegas</a>
+            </div>
+            <div className='text-center'>
+              <a className='footer-text' href='https://www.linkedin.com/in/jacobrico/'>Jacob Rico</a>
+            </div>
+            <div className='text-center'>
+              <a className='footer-text' href='https://www.linkedin.com/in/chaehoon-lim/'>Chaehoon Lim</a>
+            </div>
+          </div>
+        <div className='col-sm-4 col-md-4 col-lg-4'>
+          <h4 className='footer-text text-uppercase font-weight-bold text-center border-bottom mr-auto'>contact</h4>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -74,6 +96,7 @@ const mapStateToProps = ({ categories, products }) => {
     }
     return total;
   }, {});
+
   return {
     categories,
     products: filteredProducts

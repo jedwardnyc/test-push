@@ -1,14 +1,14 @@
-const { gridKey } = require('./config');
 const nodemailer = require('nodemailer');
 
 const sendReset = (user, token) => {
+  const host = process.env.HOST || 'http://localhost:3000';
   let transporter = nodemailer.createTransport({
     host: 'smtp.sendgrid.net',
     port: 587,
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: gridKey 
+        pass: process.env.GRID_KEY || require('./config').gridKey
     }
   });
   
@@ -18,10 +18,10 @@ const sendReset = (user, token) => {
     subject: 'The Light Web Password Reset',
     text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
       Please click on the following link, or paste this into your browser to complete the process:
-      http://localhost:3000/#/reset/${token}
+      ${host}/#/reset/${token}
       If you did not request this, please ignore this email and your password will remain unchanged.`,
     html: `<h4>You are receiving this because you (or someone else) have requested the reset of the password for your account.</h4>
-      <p>Please click on the following link, or paste this into your browser to complete the process: http://localhost:3000/#/reset/${token}</p>
+      <p>Please click on the following link, or paste this into your browser to complete the process: ${host}/#/reset/${token}</p>
       <h4>If you did not request this, please ignore this email and your password will remain unchanged.</h4>`
   };
   
@@ -39,7 +39,7 @@ const sendAdmin = (user, token) => {
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: gridKey 
+        pass: process.env.GRID_KEY || require('./config').gridKey
     }
   });
   
@@ -49,11 +49,11 @@ const sendAdmin = (user, token) => {
     subject: 'The Light Web Password',
     text: `You are receiving this because an administrative user has requested that you reset your password on this account.
       Please click on the following link, or paste this into your browser to complete the process:
-      http://localhost:3000/#/reset/${token}
+      ${host}/#/reset/${token}
       If you did not request this, please ignore this email and your password will remain unchanged.`,
     html: `<h2>Hello, ${user.firstname}!</h2>
       <h4>You are receiving this because an administrative user has requested that you reset your password on this account.</h4>
-      <p>Please click on the following link, or paste this into your browser to complete the process: http://localhost:3000/#/reset/${token}</p>
+      <p>Please click on the following link, or paste this into your browser to complete the process: ${host}/#/reset/${token}</p>
       <h4>If you did not request this, please ignore this email and your password will remain unchanged.</h4>`
   };
   
@@ -71,7 +71,7 @@ const sendConfirmation = (user) => {
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: gridKey 
+        pass: process.env.GRID_KEY  || require('./config').gridKey
     }
   });
   
@@ -99,7 +99,7 @@ const sendWelcome = (user) => {
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: gridKey 
+        pass: process.env.GRID_KEY || require('./config').gridKey
     }
   });
   

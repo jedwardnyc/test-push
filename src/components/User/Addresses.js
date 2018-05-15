@@ -32,12 +32,12 @@ class Addresses extends Component {
       <div className='container mt-3'>
         <div className='address-header'>
           <div className='address-title'> {user.firstname}'s Addresses </div>
-          <button 
+          <button
             onClick={(ev) => {
               ev.preventDefault();
               this.setState({ add: true })
             }}
-            className='btn btn-dark address-add'> 
+            className='btn btn-dark address-add'>
             Add Address
           </button>
         </div>
@@ -47,8 +47,8 @@ class Addresses extends Component {
               return (
                 <div key={address.id}>
                 {
-                  edit && id === address.id ? 
-                  <EditAddress address={address} edit={this.edit} user={user}/>
+                  edit && id === address.id ?
+                  <EditAddress address={address} edit={this.edit} user={user} />
                   :
                   <div className='address-item'>
                     <div className='address-info'>
@@ -57,17 +57,18 @@ class Addresses extends Component {
                       <h3>{address.city}, {address.state} {address.zip}</h3>
                     </div>
                     <div className='address-buttons'>
-                      <button onClick={(ev) => {
+                      <button
+                      onClick={(ev) => {
                           ev.preventDefault();
-                          this.setState({ edit: true, id: address.id })}}  
+                          this.setState({ edit: true, id: address.id })}}
                         className='btn btn-sm btn-secondary mr-1'> Edit Address </button>
-                      <button 
+                      <button
                         onClick={(ev) => {
                           ev.preventDefault();
                           this.props.deleteAddress(address)
                         }}
-                        className='btn btn-sm btn-danger'> 
-                        Remove Address 
+                        className='btn btn-sm btn-danger'>
+                        Remove Address
                       </button>
                     </div>
                   </div>
@@ -78,7 +79,7 @@ class Addresses extends Component {
           }
           {
             add ?
-            <EditAddress user={user} add={this.add}/>
+            <EditAddress user={user} add={this.add} />
             : null
           }
         </div>
