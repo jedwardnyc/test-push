@@ -14,7 +14,7 @@ router.post('/cart', (req, res, next) => {
 });
 
 router.post('/users/:id/checkout', (req, res, next) => {
-  Order.checkOutUser(req.params.id, req.body.card, req.body.address)
+  Order.checkOutUser(req.params.id, req.body.address)
   .then(cartObjects => {
     res.send(cartObjects);
   })

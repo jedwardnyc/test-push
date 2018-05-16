@@ -17,12 +17,12 @@ const Checkout = (props) => {
     if (address.line1) {
       createAddress(Object.assign({}, address, { user_id: user.id }))
       .then(res => {
-        checkOutUser( user.id, null, res.address.id)
+        checkOutUser( user.id, 1, res.address.id)
         history.push('/')
       })
     }
     else {
-      checkOutUser(user.id, null, address)
+      checkOutUser(user.id, 1, address)
       history.push('/')
     }
   };

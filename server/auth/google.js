@@ -1,14 +1,13 @@
 const router = require('express').Router();
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const passport = require('passport');
-const config = require('./config');
 const jwt = require('jsonwebtoken');
 const User = require('../db/models/User');
 
 const host = 'http://localhost:3000'
 const googleCredentials = {
-  clientID: config.googId,
-  clientSecret: config.googKey,
+  clientID: process.env.GOOGID,
+  clientSecret: process.env.GOOGKEY,
   callbackURL: `${host}/auth/google/callback`
 }
 
@@ -34,7 +33,7 @@ passport.use(new GoogleStrategy(googleCredentials, verificationCb));
 router.get('/', passport.authenticate('google', { scope: 'email', session: false }))
 
 router.get('/callback', passport.authenticate('google', { failureRedirect: '/login', session: false }), (req, res) => {
-  const token = jwt.sign({id: req.user.id}, config.secret, { expiresIn: 86400 })
+  const token = jwt.sign({id: req.user.id}, process.env.SECRET, { expiresIn: 86400 })
   res.redirect(`/?token=${token}`)
 }) 
 

@@ -64,26 +64,25 @@ class Nav extends React.Component {
   }
 
   onResults(value, results) {
-    if(!value && results) {
+    if (!value && results) {
       return;
     }
     const product = results.find(product => product.name === value);
+    this.props.searchResults.forEach(searchResult => {
+      this.props.deleteSearchResult({ id: searchResult.id })
+    });
+    this.setState({ value: '' });
+    
     if (product) {
-      this.props.searchResults.forEach(searchResult => {
-        this.props.deleteSearchResult({ id: searchResult.id })
-      })
-      this.setState({ value: '' });
+      if (this.props.history.location.pathname !== `/products/${product.id}`)
       this.props.history.push(`/products/${product.id}`);
       return;
     } else {
-      this.props.searchResults.forEach(searchResult => {
-        this.props.deleteSearchResult({ id: searchResult.id })
-      })
       results.forEach(product => {
         this.props.createSearchResult(product);
       })
-      this.setState({ value: '' });
-      this.props.history.push('/products/searchResults');
+      if (this.props.history.location.pathname !== '/products/searchResults')
+        this.props.history.push('/products/searchResults');
     }
   }
 

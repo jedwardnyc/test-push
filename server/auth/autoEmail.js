@@ -8,7 +8,7 @@ const sendReset = (user, token) => {
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: process.env.GRID_KEY || require('./config').gridKey
+        pass: process.env.GRID_KEY
     }
   });
   
@@ -39,7 +39,7 @@ const sendAdmin = (user, token) => {
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: process.env.GRID_KEY || require('./config').gridKey
+        pass: process.env.GRID_KEY
     }
   });
   
@@ -71,7 +71,7 @@ const sendConfirmation = (user) => {
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: process.env.GRID_KEY  || require('./config').gridKey
+        pass: process.env.GRID_KEY 
     }
   });
   
@@ -99,7 +99,7 @@ const sendWelcome = (user) => {
     secure: false, 
     auth: {
         user: 'apikey', 
-        pass: process.env.GRID_KEY || require('./config').gridKey
+        pass: process.env.GRID_KEY
     }
   });
   

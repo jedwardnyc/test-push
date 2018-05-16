@@ -1,14 +1,13 @@
 const router = require('express').Router();
 const GithubStrategy = require('passport-github').Strategy;
 const passport = require('passport');
-const config = require('./config');
 const jwt = require('jsonwebtoken');
 const User = require('../db/models/User');
 
 const host = 'http://localhost:3000'
 const githubCredentials = {
-  clientID: config.gitId,
-  clientSecret: config.gitKey,
+  clientID: process.env.GIT_ID,
+  clientSecret: process.env.GIT_KEY,
   callbackURL: `${host}/auth/github/callback`
 }
 
@@ -34,7 +33,7 @@ passport.use(new GithubStrategy(githubCredentials, verificationCb));
 router.get('/', passport.authenticate('github', { session: false }))
 
 router.get('/callback', passport.authenticate('github', { failureRedirect: '/login', session: false }), (req, res) => {
-  const token = jwt.sign({id: req.user.id}, config.secret, { expiresIn: 86400 })
+  const token = jwt.sign({id: req.user.id}, process.env.SECRET, { expiresIn: 86400 })
   res.redirect(`/?token=${token}`)
 }) 
 

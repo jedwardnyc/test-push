@@ -1,4 +1,3 @@
-const config = require('../server/auth/config');
 const express = require('express');
 const app = express();
 const passport = require('passport');
