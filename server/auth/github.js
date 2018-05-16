@@ -4,7 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../db/models/User');
 
-const host = 'http://localhost:3000'
+const host = process.env.HOST
 const githubCredentials = {
   clientID: process.env.GIT_ID,
   clientSecret: process.env.GIT_KEY,

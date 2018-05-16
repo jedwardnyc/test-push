@@ -4,7 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../db/models/User');
 
-const host = 'http://localhost:3000'
+const host = process.env.HOST
 const googleCredentials = {
   clientID: process.env.GOOG_ID,
   clientSecret: process.env.GOOG_KEY,
