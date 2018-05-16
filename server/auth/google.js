@@ -6,8 +6,8 @@ const User = require('../db/models/User');
 
 const host = 'http://localhost:3000'
 const googleCredentials = {
-  clientID: process.env.GOOGID,
-  clientSecret: process.env.GOOGKEY,
+  clientID: process.env.GOOG_ID,
+  clientSecret: process.env.GOOG_KEY,
   callbackURL: `${host}/auth/google/callback`
 }
 
